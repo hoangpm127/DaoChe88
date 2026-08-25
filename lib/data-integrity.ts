@@ -2,7 +2,7 @@ import type { RuntimeDatabase, RuntimePreparedStatement } from "../db/runtime-da
 import { schemaIsManagedByMigrations } from "../db/runtime-database.ts";
 
 export const PRODUCTION_DATA_SCHEMA_VERSION = 18;
-export const POSTGRES_MIGRATION_VERSION = 117;
+export const POSTGRES_MIGRATION_VERSION = 118;
 
 // Định nghĩa duy nhất nằm ở lib/phone.ts; re-export để code cũ không phải sửa.
 export { normalizeVietnamPhone } from "./phone.ts";
