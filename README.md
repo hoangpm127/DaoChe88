@@ -27,17 +27,18 @@ npm run lint
 npm test
 ```
 
-Portal cần hai biến môi trường:
+Cấu hình tối thiểu để chạy (xem đầy đủ ở `.env.example`):
 
 ```text
+DATABASE_URL=postgres://…            # Railway; dùng pglite://… khi dev cục bộ
 PORTAL_SESSION_SECRET=<chuỗi bí mật tối thiểu 32 ký tự>
-PORTAL_DEMO_ACCESS_CODE=<mã demo tối thiểu 8 ký tự>
-SQLITE_PATH=./data/daoche.sqlite
 ALLOW_MEMORY_FALLBACK=false
 DEMO_SEED=false
 ```
 
-Dữ liệu vận hành dùng SQLite bền vững khi có `SQLITE_PATH` hoặc `DATABASE_PATH`. Chỉ bật `ALLOW_MEMORY_FALLBACK=true` và `DEMO_SEED=true` trong môi trường demo/test; production mặc định không tự chèn dữ liệu mẫu.
+Dữ liệu vận hành **chỉ chạy trên PostgreSQL**. Adapter SQLite đã được gỡ: nó là phương ngữ SQL thứ hai, kéo theo một bản định nghĩa schema thứ hai, và test chạy trên nó không chứng minh được production chạy được. `postgres://…` cho Railway, `pglite://…` cho test và dev cục bộ — cùng một phương ngữ, nên thứ test kiểm đúng là thứ production chạy.
+
+`PORTAL_DEMO_ACCESS_CODE` đã bị bỏ ở M1: một mã dùng chung cho mọi vai trò nghĩa là ai cầm mã cũng thành admin, và không ghi lại được ai đã làm gì. Giờ mỗi người có một tài khoản, quyền lấy từ `user_role_assignments`.
 
 ## Thực đơn, giá và tồn món
 
@@ -53,7 +54,7 @@ Dữ liệu vận hành dùng SQLite bền vững khi có `SQLITE_PATH` hoặc `
 - `customers` chuẩn hóa điện thoại Việt Nam về dạng `+84…`, tách tuyệt đối bản ghi `test` và `live`, không tự coi khách vãng lai là tài khoản đã xác minh.
 - `order_fulfillment_details` đóng băng người nhận, điện thoại, địa chỉ có cấu trúc, tọa độ và thông tin điểm lấy hàng theo từng đơn để thay đổi hồ sơ sau này không sửa lịch sử.
 - Mỗi đơn mới ghi `data_schema_version=13`; đơn test cũ được backfill an toàn nhưng vẫn giữ nguyên cờ test và phiên bản dữ liệu ban đầu.
-- Trigger SQLite chặn tổng tiền sai, dòng món sai phép tính, dòng món mồ côi và payment attempt không có đơn tương ứng.
+- Trigger PostgreSQL chặn tổng tiền sai, dòng món sai phép tính, dòng món mồ côi và payment attempt không có đơn tương ứng.
 
 ## Mô hình quyền
 
@@ -72,14 +73,14 @@ Dữ liệu vận hành dùng SQLite bền vững khi có `SQLITE_PATH` hoặc `
 - session ký và đăng xuất;
 - chống giả vai trò qua URL/body;
 - phạm vi dữ liệu cửa hàng, shipper, tài chính và kiểm soát;
-- đồng bộ SQLite/API;
+- đồng bộ PostgreSQL/API;
 - giá/topping do backend tính, giữ–trả–trừ tồn món;
 - chính sách cache PWA an toàn.
 
 ## Triển khai
 
 - Railway chạy `npm run build` và `npm start` theo `railway.toml`.
-- Railway cần gắn volume tại `/data`, đặt `SQLITE_PATH=/data/daoche.sqlite`, `ALLOW_MEMORY_FALLBACK=false`, `DEMO_SEED=false`, cùng hai bí mật portal ở trên.
-- Healthcheck production dùng `GET /api/health`; endpoint chỉ trả `200` khi SQLite, schema hiện hành và cấu hình phiên portal đều sẵn sàng.
+- Railway cần gắn volume tại `/data`, đặt `UPLOAD_DIR=/data/uploads`, `ALLOW_MEMORY_FALLBACK=false`, `DEMO_SEED=false`, cùng `DATABASE_URL` trỏ tới PostgreSQL nội bộ và `PORTAL_SESSION_SECRET`.
+- Healthcheck Railway dùng `GET /api/health/live` (chỉ hỏi tiến trình còn nhận request không). `GET /api/health` là kiểm tra sâu: chỉ trả `200` khi PostgreSQL, phiên bản schema hiện hành, toàn vẹn dữ liệu và cấu hình phiên portal đều sẵn sàng.
 - `.openai/hosting.json` khai báo dự án Sites và binding D1.
 - Không đưa `PORTAL_SESSION_SECRET` vào Git; cấu hình bằng biến môi trường của nền tảng triển khai.
