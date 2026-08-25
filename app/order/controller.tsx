@@ -1405,7 +1405,12 @@ export function useOrderController() {
   const groupChosenCount = groupRoster.length ? groupRoster.length - groupPendingNames.length : groupOrderedNames.size;
   const groupGuestSubmitted = Boolean(groupGuestName.trim() && groupOrderedNames.has(groupGuestName.trim().toLocaleLowerCase("vi-VN")));
 
-  const referralUrl = affiliateAccount?.code ? `https://daoche-production.up.railway.app/order?ref=${encodeURIComponent(affiliateAccount.code)}` : "";
+  // Lấy tên miền từ chính trang đang mở, KHÔNG ghi cứng. Ghi cứng thì mỗi lần đổi
+  // tên miền là link giới thiệu của toàn bộ Affiliate chết mà không ai biết, vì
+  // link vẫn bấm được — chỉ là dẫn tới một tên miền không tồn tại.
+  const referralUrl = affiliateAccount?.code && typeof window !== "undefined"
+    ? `${window.location.origin}/order?ref=${encodeURIComponent(affiliateAccount.code)}`
+    : "";
   const referralMessage = `Mời bạn đặt Đảo Chè qua link của ${affiliateAccount?.displayName || "tôi"}.`;
 
   const copyReferralLink = async () => {
@@ -1939,10 +1944,10 @@ export function useOrderController() {
   };
 
   const groupShareLink = () => {
-    const origin = /^(localhost|127\.0\.0\.1)$/.test(window.location.hostname)
-      ? "https://dao-che-os.anhocpiano.chatgpt.site"
-      : window.location.origin;
-    const url = new URL("/order", origin);
+    // Luôn dùng tên miền của trang đang mở. Bản cũ thay localhost bằng một tên miền
+    // xem thử ghi cứng của thương hiệu cũ — tên miền đó không thuộc Đảo Chè, nên khi
+    // dev bấm chia sẻ thì link dẫn sang chỗ khác hẳn.
+    const url = new URL("/order", window.location.origin);
     url.searchParams.set("tab", "group");
     url.searchParams.set("room", groupRoom?.code.toLowerCase() || "");
     if (groupRoster.length) url.searchParams.set("members", groupRoster.join("|"));
