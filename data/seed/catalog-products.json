@@ -1,0 +1,386 @@
+[
+  {
+    "sku": "TP-T2-S",
+    "name": "Tào phớ hoa nhài",
+    "category": "Tào phớ",
+    "basePrice": 15000,
+    "description": "Tào phớ nấu mới trong ngày từ đậu tương chọn lọc, chan nước đường phèn ủ hoa nhài. Vị thanh, hậu thơm, phù hợp một bữa giữa giờ nhẹ bụng.",
+    "note": "Mềm mịn · thơm hoa nhài",
+    "ingredients": "Đậu tương, đường phèn, hoa nhài, lá nếp, trân châu mini.",
+    "allergens": "Có đậu nành. Sản xuất tại bếp có sử dụng sữa và hạt.",
+    "origin": "Đậu tương vùng cao Sơn La · nấu tại bếp Mỹ Đình lúc 06:30.",
+    "nutrition": {
+      "protein": "7,2g",
+      "carbs": "22g",
+      "fat": "2,1g",
+      "calories": 128
+    },
+    "tags": [
+      "Best seller",
+      "Thuần chay",
+      "Không chất bảo quản"
+    ],
+    "imageUrl": "",
+    "serving": "280 ml",
+    "prepMinutes": 8,
+    "rewardPoints": 15,
+    "sweetness": [
+      "0%",
+      "30%",
+      "50%",
+      "100%"
+    ],
+    "sortOrder": 10
+  },
+  {
+    "sku": "TP-T3-M",
+    "name": "Tào phớ cốt dừa",
+    "category": "Tào phớ",
+    "basePrice": 22000,
+    "description": "Tào phớ truyền thống phủ cốt dừa nấu chậm, trân châu trắng và thạch lá nếp. Cốt được đóng riêng khi giao xa để giữ bề mặt tào phớ.",
+    "note": "Béo nhẹ · topping xanh",
+    "ingredients": "Đậu tương, nước cốt dừa, đường phèn, thạch lá nếp, trân châu.",
+    "allergens": "Có đậu nành và dừa.",
+    "origin": "Dừa Bến Tre · đậu tương Sơn La · hoàn thiện tại bếp Mỹ Đình.",
+    "nutrition": {
+      "protein": "7,8g",
+      "carbs": "26g",
+      "fat": "7,4g",
+      "calories": 196
+    },
+    "tags": [
+      "Bán chạy",
+      "Cốt dừa riêng",
+      "Không hương liệu"
+    ],
+    "imageUrl": "",
+    "serving": "320 ml",
+    "prepMinutes": 9,
+    "rewardPoints": 22,
+    "sweetness": [
+      "30%",
+      "50%",
+      "70%",
+      "100%"
+    ],
+    "sortOrder": 20
+  },
+  {
+    "sku": "CH-C2-M",
+    "name": "Chè bưởi Ứt Bảy",
+    "category": "Chè",
+    "basePrice": 24000,
+    "description": "Cùi bưởi sơ chế ba lần cho độ giòn tự nhiên, đậu xanh đồ bở và nước cốt dừa đóng riêng. Công thức hợp tác cùng bếp Ứt Bảy.",
+    "note": "Bưởi giòn · đậu xanh",
+    "ingredients": "Cùi bưởi da xanh, đậu xanh, bột năng, đường mía, nước cốt dừa.",
+    "allergens": "Có dừa; có thể có vết đậu phộng.",
+    "origin": "Bưởi da xanh Bến Tre · nấu mẻ nhỏ lúc 09:00 và 14:00.",
+    "nutrition": {
+      "protein": "5,9g",
+      "carbs": "41g",
+      "fat": "5,3g",
+      "calories": 235
+    },
+    "tags": [
+      "Top 1 chè",
+      "Cùi bưởi thật",
+      "Cốt riêng"
+    ],
+    "imageUrl": "",
+    "serving": "330 ml",
+    "prepMinutes": 6,
+    "rewardPoints": 24,
+    "sweetness": [
+      "30%",
+      "50%",
+      "70%"
+    ],
+    "sortOrder": 30
+  },
+  {
+    "sku": "CH-C7-M",
+    "name": "Chè thập cẩm 88",
+    "category": "Chè",
+    "basePrice": 28000,
+    "description": "Một cốc đủ bảy lớp: đậu đỏ, đậu xanh, thạch tím, thạch lá nếp, trân châu, hạt lựu và dừa sợi. Đóng tầng để khi mở vẫn đẹp.",
+    "note": "7 topping · cốt dừa",
+    "ingredients": "Các loại đậu, thạch rau câu, trân châu, dừa sợi, cốt dừa, đường mía.",
+    "allergens": "Có dừa; khu vực bếp có sử dụng hạt.",
+    "origin": "Topping nấu riêng từng mẻ trong ngày tại bếp trung tâm.",
+    "nutrition": {
+      "protein": "8,1g",
+      "carbs": "57g",
+      "fat": "7,2g",
+      "calories": 318
+    },
+    "tags": [
+      "No bụng",
+      "7 topping",
+      "Đóng theo lớp"
+    ],
+    "imageUrl": "",
+    "serving": "380 ml",
+    "prepMinutes": 8,
+    "rewardPoints": 28,
+    "sweetness": [
+      "30%",
+      "50%",
+      "70%",
+      "100%"
+    ],
+    "sortOrder": 40
+  },
+  {
+    "sku": "U-U3",
+    "name": "Matcha latte sữa dừa",
+    "category": "Đồ uống",
+    "basePrice": 39000,
+    "description": "Matcha Uji đánh tay, cân bằng với sữa dừa và đá viên. Ly hai tầng đẹp mắt, vị umami rõ nhưng không gắt.",
+    "note": "Matcha Uji · sữa dừa",
+    "ingredients": "Matcha Uji, sữa dừa, syrup đường mía, nước lọc, đá.",
+    "allergens": "Có dừa; không dùng sữa bò trong công thức.",
+    "origin": "Matcha Uji nhập theo lô · đánh mới khi có đơn.",
+    "nutrition": {
+      "protein": "3,2g",
+      "carbs": "28g",
+      "fat": "7,1g",
+      "calories": 182
+    },
+    "tags": [
+      "Matcha Uji",
+      "Không sữa bò",
+      "Đá riêng được"
+    ],
+    "imageUrl": "",
+    "serving": "450 ml",
+    "prepMinutes": 7,
+    "rewardPoints": 39,
+    "sweetness": [
+      "0%",
+      "30%",
+      "50%",
+      "70%"
+    ],
+    "sortOrder": 50
+  },
+  {
+    "sku": "TP-MD-M",
+    "name": "Tào phớ mè đen",
+    "category": "Tào phớ",
+    "basePrice": 26000,
+    "description": "Tào phớ trắng phủ sốt mè đen xay mịn, thêm lạc rang giã. Vị bùi sâu, ít ngọt và hợp dùng ấm.",
+    "note": "Mè rang · sốt óng mịn",
+    "ingredients": "Đậu tương, mè đen, đường phèn, lạc rang, muối biển.",
+    "allergens": "Có đậu nành, mè và đậu phộng.",
+    "origin": "Mè đen rang xay mỗi sáng tại bếp Mỹ Đình.",
+    "nutrition": {
+      "protein": "9,6g",
+      "carbs": "25g",
+      "fat": "9,4g",
+      "calories": 214
+    },
+    "tags": [
+      "Món mới",
+      "Dùng ấm ngon",
+      "Giàu chất béo tốt"
+    ],
+    "imageUrl": "",
+    "serving": "300 ml",
+    "prepMinutes": 10,
+    "rewardPoints": 26,
+    "sweetness": [
+      "0%",
+      "30%",
+      "50%"
+    ],
+    "sortOrder": 60
+  },
+  {
+    "sku": "CH-HS-LN",
+    "name": "Chè hạt sen long nhãn",
+    "category": "Chè",
+    "basePrice": 32000,
+    "description": "Hạt sen ninh vừa bở, bọc trong long nhãn giòn và nước đường phèn thanh. Món nhẹ, thơm, phục vụ lạnh hoặc đá riêng.",
+    "note": "Hạt sen Huế · long nhãn",
+    "ingredients": "Hạt sen Huế, long nhãn, đường phèn, lá dứa, kỷ tử.",
+    "allergens": "Không chứa sữa; bếp có xử lý các loại hạt.",
+    "origin": "Hạt sen Huế và nhãn Hưng Yên theo mùa.",
+    "nutrition": {
+      "protein": "5,2g",
+      "carbs": "35g",
+      "fat": "0,8g",
+      "calories": 176
+    },
+    "tags": [
+      "Thanh nhẹ",
+      "Hạt sen thật",
+      "Ít ngọt"
+    ],
+    "imageUrl": "",
+    "serving": "340 ml",
+    "prepMinutes": 6,
+    "rewardPoints": 32,
+    "sweetness": [
+      "0%",
+      "30%",
+      "50%"
+    ],
+    "sortOrder": 70
+  },
+  {
+    "sku": "CB-VP-10",
+    "name": "Combo giữa giờ 10 phần",
+    "category": "Combo văn phòng",
+    "basePrice": 229000,
+    "description": "Mười phần tự chọn trong nhóm món tiêu chuẩn, dán tem từng người, kèm bảng kiểm và giao một lần tại lễ tân. Phù hợp nhóm 8–12 người.",
+    "note": "Đóng tên · giao một điểm",
+    "ingredients": "Tuỳ lựa chọn của từng thành viên trong phòng nhóm.",
+    "allergens": "Hiển thị riêng trên từng tem món theo lựa chọn.",
+    "origin": "Đóng tại line nhóm riêng, kiểm 2 bước trước khi rời bếp.",
+    "nutrition": {
+      "protein": "Theo món",
+      "carbs": "Theo món",
+      "fat": "Theo món",
+      "calories": 1980
+    },
+    "tags": [
+      "Miễn phí giao",
+      "Tem theo tên",
+      "Có hóa đơn"
+    ],
+    "imageUrl": "",
+    "serving": "10 phần",
+    "prepMinutes": 25,
+    "rewardPoints": 229,
+    "sweetness": [
+      "Theo từng người"
+    ],
+    "sortOrder": 80
+  },
+  {
+    "sku": "TP-GUNG",
+    "name": "Tào phớ gừng ấm",
+    "category": "Tào phớ",
+    "basePrice": 18000,
+    "description": "Nước gừng nấu từ gừng già, thơm ấm nhưng không cay gắt, chan cùng tào phớ mềm. Phù hợp buổi sáng hoặc ngày mưa.",
+    "note": "Gừng già · đường phèn",
+    "ingredients": "Đậu tương, gừng già, đường phèn, lá nếp.",
+    "allergens": "Có đậu nành.",
+    "origin": "Gừng già Hòa Bình · nấu nước mới mỗi 4 giờ.",
+    "nutrition": {
+      "protein": "7,1g",
+      "carbs": "24g",
+      "fat": "2,0g",
+      "calories": 136
+    },
+    "tags": [
+      "Phục vụ ấm",
+      "Không đá",
+      "Thuần chay"
+    ],
+    "imageUrl": "",
+    "serving": "280 ml",
+    "prepMinutes": 8,
+    "rewardPoints": 18,
+    "sweetness": [
+      "30%",
+      "50%",
+      "70%"
+    ],
+    "sortOrder": 90
+  },
+  {
+    "sku": "CH-KB",
+    "name": "Chè khúc bạch nhãn",
+    "category": "Chè",
+    "basePrice": 34000,
+    "description": "Khúc bạch mềm mát, long nhãn giòn, hạnh nhân lát và nước đường phèn thoảng quế hoa. Đá và hạnh nhân đóng riêng.",
+    "note": "Khúc bạch · hạnh nhân",
+    "ingredients": "Sữa, kem, gelatin, long nhãn, hạnh nhân, đường phèn.",
+    "allergens": "Có sữa và hạnh nhân.",
+    "origin": "Khúc bạch đổ mẻ nhỏ hai lần mỗi ngày.",
+    "nutrition": {
+      "protein": "6,8g",
+      "carbs": "34g",
+      "fat": "9,7g",
+      "calories": 246
+    },
+    "tags": [
+      "Đá riêng",
+      "Khúc bạch nhà làm",
+      "Hạnh nhân"
+    ],
+    "imageUrl": "",
+    "serving": "350 ml",
+    "prepMinutes": 7,
+    "rewardPoints": 34,
+    "sweetness": [
+      "30%",
+      "50%",
+      "70%"
+    ],
+    "sortOrder": 100
+  },
+  {
+    "sku": "U-SEN",
+    "name": "Sữa sen lá nếp",
+    "category": "Đồ uống",
+    "basePrice": 32000,
+    "description": "Sữa hạt sen xay mịn cùng lá nếp, vị bùi và nhẹ. Có thể chọn nóng hoặc lạnh, không dùng bột béo.",
+    "note": "Hạt sen xay · thơm lá nếp",
+    "ingredients": "Hạt sen, sữa hạt, lá nếp, đường phèn.",
+    "allergens": "Có các loại hạt.",
+    "origin": "Xay và đóng chai trong ngày, bảo quản mát 2–5°C.",
+    "nutrition": {
+      "protein": "5,1g",
+      "carbs": "27g",
+      "fat": "4,2g",
+      "calories": 164
+    },
+    "tags": [
+      "Không bột béo",
+      "Nóng/lạnh",
+      "Ít ngọt"
+    ],
+    "imageUrl": "",
+    "serving": "400 ml",
+    "prepMinutes": 7,
+    "rewardPoints": 32,
+    "sweetness": [
+      "0%",
+      "30%",
+      "50%"
+    ],
+    "sortOrder": 110
+  },
+  {
+    "sku": "CB-VP-20",
+    "name": "Combo cả tầng 20 phần",
+    "category": "Combo văn phòng",
+    "basePrice": 438000,
+    "description": "Gói cho cuộc họp hoặc cả tầng: 20 phần linh hoạt, chia theo phòng ban, dán tem cá nhân và có file đối soát cho người tổ chức.",
+    "note": "20 phần · miễn phí giao",
+    "ingredients": "Tuỳ cấu hình thực đơn của nhóm.",
+    "allergens": "Tổng hợp và in trên phiếu giao theo từng món.",
+    "origin": "Line B2B riêng · kiểm soát nhiệt độ và số lượng hai bước.",
+    "nutrition": {
+      "protein": "Theo món",
+      "carbs": "Theo món",
+      "fat": "Theo món",
+      "calories": 3960
+    },
+    "tags": [
+      "8% cho Đại sứ",
+      "Miễn phí giao",
+      "Xuất hóa đơn"
+    ],
+    "imageUrl": "",
+    "serving": "20 phần",
+    "prepMinutes": 35,
+    "rewardPoints": 438,
+    "sweetness": [
+      "Theo từng người"
+    ],
+    "sortOrder": 120
+  }
+]

@@ -1,0 +1,28 @@
+.queue { background: #fff; border: 1px solid #eadfd4; border-radius: 24px; margin-bottom: 20px; padding: 20px; }
+.queue header { align-items: center; display: flex; gap: 12px; }
+.queue header > span { align-items: center; background: #fff0dc; border-radius: 13px; color: #a85d19; display: flex; height: 46px; justify-content: center; width: 46px; }
+.queue header > div { flex: 1; }
+.queue header h2 { margin: 2px 0; }
+.queue header small { color: #7b7066; }
+.queue header label { color: #70665d; display: grid; font-size: 11px; font-weight: 700; gap: 4px; }
+.queue select { background: #faf7f2; border: 1px solid #ddd1c4; border-radius: 9px; padding: 8px; }
+.queue header button { background: #f5efe7; border: 0; border-radius: 10px; cursor: pointer; padding: 10px; }
+.orders { display: grid; gap: 13px; margin-top: 17px; }
+.orders > article { border: 1px solid #e4d9ce; border-radius: 16px; overflow: hidden; }
+.orders > article.ready { border-color: #77a56f; }
+.orderHead { align-items: center; background: #faf7f2; display: flex; gap: 12px; padding: 12px 14px; }
+.orderHead > span:first-child { display: grid; flex: 1; }
+.orderHead > span:nth-child(2) { align-items: center; display: flex; gap: 5px; }
+.orderHead em { background: #eee4d8; border-radius: 999px; font-size: 11px; font-style: normal; padding: 5px 8px; }
+.orders article section { align-items: center; border-top: 1px solid #eee6de; display: flex; gap: 10px; padding: 12px 14px; }
+.orders article section > span { color: #a75f20; font-size: 18px; font-weight: 800; }
+.orders article section > div { display: grid; flex: 1; }
+.orders article section small { color: #766c64; }
+.orders article section em { font-size: 11px; font-style: normal; font-weight: 700; }
+.orders article section button { align-items: center; background: #315f32; border: 0; border-radius: 9px; color: #fff; cursor: pointer; display: flex; gap: 5px; padding: 8px 10px; }
+.item_done { opacity: .65; }
+.item_in_progress { background: #fffaf0; }
+.orders article > p { align-items: center; background: #edf7e9; color: #315f32; display: flex; gap: 7px; margin: 0; padding: 10px 14px; }
+.error { background: #fff0ef; color: #a23930; padding: 10px; }
+.empty { align-items: center; color: #746b63; display: grid; justify-items: center; padding: 30px; }
+@media (max-width: 700px) { .queue header, .orderHead { align-items: stretch; flex-wrap: wrap; } .queue header label { flex-basis: 100%; } .orders article section { align-items: flex-start; flex-wrap: wrap; } .orders article section > div { min-width: 65%; } }

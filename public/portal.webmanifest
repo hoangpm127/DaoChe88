@@ -1,0 +1,44 @@
+{
+  "id": "/tao-pho-88-operations-app",
+  "name": "Tào Phớ 88 - Không gian vận hành",
+  "short_name": "Tào Phớ 88 OS",
+  "description": "Không gian làm việc theo vai trò dành cho đối tác và đội ngũ Tào Phớ 88.",
+  "lang": "vi",
+  "dir": "ltr",
+  "start_url": "/portal?source=pwa",
+  "scope": "/portal",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone"],
+  "orientation": "any",
+  "background_color": "#fffdf4",
+  "theme_color": "#153f2f",
+  "categories": ["business", "productivity", "finance"],
+  "icons": [
+    {
+      "src": "/pwa-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Trung tâm vai trò",
+      "short_name": "Vai trò",
+      "url": "/portal",
+      "icons": [{ "src": "/pwa-icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

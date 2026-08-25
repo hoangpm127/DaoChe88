@@ -1,0 +1,321 @@
+.page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(238, 190, 88, 0.2), transparent 28rem),
+    linear-gradient(145deg, #f8f4ea 0%, #f1f7ef 52%, #e9f3eb 100%);
+  color: #193b2a;
+  padding: 24px;
+}
+
+.shell {
+  width: min(1040px, 100%);
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 36px;
+}
+
+.header a,
+.header span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #315a43;
+  font-size: 14px;
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.header span {
+  border: 1px solid rgba(20, 107, 58, 0.16);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  padding: 8px 12px;
+}
+
+.intro {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.brandMark {
+  display: grid;
+  place-items: center;
+  width: 62px;
+  height: 62px;
+  flex: 0 0 62px;
+  border-radius: 20px;
+  background: #146b3a;
+  box-shadow: 0 12px 30px rgba(20, 107, 58, 0.22);
+  color: #fff8e4;
+  font-size: 25px;
+  font-weight: 900;
+}
+
+.intro small,
+.statusCard small {
+  color: #9b6d1f;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+}
+
+.intro h1 {
+  margin: 4px 0 5px;
+  color: #153a27;
+  font-size: clamp(28px, 5vw, 48px);
+  line-height: 1.03;
+}
+
+.intro p,
+.statusCard p,
+.emptyCard p {
+  margin: 0;
+  color: #63766a;
+  line-height: 1.55;
+}
+
+.emptyCard,
+.statusCard,
+.qrCard,
+.detailsCard,
+.flowCard {
+  border: 1px solid rgba(24, 74, 45, 0.1);
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 20px 60px rgba(35, 67, 46, 0.1);
+}
+
+.emptyCard {
+  display: flex;
+  min-height: 390px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 36px;
+  text-align: center;
+}
+
+.emptyCard > span {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 24px;
+  background: #e6f3e8;
+  color: #146b3a;
+}
+
+.emptyCard h2 {
+  margin: 20px 0 8px;
+  font-size: 25px;
+}
+
+.emptyCard p { max-width: 560px; }
+
+.emptyCard > button,
+.newCodeButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border: 0;
+  border-radius: 15px;
+  background: #146b3a;
+  color: white;
+  padding: 14px 20px;
+  margin-top: 24px;
+  font: inherit;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.statusCard {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 22px;
+  margin-bottom: 18px;
+}
+
+.statusCard h2 {
+  margin: 3px 0;
+  font-size: 24px;
+}
+
+.statusCard > strong {
+  min-width: 72px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 9px 10px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.statusIcon {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 18px;
+}
+
+.pending { border-color: rgba(206, 150, 34, 0.28); background: #fff9e9; }
+.pending .statusIcon { background: #f9e8b8; color: #9b6d1f; }
+.partial { border-color: rgba(211, 127, 34, 0.28); background: #fff4e8; }
+.partial .statusIcon { background: #fbd8b2; color: #a85917; }
+.success { border-color: rgba(20, 107, 58, 0.28); background: #eaf7ed; }
+.success .statusIcon { background: #146b3a; color: white; }
+.success small { color: #146b3a; }
+.danger { border-color: rgba(166, 58, 48, 0.25); background: #fff0ee; }
+.danger .statusIcon { background: #f4d0cb; color: #a63a30; }
+
+.paymentGrid {
+  display: grid;
+  grid-template-columns: minmax(300px, 0.9fr) minmax(340px, 1.1fr);
+  gap: 18px;
+}
+
+.qrCard,
+.detailsCard { padding: 22px; }
+
+.qrHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.qrHeading span {
+  color: #748278;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.qrHeading b { color: #146b3a; font-size: 24px; }
+
+.qrFrame {
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid #e2e9e1;
+  border-radius: 20px;
+  background: white;
+  padding: 8px;
+}
+
+.qrFrame img { width: min(100%, 420px); height: auto; }
+
+.qrCard > p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  margin: 14px 0 0;
+  color: #738178;
+  font-size: 13px;
+}
+
+.detailRow {
+  display: grid;
+  grid-template-columns: 120px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid #edf1ed;
+  padding: 14px 0;
+}
+
+.detailRow span { color: #77877c; font-size: 13px; }
+.detailRow strong { overflow-wrap: anywhere; font-size: 17px; }
+.detailRow button,
+.secondaryActions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 1px solid #dfe8df;
+  border-radius: 11px;
+  background: #f7faf7;
+  color: #315a43;
+  padding: 8px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.codeRow strong { color: #146b3a; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: 0.04em; }
+
+.progressBlock { margin-top: 22px; }
+.progressBlock > div { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; }
+.progressBlock > div span { color: #77877c; }
+.progressBlock i { display: block; overflow: hidden; height: 8px; border-radius: 999px; background: #e7ede8; margin-top: 9px; }
+.progressBlock i b { display: block; height: 100%; border-radius: inherit; background: #24a45c; transition: width 420ms ease; }
+
+.receipt,
+.error {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 13px;
+  padding: 12px;
+  margin-top: 16px;
+}
+
+.receipt { background: #eaf7ed; color: #146b3a; }
+.receipt div { display: flex; flex-direction: column; gap: 2px; }
+.receipt span { font-size: 11px; }
+.error { background: #fff0ee; color: #963b32; font-size: 13px; }
+
+.secondaryActions { display: flex; gap: 9px; margin-top: 18px; }
+.secondaryActions button { flex: 1; padding: 11px; }
+
+.flowCard { padding: 22px; margin-top: 18px; }
+.flowCard h2 { margin: 0 0 16px; font-size: 19px; }
+.flowSteps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.flowSteps article { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px; border: 1px solid #e4eae4; border-radius: 15px; padding: 13px; color: #87948b; }
+.flowSteps article > span { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 9px; background: #edf1ed; font-size: 12px; font-weight: 900; }
+.flowSteps article div { display: flex; min-width: 0; flex-direction: column; gap: 2px; }
+.flowSteps article strong { color: #53665a; font-size: 13px; }
+.flowSteps article small { overflow: hidden; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+.flowSteps .flowActive { border-color: rgba(20, 107, 58, 0.22); background: #f0f8f1; color: #146b3a; }
+.flowSteps .flowActive > span { background: #146b3a; color: white; }
+.flowSteps .flowActive strong { color: #18482e; }
+
+.newCodeButton { margin: 18px auto 0; }
+.newCodeButton:disabled,
+.emptyCard > button:disabled,
+.secondaryActions button:disabled { cursor: wait; opacity: 0.65; }
+
+.spin { animation: spin 1s linear infinite; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 760px) {
+  .page { padding: 16px 12px 30px; }
+  .header { margin-bottom: 28px; }
+  .header span { font-size: 12px; }
+  .intro { align-items: flex-start; }
+  .brandMark { width: 52px; height: 52px; flex-basis: 52px; border-radius: 17px; font-size: 21px; }
+  .intro h1 { font-size: 30px; }
+  .intro p { font-size: 14px; }
+  .statusCard { grid-template-columns: auto 1fr; padding: 17px; }
+  .statusCard > strong { grid-column: 1 / -1; }
+  .statusCard h2 { font-size: 21px; }
+  .paymentGrid { grid-template-columns: 1fr; }
+  .qrCard, .detailsCard { padding: 17px; }
+  .detailRow { grid-template-columns: 102px 1fr auto; }
+  .detailRow strong { font-size: 15px; }
+  .flowSteps { grid-template-columns: 1fr; }
+  .flowSteps article small { white-space: normal; }
+}

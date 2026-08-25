@@ -1,0 +1,22 @@
+.panel { margin: 14px 0; padding: 16px; border: 1px solid rgba(24,55,42,.12); border-radius: 20px; background: #fffdf8; }
+.heading { display: flex; align-items: center; gap: 11px; margin-bottom: 14px; }
+.heading > span { width: 43px; height: 43px; border-radius: 14px; display: grid; place-items: center; color: #c65323; background: #fff0e5; }
+.heading small, .heading strong, .heading p { display: block; }
+.heading small { color: #c65323; font-size: 10px; font-weight: 900; letter-spacing: .12em; }
+.heading p { margin: 3px 0 0; color: #687a70; font-size: 12px; }
+.grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: 12px; }
+.box { padding: 14px; border: 1px solid rgba(24,55,42,.1); border-radius: 15px; background: #fff; }
+.box h3 { margin: 0 0 10px; font-size: 14px; }
+.form { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.form label { color: #53675d; font-size: 11px; font-weight: 800; }
+.form label span { display: block; margin-bottom: 4px; }
+.form input, .form select { width: 100%; height: 40px; padding: 0 9px; border: 1px solid rgba(24,55,42,.18); border-radius: 10px; background: #fff; }
+.wide { grid-column: 1 / -1; }
+.form button, .box > button { min-height: 40px; padding: 0 13px; border: 0; border-radius: 10px; color: #fff; background: #18372a; font-weight: 850; }
+.result { margin: 10px 0 0; padding: 10px; border-radius: 10px; color: #17652c; background: #edf8ef; font-size: 12px; }
+.error { color: #a22b22; background: #fff0ee; }
+.holders { display: grid; gap: 7px; margin: 10px 0; }
+.holders div { display: flex; justify-content: space-between; gap: 8px; padding: 8px 9px; border-radius: 9px; background: #f5f2e9; }
+.holders small, .holders strong { display: block; }
+@media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { .form { grid-template-columns: 1fr; } .wide { grid-column: auto; } }

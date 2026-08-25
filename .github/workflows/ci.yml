@@ -1,0 +1,45 @@
+name: Verify Tào Phớ 88
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PORTAL_SESSION_SECRET: ci-session-secret-at-least-32-characters-long
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.19.0
+          cache: npm
+      - run: npm ci
+      - run: npm run audit:production
+      - run: npm run test:migrations
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm test
+
+  post-deploy:
+    if: github.event_name == 'push'
+    needs: test
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      DEPLOY_HEALTH_URL: ${{ secrets.DEPLOY_HEALTH_URL }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.19.0
+      - name: Check production health when configured
+        if: env.DEPLOY_HEALTH_URL != ''
+        run: npm run health:post-deploy

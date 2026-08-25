@@ -1,0 +1,59 @@
+{
+  "name": "tao-pho-88-platform",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "dev": "vinext dev",
+    "progress": "node server.mjs",
+    "build": "vinext build",
+    "start": "node ./scripts/start-production.mjs",
+    "test": "npm run build && npm run test:node",
+    "test:node": "node --experimental-strip-types --test --test-concurrency=1 tests/rendered-html.test.mjs tests/operations-api.test.mjs tests/sepay-payments.test.mjs tests/lalamove-deliveries.test.mjs tests/portal-session.test.mjs tests/portal-rbac.test.mjs tests/service-worker-policy.test.mjs tests/postgres-runtime.test.mjs tests/auth-password.test.mjs tests/auth-identity.test.mjs tests/auth-postgres.test.mjs tests/sites-api.test.mjs tests/catalog-management.test.mjs tests/order-lifecycle.test.mjs tests/settings.test.mjs tests/payments-cash-reconciliation.test.mjs tests/delivery-operations.test.mjs tests/phase3-supply-finance.test.mjs tests/network-seed.test.mjs tests/phase1-milestone.test.mjs tests/group-orders.test.mjs tests/affiliate-program.test.mjs tests/customer-loyalty.test.mjs tests/phase5-scale-safety.test.mjs tests/frontend-wiring.test.mjs tests/sql-dialect.test.mjs",
+    "test:migrations": "node --experimental-strip-types --test --test-concurrency=1 tests/postgres-runtime.test.mjs",
+    "lint": "eslint app db lib tests --ignore-pattern dist --ignore-pattern .next",
+    "audit:production": "npm audit --omit=dev --audit-level=high",
+    "typecheck": "tsc --noEmit",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "node --experimental-strip-types ./scripts/migrate.mjs",
+    "db:backup": "node ./scripts/backup-postgres.mjs",
+    "db:restore": "node ./scripts/restore-postgres.mjs",
+    "volume:backup": "node ./scripts/backup-volume.mjs",
+    "health:post-deploy": "node ./scripts/post-deploy-health.mjs",
+    "test:load:phase5": "node ./scripts/load-test-phase5.mjs",
+    "sites:import": "node --experimental-strip-types ./scripts/import-sites.mjs",
+    "catalog:import": "node ./scripts/import-catalog.mjs",
+    "network:build": "node ./scripts/build-network-seed.mjs",
+    "partners:import": "node ./scripts/import-partners.mjs"
+  },
+  "dependencies": {
+    "drizzle-orm": "0.45.2",
+    "leaflet": "^1.9.4",
+    "lucide-react": "^0.468.0",
+    "next": "16.3.1",
+    "postgres": "^3.4.9",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.5",
+    "@tailwindcss/postcss": "4.2.1",
+    "@types/leaflet": "^1.9.20",
+    "@types/node": "22.19.19",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "6.0.5",
+    "@vitejs/plugin-rsc": "0.5.34",
+    "drizzle-kit": "0.31.10",
+    "eslint": "9.39.4",
+    "eslint-config-next": "16.3.1",
+    "react-server-dom-webpack": "19.2.8",
+    "tailwindcss": "4.2.1",
+    "typescript": "5.9.3",
+    "vinext": "0.0.50",
+    "vite": "8.2.1"
+  },
+  "type": "module"
+}

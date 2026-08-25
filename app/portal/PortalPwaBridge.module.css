@@ -1,0 +1,94 @@
+.prompt {
+  position: fixed;
+  z-index: 1200;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(18px, calc(env(safe-area-inset-bottom) + 12px));
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) auto 40px;
+  align-items: center;
+  gap: 10px;
+  width: min(460px, calc(100vw - 32px));
+  padding: 12px;
+  border: 1px solid rgb(22 141 52 / 22%);
+  border-radius: 20px;
+  background: rgb(255 253 244 / 96%);
+  box-shadow: 0 18px 48px rgb(21 63 47 / 20%);
+  color: #17392c;
+  backdrop-filter: blur(16px);
+}
+
+.prompt img {
+  border-radius: 12px;
+}
+
+.prompt div {
+  min-width: 0;
+}
+
+.prompt strong,
+.prompt small {
+  display: block;
+}
+
+.prompt strong {
+  font-size: 14px;
+  line-height: 1.25;
+}
+
+.prompt small {
+  margin-top: 2px;
+  color: #65746d;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.primary,
+.close {
+  min-height: 44px;
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+.primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 0 15px;
+  border-radius: 14px;
+  background: #168d34;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.close {
+  display: grid;
+  width: 40px;
+  min-height: 40px;
+  place-items: center;
+  border-radius: 50%;
+  background: #eef4ea;
+  color: #31463c;
+}
+
+@media (max-width: 560px) {
+  .prompt {
+    right: 12px;
+    bottom: max(84px, calc(env(safe-area-inset-bottom) + 76px));
+    grid-template-columns: 38px minmax(0, 1fr) 40px;
+    width: calc(100vw - 24px);
+  }
+
+  .primary {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  .close {
+    grid-column: 3;
+    grid-row: 1;
+  }
+}

@@ -1,0 +1,30 @@
+apply plugin: "com.android.application"
+
+android {
+    namespace "vn.taopho88.customer"
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "vn.taopho88.customer"
+        minSdk 24
+        targetSdk 34
+        versionCode 2
+        versionName "0.2.0"
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-local"
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}

@@ -1,0 +1,3 @@
+code,name,kind,address,district,lat,lng,manager_name,phone,capacity_per_hour,opening_hours,owner_phone,partner_code
+EXAMPLE-01,[MẪU] Cửa hàng chính thống,official-store,"[Điền địa chỉ thật]","[Điền quận/huyện]",21.000000,105.000000,"[Điền quản lý]",0900000000,120,06:30-22:00,0911111111,
+EXAMPLE-02,[MẪU] Điểm đối tác,partner-counter,"[Điền địa chỉ thật]","[Điền quận/huyện]",21.000000,105.000000,"[Điền quản lý]",0900000001,80,"{""mon"":[[""07:00"",""21:00""]],""tue"":[[""07:00"",""21:00""]]}",0911111112,PARTNER-CODE
