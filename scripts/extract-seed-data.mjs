@@ -101,7 +101,7 @@ function writeCsv(filename, headers, rows) {
 }
 
 function storeCode(id) {
-  return `TP88-${id.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/gi, "").toUpperCase()}`;
+  return `DC-${id.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/gi, "").toUpperCase()}`;
 }
 
 function normalizedKind(kind) {

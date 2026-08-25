@@ -76,7 +76,7 @@ const server = http.createServer((req, res) => {
 
 server.listen(PORT, () => {
   console.log(`\n======================================================`);
-  console.log(`🚀 Bảng theo dõi tiến độ Tào Phớ 88 đã sẵn sàng!`);
+  console.log(`🚀 Bảng theo dõi tiến độ Đảo Chè đã sẵn sàng!`);
   console.log(`🌐 Mở trình duyệt tại: http://localhost:${PORT}`);
   console.log(`📂 Dữ liệu tự động lưu vào: ${path.join(ROOT, "tasks.json")}`);
   console.log(`======================================================\n`);

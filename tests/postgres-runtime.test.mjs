@@ -185,7 +185,7 @@ test("migration lưu được epoch mili-giây của phòng nhóm trên PostgreS
 
   await db.prepare(`INSERT INTO operation_orders
     (id, order_code, customer_name, delivery_address, site_id, subtotal_amount, delivery_fee_amount, discount_amount, total_amount, item_count, promised_at, created_at, updated_at)
-    SELECT 'index-order-' || value, 'TP88-INDEX-' || value, 'Index test', 'Hà Nội',
+    SELECT 'index-order-' || value, 'DC-INDEX-' || value, 'Index test', 'Hà Nội',
       CASE WHEN value % 2 = 0 THEN 'site-index-a' ELSE 'site-index-b' END,
       0, 0, 0, 0, 1, '2026-08-22T00:00:00.000Z',
       '2026-08-21T12:00:00.000Z', '2026-08-21T12:00:00.000Z'

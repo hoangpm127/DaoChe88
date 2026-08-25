@@ -33,7 +33,7 @@ type Props = {
   runCommand: (command: string, data: Record<string, unknown>, successMessage: string) => Promise<boolean>;
 };
 
-const emptyCreate = { sku: "", name: "", category: "Tào phớ", basePrice: "" };
+const emptyCreate = { sku: "", name: "", category: "Chè", basePrice: "" };
 
 export default function CatalogManagement({ sites, canManage, canManageStock, runCommand }: Props) {
   const [siteId, setSiteId] = useState(sites[0]?.id || "");
@@ -179,7 +179,7 @@ export default function CatalogManagement({ sites, canManage, canManageStock, ru
       {canManage && <form className={styles.createRow} onSubmit={createProduct}>
         <input required value={create.sku} onChange={(event) => setCreate({ ...create, sku: event.target.value.toUpperCase() })} placeholder="SKU mới" />
         <input required value={create.name} onChange={(event) => setCreate({ ...create, name: event.target.value })} placeholder="Tên món" />
-        <select value={create.category} onChange={(event) => setCreate({ ...create, category: event.target.value })}><option>Tào phớ</option><option>Chè</option><option>Đồ uống</option><option>Combo văn phòng</option></select>
+        <select value={create.category} onChange={(event) => setCreate({ ...create, category: event.target.value })}><option>Chè</option><option>Đồ uống</option><option>Combo văn phòng</option></select>
         <input required min="0" type="number" value={create.basePrice} onChange={(event) => setCreate({ ...create, basePrice: event.target.value })} placeholder="Giá VND" />
         <button disabled={Boolean(busy)} type="submit"><PackagePlus size={17} /> {busy === "create" ? "Đang tạo…" : "Thêm món"}</button>
       </form>}

@@ -150,7 +150,7 @@ test("GET /api/sites đọc DB, tính khoảng cách, hỗ trợ ETag và order.
           deliveryAddress: "Địa chỉ kiểm thử hợp lệ",
           siteId: "site-my-dinh",
           paymentMethod: "cash",
-          items: [{ productCode: "TP-HN", quantity: 1 }],
+          items: [{ productCode: "DC-CHEBUOI", quantity: 1 }],
         },
       }),
     }));

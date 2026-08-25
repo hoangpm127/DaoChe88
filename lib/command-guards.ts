@@ -88,7 +88,7 @@ export function affiliateForMemory(data: JsonRecord, dataMode: string): Resolved
 export function actorOf(payload: CommandPayload): Actor {
   const role = payload.actor?.role?.trim();
   if (role !== "customer" && !isPortalRole(role)) throw new OperationsError("Thiếu phiên hoặc vai trò vận hành hợp lệ.", 401, "portal_session_required");
-  const fallbackName = role === "customer" ? "Khách hàng Tào Phớ 88" : getPortalRolePolicy(role).actorName;
+  const fallbackName = role === "customer" ? "Khách hàng Đảo Chè" : getPortalRolePolicy(role).actorName;
   return {
     role,
     name: payload.actor?.name?.trim() || fallbackName,
@@ -222,7 +222,7 @@ export function validatePricePolicy(data: JsonRecord, now: string, affiliateTier
   if (!affiliateTiers.includes(defaultAffiliateBps)) throw new OperationsError("Bậc Affiliate mặc định không thuộc cấu hình đang áp dụng.", 400, "invalid_affiliate_tier");
   return {
     id: readString(data, "policyId", false) || `policy-${Date.now()}`,
-    name: readString(data, "name", false) || "Chính sách giá Tào Phớ 88",
+    name: readString(data, "name", false) || "Chính sách giá Đảo Chè",
     status: "active",
     retailBps,
     workshopCostBps,

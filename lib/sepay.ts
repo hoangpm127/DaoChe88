@@ -65,7 +65,7 @@ export function getSePayConfig() {
   const bankAccount = runtimeValue("SEPAY_BANK_ACCOUNT").replace(/\s+/g, "");
   const bankCode = runtimeValue("SEPAY_BANK_CODE") || "TPBank";
   const rawPrefix = runtimeValue("SEPAY_PAYMENT_PREFIX").toLocaleUpperCase("en-US").replace(/[^A-Z]/g, "");
-  const paymentPrefix = rawPrefix.slice(0, 5) || "TPHO";
+  const paymentPrefix = rawPrefix.slice(0, 5) || "DCHE";
   const webhookSecret = runtimeValue("SEPAY_WEBHOOK_SECRET");
   const webhookApiKey = runtimeValue("SEPAY_WEBHOOK_API_KEY");
   const requestedAuthMode = runtimeValue("SEPAY_WEBHOOK_AUTH_MODE").toLocaleLowerCase();
@@ -74,7 +74,7 @@ export function getSePayConfig() {
     bankAccount,
     bankCode,
     paymentPrefix,
-    storeName: runtimeValue("SEPAY_STORE_NAME") || "Tao Pho 88",
+    storeName: runtimeValue("SEPAY_STORE_NAME") || "Dao Che",
     webhookSecret,
     webhookApiKey,
     webhookAuthMode,

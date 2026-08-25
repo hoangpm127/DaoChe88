@@ -19,7 +19,7 @@ export default function PartnerApplicationSheet({ model }: PartnerApplicationShe
               <div className={styles.applicationSuccess}>
                 <span><CheckCircle2 size={34} /></span>
                 <small>{partnerDraft.mode === "Có điểm bán sẵn" ? "ĐÃ NHẬN HỒ SƠ PHÂN PHỐI" : "ĐÃ NHẬN HỒ SƠ ĐIỂM BÁN MỚI"}</small>
-                <h2 id="partner-application-title">Cảm ơn bạn đã cùng mở rộng Tào Phớ 88</h2>
+                <h2 id="partner-application-title">Cảm ơn bạn đã cùng mở rộng Đảo Chè</h2>
                 <p>{partnerDraft.mode === "Có điểm bán sẵn" ? "Đội đối tác sẽ xem mô hình đang vận hành, tệp khách và liên hệ trao đổi sản phẩm trong vòng 01–02 ngày làm việc." : "Đội phát triển điểm bán sẽ xem vị trí, vùng phục vụ và liên hệ khảo sát sơ bộ trong vòng 01–02 ngày làm việc."}</p>
                 <button className={styles.primaryButton} type="button" onClick={() => setShowPartnerApplication(false)}>
                   Hoàn tất <Check size={18} />
@@ -29,14 +29,14 @@ export default function PartnerApplicationSheet({ model }: PartnerApplicationShe
               <form onSubmit={submitPartnerApplication}>
                 <div className={styles.sheetHeading}>
                   <div>
-                    <small>{partnerDraft.mode === "Có điểm bán sẵn" ? "KÊNH ĐỐI TÁC PHÂN PHỐI" : "MỞ ĐIỂM BÁN TÀO PHỚ 88"}</small>
+                    <small>{partnerDraft.mode === "Có điểm bán sẵn" ? "KÊNH ĐỐI TÁC PHÂN PHỐI" : "MỞ ĐIỂM BÁN ĐẢO CHÈ"}</small>
                     <h2 id="partner-application-title">{partnerDraft.mode === "Có điểm bán sẵn" ? "Đăng ký đối tác phân phối" : "Đăng ký mở điểm bán"}</h2>
                   </div>
                   <button type="button" aria-label="Đóng" onClick={() => setShowPartnerApplication(false)}>
                     <X size={20} />
                   </button>
                 </div>
-                <p className={styles.sheetCopy}>{partnerDraft.mode === "Có điểm bán sẵn" ? "Dành cho chủ quán coffee, nhà hàng hoặc cửa hàng muốn bán thêm sản phẩm Tào Phớ 88." : "Dành cho người sẵn sàng đầu tư địa điểm mới và cần hỗ trợ lựa chọn vùng, mô hình cùng quy trình vận hành."}</p>
+                <p className={styles.sheetCopy}>{partnerDraft.mode === "Có điểm bán sẵn" ? "Dành cho chủ quán coffee, nhà hàng hoặc cửa hàng muốn bán thêm sản phẩm Đảo Chè." : "Dành cho người sẵn sàng đầu tư địa điểm mới và cần hỗ trợ lựa chọn vùng, mô hình cùng quy trình vận hành."}</p>
 
                 <div className={styles.partnerModePicker} aria-label="Hình thức hợp tác">
                   <button className={partnerDraft.mode === "Có điểm bán sẵn" ? styles.partnerModeActive : ""} type="button" onClick={() => setPartnerDraft({ ...partnerDraft, mode: "Có điểm bán sẵn" })}>
@@ -103,7 +103,7 @@ export default function PartnerApplicationSheet({ model }: PartnerApplicationShe
 
                 <div className={styles.applicationRule}>
                   <ShieldCheck size={18} />
-                  <p>Đăng ký chưa phát sinh cam kết đầu tư. Tào Phớ 88 sẽ đánh giá vùng phục vụ, mức độ phù hợp và trao đổi mô hình trước khi khảo sát.</p>
+                  <p>Đăng ký chưa phát sinh cam kết đầu tư. Đảo Chè sẽ đánh giá vùng phục vụ, mức độ phù hợp và trao đổi mô hình trước khi khảo sát.</p>
                 </div>
                 <button className={styles.primaryButton} type="submit">
                   {partnerDraft.mode === "Có điểm bán sẵn" ? "Gửi hồ sơ phân phối" : "Gửi hồ sơ mở điểm bán"} <Send size={17} />

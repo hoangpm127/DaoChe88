@@ -24,7 +24,7 @@ async function provisionTemporaryOwner() {
   const userId = randomUUID();
   const roleAssignmentId = randomUUID();
   const phone = `+8498${String(Date.now()).slice(-7)}`;
-  const password = `Tp88!${randomBytes(12).toString("hex")}`;
+  const password = `Dc88!${randomBytes(12).toString("hex")}`;
   const salt = randomBytes(16);
   const key = await crypto.subtle.importKey("raw", new TextEncoder().encode(password), { name: "PBKDF2" }, false, ["deriveBits"]);
   const passwordHash = Buffer.from(await crypto.subtle.deriveBits(
@@ -76,7 +76,7 @@ try {
     if (!phone || !password) throw new Error("Cần LOAD_TEST_COOKIE hoặc LOAD_TEST_PHONE + LOAD_TEST_PASSWORD.");
     const login = await fetch(`${baseUrl}/api/portal-session`, {
       method: "POST",
-      headers: { "content-type": "application/json", "user-agent": "tp88-load-test/1" },
+      headers: { "content-type": "application/json", "user-agent": "daoche-load-test/1" },
       body: JSON.stringify(role ? { phone, password, role } : { phone, password }),
       signal: AbortSignal.timeout(30_000),
     });

@@ -25,14 +25,14 @@ test("Lalamove sandbox quote, booking and signed webhook are durable and idempot
   configureAuthEnvironment();
   process.env.SEPAY_BANK_ACCOUNT = "88888888188";
   process.env.SEPAY_BANK_CODE = "TPBank";
-  process.env.SEPAY_PAYMENT_PREFIX = "TPHO";
+  process.env.SEPAY_PAYMENT_PREFIX = "DCHE";
   process.env.SEPAY_WEBHOOK_AUTH_MODE = "hmac";
-  process.env.SEPAY_WEBHOOK_SECRET = "tp88-lalamove-test-sepay-secret-at-least-32-characters";
+  process.env.SEPAY_WEBHOOK_SECRET = "daoche-lalamove-test-sepay-secret-at-least-32-characters";
   process.env.ORDER_DATA_MODE = "test";
   process.env.LALAMOVE_ENABLED = "true";
   process.env.LALAMOVE_ENV = "sandbox";
-  process.env.LALAMOVE_API_KEY = "pk_test_tp88";
-  process.env.LALAMOVE_API_SECRET = "sk_test_tp88-secret";
+  process.env.LALAMOVE_API_KEY = "pk_test_daoche";
+  process.env.LALAMOVE_API_SECRET = "sk_test_daoche-secret";
   process.env.LALAMOVE_MARKET = "VN";
   process.env.LALAMOVE_AUTO_BOOK = "false";
 
@@ -83,7 +83,7 @@ test("Lalamove sandbox quote, booking and signed webhook are durable and idempot
         fulfillmentType: "delivery",
         siteId: "site-my-dinh",
         paymentMethod: "cash",
-        items: [{ productCode: "TP-T2-S", quantity: 2 }],
+        items: [{ productCode: "DC-BUOI", quantity: 2 }],
       },
     }),
   });
@@ -131,7 +131,7 @@ test("Lalamove sandbox quote, booking and signed webhook are durable and idempot
           orderId: "1999999999999999001",
           quotationId: "1888888888888888001",
           status: "ASSIGNING_DRIVER",
-          shareLink: "https://share.sandbox.lalamove.com/tp88-test",
+          shareLink: "https://share.sandbox.lalamove.com/daoche-test",
           priceBreakdown: { total: "24500", currency: "VND" },
         },
       }, { status: 201 });
@@ -175,7 +175,7 @@ test("Lalamove sandbox quote, booking and signed webhook are durable and idempot
   }
 
   const webhookData = {
-    order: { orderId: "1999999999999999001", status: "COMPLETED", shareLink: "https://share.sandbox.lalamove.com/tp88-test" },
+    order: { orderId: "1999999999999999001", status: "COMPLETED", shareLink: "https://share.sandbox.lalamove.com/daoche-test" },
     updatedAt: new Date().toISOString(),
   };
   const timestamp = Math.floor(Date.now() / 1000).toString();
@@ -241,7 +241,7 @@ test("Lalamove sandbox quote, booking and signed webhook are durable and idempot
         fulfillmentType: "delivery",
         siteId: "site-my-dinh",
         paymentMethod: "cash",
-        items: [{ productCode: "TP-T2-S", quantity: 1 }],
+        items: [{ productCode: "DC-BUOI", quantity: 1 }],
       },
     }),
   });
@@ -305,17 +305,17 @@ test("Lalamove sandbox quote, booking and signed webhook are durable and idempot
 });
 
 test("production Lalamove credentials cannot be used while order data is test", async () => {
-  const directory = await mkdtemp(path.join(os.tmpdir(), "tp88-lalamove-guard-"));
+  const directory = await mkdtemp(path.join(os.tmpdir(), "daoche-lalamove-guard-"));
   process.env.DEMO_SEED = "true";
   configureAuthEnvironment();
   process.env.SEPAY_BANK_ACCOUNT = "88888888188";
   process.env.SEPAY_WEBHOOK_AUTH_MODE = "hmac";
-  process.env.SEPAY_WEBHOOK_SECRET = "tp88-lalamove-test-sepay-secret-at-least-32-characters";
+  process.env.SEPAY_WEBHOOK_SECRET = "daoche-lalamove-test-sepay-secret-at-least-32-characters";
   process.env.ORDER_DATA_MODE = "test";
   process.env.LALAMOVE_ENABLED = "true";
   process.env.LALAMOVE_ENV = "production";
-  process.env.LALAMOVE_API_KEY = "pk_prod_tp88";
-  process.env.LALAMOVE_API_SECRET = "sk_prod_tp88-secret";
+  process.env.LALAMOVE_API_KEY = "pk_prod_daoche";
+  process.env.LALAMOVE_API_SECRET = "sk_prod_daoche-secret";
   process.env.LALAMOVE_AUTO_BOOK = "true";
   const worker = await loadWorker("production-guard");
   const request = (pathname, init) => worker.fetch(new Request(`http://localhost${pathname}`, init), runtimeEnv, executionContext);

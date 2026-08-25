@@ -1,9 +1,9 @@
 import type { Metadata, Viewport } from "next";
 
 export const metadata: Metadata = {
-  title: "Đặt món | Tào Phớ 88",
-  description: "Đặt món ngọt Việt, đơn nhóm văn phòng và gói tháng trực tiếp từ Tào Phớ 88.",
-  applicationName: "Tào Phớ 88",
+  title: "Đặt món | Đảo Chè",
+  description: "Chè bưởi, khúc bạch, sầu riêng, khoai dẻo và combo văn phòng — ốc đảo tráng miệng giao tận nơi.",
+  applicationName: "Đảo Chè",
   manifest: "/manifest.webmanifest?v=4",
   icons: {
     icon: [
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Tào Phớ 88",
+    title: "Đảo Chè",
   },
 };
 

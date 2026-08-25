@@ -23,7 +23,7 @@ type GroupProfilePayload = {
 
 const groupKinds = new Set(["student", "office", "building", "family", "self-ship"]);
 
-const deviceCookieName = "tp88_device_id";
+const deviceCookieName = "daoche_device_id";
 const deviceIdPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 type UserIdentity = { key: string; setCookie?: string };
 

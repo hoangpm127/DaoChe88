@@ -1,4 +1,4 @@
-# Tào Phớ 88 — 6 không gian làm việc, 17 vai trò
+# Đảo Chè — 6 không gian làm việc, 17 vai trò
 
 Hệ thống không tạo 17 ứng dụng riêng. Các vai trò dùng chung sáu workspace, còn API xác định quyền từ phiên đã ký và lọc dữ liệu theo phạm vi trước khi trả về giao diện.
 

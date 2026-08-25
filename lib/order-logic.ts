@@ -147,7 +147,7 @@ export function createOrderIdentity(createdAt: string) {
   const id = crypto.randomUUID();
   const date = createdAt.slice(2, 10).replace(/-/g, "");
   const nonce = id.replace(/-/g, "").slice(0, 10).toLocaleUpperCase("en-US");
-  return { id, orderCode: `TP88-${date}-${nonce}` };
+  return { id, orderCode: `DC-${date}-${nonce}` };
 }
 
 export function createTrackingToken() {

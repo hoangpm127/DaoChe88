@@ -15,7 +15,7 @@ export type CatalogOption = {
 export type CatalogProduct = {
   sku: string;
   name: string;
-  category: "Tào phớ" | "Chè" | "Đồ uống" | "Combo văn phòng" | "Kiểm thử";
+  category: "Chè" | "Đồ uống" | "Combo văn phòng" | "Kiểm thử";
   price: number;
   aliases: readonly string[];
   testOnly?: boolean;
@@ -71,18 +71,21 @@ export function normalizeCatalogProduct(product: BootstrapCatalogProduct): Catal
 }
 
 const CATALOG_IDENTITIES: readonly BootstrapCatalogProduct[] = [
-  { sku: "TP-T2-S", name: "Tào phớ hoa nhài", category: "Tào phớ", price: 15_000, aliases: ["TP-HN"], sortOrder: 10, options: options("TP-T2-S", [["Trân châu mini", 5_000], ["Thạch lá nếp", 6_000], ["Cốt dừa", 7_000]]) },
-  { sku: "TP-T3-M", name: "Tào phớ cốt dừa", category: "Tào phớ", price: 22_000, aliases: ["TP-CD"], sortOrder: 20, options: options("TP-T3-M", [["Cốt dừa gấp đôi", 7_000], ["Hạt sen", 8_000], ["Thạch găng", 5_000]]) },
-  { sku: "CH-C2-M", name: "Chè bưởi Út Bảy", category: "Chè", price: 24_000, aliases: ["CH-BUOI"], sortOrder: 30, options: options("CH-C2-M", [["Đậu xanh thêm", 6_000], ["Cốt dừa", 7_000], ["Dừa sợi", 5_000]]) },
-  { sku: "CH-C7-M", name: "Chè thập cẩm 88", category: "Chè", price: 28_000, aliases: [], sortOrder: 40, options: options("CH-C7-M", [["Thêm 3 topping", 9_000], ["Sầu riêng", 12_000], ["Cốt dừa", 7_000]]) },
-  { sku: "U-U3", name: "Matcha latte sữa dừa", category: "Đồ uống", price: 39_000, aliases: [], sortOrder: 50, options: options("U-U3", [["Foam dừa", 9_000], ["Thạch matcha", 7_000], ["Shot matcha", 12_000]]) },
-  { sku: "TP-MD-M", name: "Tào phớ mè đen", category: "Tào phớ", price: 26_000, aliases: ["TP-MD"], sortOrder: 60, options: options("TP-MD-M", [["Sốt mè gấp đôi", 8_000], ["Tào phớ thêm", 7_000], ["Lạc rang", 4_000]]) },
-  { sku: "CH-HS-LN", name: "Chè hạt sen long nhãn", category: "Chè", price: 32_000, aliases: [], sortOrder: 70, options: options("CH-HS-LN", [["Hạt sen thêm", 9_000], ["Long nhãn", 10_000], ["Thạch quế hoa", 7_000]]) },
-  { sku: "CB-VP-10", name: "Combo giữa giờ 10 phần", category: "Combo văn phòng", price: 229_000, aliases: [], sortOrder: 80, options: options("CB-VP-10", [["Thêm 2 phần", 42_000], ["Túi giữ lạnh", 15_000], ["Bộ thìa giấy", 0]]) },
-  { sku: "TP-GUNG", name: "Tào phớ gừng ấm", category: "Tào phớ", price: 18_000, aliases: [], sortOrder: 90, options: options("TP-GUNG", [["Trân châu gừng", 6_000], ["Tào phớ thêm", 7_000]]) },
-  { sku: "CH-KB", name: "Chè khúc bạch nhãn", category: "Chè", price: 34_000, aliases: [], sortOrder: 100, options: options("CH-KB", [["Khúc bạch thêm", 10_000], ["Long nhãn", 9_000], ["Hạnh nhân", 6_000]]) },
-  { sku: "U-SEN", name: "Sữa sen lá nếp", category: "Đồ uống", price: 32_000, aliases: ["TS-TC"], sortOrder: 110, options: options("U-SEN", [["Hạt sen", 8_000], ["Thạch lá nếp", 6_000]]) },
-  { sku: "CB-VP-20", name: "Combo cả tầng 20 phần", category: "Combo văn phòng", price: 438_000, aliases: [], sortOrder: 120, options: options("CB-VP-20", [["Thêm 5 phần", 105_000], ["Khung giờ ưu tiên", 20_000], ["Bộ thìa giấy", 0]]) },
+  { sku: "DC-BUOI", name: "Chè bưởi Năm Roi", category: "Chè", price: 28_000, aliases: ["DC-CHEBUOI"], sortOrder: 10, options: options("DC-BUOI", [["Trân châu trắng", 5_000], ["Cốt dừa thêm", 7_000], ["Đậu xanh thêm", 6_000]]) },
+  { sku: "DC-KHUCBACH", name: "Chè khúc bạch nhãn", category: "Chè", price: 34_000, aliases: ["DC-KB"], sortOrder: 20, options: options("DC-KHUCBACH", [["Khúc bạch thêm", 10_000], ["Long nhãn", 9_000], ["Hạnh nhân lát", 6_000]]) },
+  { sku: "DC-SAURIENG", name: "Chè Thái sầu riêng", category: "Chè", price: 39_000, aliases: ["DC-SR"], sortOrder: 30, options: options("DC-SAURIENG", [["Sầu riêng thêm", 12_000], ["Thạch lá dứa", 6_000], ["Mít thái sợi", 7_000]]) },
+  { sku: "DC-KHOAIDEO", name: "Chè khoai dẻo ngũ sắc", category: "Chè", price: 32_000, aliases: ["DC-KD"], sortOrder: 40, options: options("DC-KHOAIDEO", [["Khoai dẻo thêm", 8_000], ["Trân châu trắng", 5_000], ["Cốt dừa thêm", 7_000]]) },
+  { sku: "DC-DUADAM", name: "Chè dừa dầm Hải Phòng", category: "Chè", price: 30_000, aliases: ["DC-DD"], sortOrder: 50, options: options("DC-DUADAM", [["Cùi dừa thêm", 8_000], ["Thạch dừa", 6_000], ["Sữa dừa gấp đôi", 7_000]]) },
+  { sku: "DC-DAUXANH", name: "Chè đậu xanh cốt dừa", category: "Chè", price: 22_000, aliases: [], sortOrder: 60, options: options("DC-DAUXANH", [["Phổ tai thêm", 5_000], ["Cốt dừa thêm", 7_000]]) },
+  { sku: "DC-SENNHAN", name: "Chè hạt sen long nhãn", category: "Chè", price: 32_000, aliases: [], sortOrder: 70, options: options("DC-SENNHAN", [["Hạt sen thêm", 9_000], ["Long nhãn", 10_000], ["Thạch quế hoa", 7_000]]) },
+  { sku: "DC-THAPCAM", name: "Chè thập cẩm Đảo Chè", category: "Chè", price: 30_000, aliases: [], sortOrder: 80, options: options("DC-THAPCAM", [["Thêm 3 topping", 9_000], ["Sầu riêng", 12_000], ["Cốt dừa thêm", 7_000]]) },
+  { sku: "DC-SUONGSAO", name: "Chè sương sáo lá dứa", category: "Chè", price: 20_000, aliases: [], sortOrder: 90, options: options("DC-SUONGSAO", [["Sương sáo thêm", 5_000], ["Thạch lá dứa", 6_000]]) },
+  { sku: "DC-TROINUOC", name: "Chè trôi nước gừng", category: "Chè", price: 25_000, aliases: [], sortOrder: 100, options: options("DC-TROINUOC", [["Viên trôi thêm", 7_000], ["Vừng rang", 4_000]]) },
+  { sku: "DC-BAPCOT", name: "Chè bắp cốt dừa", category: "Chè", price: 24_000, aliases: ["DC-CHEBAP"], sortOrder: 110, options: options("DC-BAPCOT", [["Bắp thêm", 6_000], ["Dừa nạo", 5_000]]) },
+  { sku: "DC-MATCHA", name: "Matcha latte sữa dừa", category: "Đồ uống", price: 39_000, aliases: [], sortOrder: 200, options: options("DC-MATCHA", [["Foam dừa", 9_000], ["Thạch matcha", 7_000], ["Shot matcha", 12_000]]) },
+  { sku: "DC-SENLANEP", name: "Sữa sen lá nếp", category: "Đồ uống", price: 32_000, aliases: ["DC-SEN"], sortOrder: 210, options: options("DC-SENLANEP", [["Hạt sen", 8_000], ["Thạch lá dứa", 6_000]]) },
+  { sku: "DC-CB-10", name: "Combo giữa giờ 10 phần", category: "Combo văn phòng", price: 259_000, aliases: [], sortOrder: 300, options: options("DC-CB-10", [["Thêm 2 phần", 52_000], ["Túi giữ lạnh", 15_000], ["Bộ thìa giấy", 0]]) },
+  { sku: "DC-CB-20", name: "Combo cả tầng 20 phần", category: "Combo văn phòng", price: 498_000, aliases: [], sortOrder: 310, options: options("DC-CB-20", [["Thêm 5 phần", 120_000], ["Khung giờ ưu tiên", 20_000], ["Bộ thìa giấy", 0]]) },
   { sku: "TEST-SEPAY-2K", name: "Kiểm thử webhook SePay 2.000đ", category: "Kiểm thử", price: 2_000, aliases: [], testOnly: true, sortOrder: 9_999, options: [] },
 ] as const;
 

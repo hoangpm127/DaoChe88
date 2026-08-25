@@ -80,7 +80,7 @@ export default function PortalPwaBridge() {
     <aside className={styles.prompt} role="status" aria-label={isUpdate ? "Có phiên bản mới" : "Cài không gian vận hành"}>
       <Image src="/pwa-icon-192.png" width={40} height={40} alt="" unoptimized />
       <div>
-        <strong>{isUpdate ? "Có phiên bản Tào Phớ 88 mới" : "Cài Tào Phớ 88 OS"}</strong>
+        <strong>{isUpdate ? "Có phiên bản Đảo Chè mới" : "Cài Đảo Chè OS"}</strong>
         <small>{isUpdate ? "Cập nhật để mọi điện thoại dùng cùng giao diện." : "Mở không gian làm việc như một ứng dụng."}</small>
       </div>
       <button className={styles.primary} type="button" onClick={isUpdate ? update : install}>

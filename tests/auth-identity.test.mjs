@@ -80,7 +80,7 @@ test("không mở được phiên với vai trò chưa được gán", async () 
   const created = await createUser(db, {
     fullName: "Trần Minh Quân",
     phone: "0902880088",
-    password: "taophohoanhai2026",
+    password: "chebuoinamroi2026",
     roles: [{ role: "store-staff", siteId: "site-keangnam" }],
     createdBy: "test",
   });
@@ -108,7 +108,7 @@ test("phạm vi dữ liệu đọc từ phân công, không hardcode", async () 
   const staff = await createUser(db, {
     fullName: "Nhân viên hai điểm",
     phone: "0903880088",
-    password: "taophohoanhai2026",
+    password: "chebuoinamroi2026",
     roles: [
       { role: "store-owner", siteId: "site-my-dinh" },
       { role: "store-owner", siteId: "site-keangnam" },
@@ -122,7 +122,7 @@ test("phạm vi dữ liệu đọc từ phân công, không hardcode", async () 
   const owner = await createUser(db, {
     fullName: "Mai Việt Hoàng",
     phone: "0904880088",
-    password: "taophohoanhai2026",
+    password: "chebuoinamroi2026",
     roles: [{ role: "owner", siteId: null }],
     createdBy: "test",
   });
@@ -140,7 +140,7 @@ test("phiên thu hồi được ngay, và khóa tài khoản làm mọi phiên h
   const created = await createUser(db, {
     fullName: "Đức Anh",
     phone: "0905880088",
-    password: "taophohoanhai2026",
+    password: "chebuoinamroi2026",
     roles: [{ role: "shipper", siteId: "site-my-dinh" }],
     createdBy: "test",
   });
@@ -169,7 +169,7 @@ test("đổi mật khẩu thu hồi toàn bộ phiên đang mở", async () => {
   const created = await createUser(db, {
     fullName: "Phạm Hải Yến",
     phone: "0906880088",
-    password: "taophohoanhai2026",
+    password: "chebuoinamroi2026",
     roles: [{ role: "kitchen", siteId: "site-central-kitchen" }],
     createdBy: "test",
   });
@@ -183,7 +183,7 @@ test("đổi mật khẩu thu hồi toàn bộ phiên đang mở", async () => {
   assert.equal(await readSession(db, session.token), null, "đổi mật khẩu xong thì phiên cũ phải chết");
 
   // Mật khẩu cũ không dùng được nữa, mật khẩu mới thì được.
-  await assert.rejects(verifyCredentials(db, { phone: "0906880088", password: "taophohoanhai2026" }), /không đúng/);
+  await assert.rejects(verifyCredentials(db, { phone: "0906880088", password: "chebuoinamroi2026" }), /không đúng/);
   const user = await verifyCredentials(db, { phone: "0906880088", password: "matkhaumoi2026xyz" });
   assert.equal(Number(user.mustChangePassword), 0, "đặt mật khẩu mới thì tắt cờ buộc đổi");
 
@@ -195,7 +195,7 @@ test("phạm vi được giải lại mỗi request nên gỡ quyền có hiệu
   const created = await createUser(db, {
     fullName: "Chủ hai điểm",
     phone: "0907880088",
-    password: "taophohoanhai2026",
+    password: "chebuoinamroi2026",
     roles: [
       { role: "store-owner", siteId: "site-my-dinh" },
       { role: "store-owner", siteId: "site-keangnam" },

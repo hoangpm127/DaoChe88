@@ -69,7 +69,7 @@ async function placeOrder(request, { cookie, phone = "0933000111", quantity = 2,
         siteId: "site-my-dinh",
         paymentMethod: "cash",
         ...(promotionCode ? { promotionCode } : {}),
-        items: [{ productCode: "TP-HN", quantity }],
+        items: [{ productCode: "DC-CHEBUOI", quantity }],
       },
     }),
   });

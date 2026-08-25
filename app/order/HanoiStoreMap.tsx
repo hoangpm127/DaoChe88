@@ -95,7 +95,7 @@ export default function HanoiStoreMap({ stores, onSelect }: HanoiStoreMapProps) 
   }, [stores]);
 
   return (
-    <section className={styles.mapShell} aria-label="Bản đồ thật các điểm bán Tào Phớ 88 tại Hà Nội">
+    <section className={styles.mapShell} aria-label="Bản đồ thật các điểm bán Đảo Chè tại Hà Nội">
       <div ref={mapRootRef} className={styles.mapCanvas} />
       {!ready && <div className={styles.loading}>Đang tải bản đồ Hà Nội…</div>}
 

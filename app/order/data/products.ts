@@ -1,11 +1,11 @@
-import { Coffee, GlassWater, type LucideIcon, ShoppingBag, UsersRound } from "lucide-react";
+import { GlassWater, IceCreamBowl, type LucideIcon, UsersRound } from "lucide-react";
 
 export type Product = {
   id: string;
   name: string;
   legacy: string;
   price: number;
-  category: "Tào phớ" | "Chè" | "Đồ uống" | "Combo văn phòng";
+  category: "Chè" | "Đồ uống" | "Combo văn phòng";
   image: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
   imageUrl: string;
   note: string;
@@ -63,7 +63,7 @@ function nutritionText(nutrition: Record<string, string | number> | undefined, k
 
 /** Chuyển DTO catalog từ server thành view-model. Không có món hay giá nào nằm trong bundle frontend. */
 export function productFromCatalog(product: CatalogApiProduct): Product | null {
-  if (!["Tào phớ", "Chè", "Đồ uống", "Combo văn phòng"].includes(product.category)) return null;
+  if (!["Chè", "Đồ uống", "Combo văn phòng"].includes(product.category)) return null;
   const tags = Array.isArray(product.tags) ? product.tags : [];
   const prepMinutes = Number(product.prepMinutes || 0);
   const available = product.status === "available";
@@ -101,8 +101,7 @@ export function productFromCatalog(product: CatalogApiProduct): Product | null {
 }
 
 export const categories: Array<{ label: Product["category"]; icon: LucideIcon }> = [
-  { label: "Tào phớ", icon: Coffee },
-  { label: "Chè", icon: ShoppingBag },
+  { label: "Chè", icon: IceCreamBowl },
   { label: "Đồ uống", icon: GlassWater },
   { label: "Combo văn phòng", icon: UsersRound },
 ];

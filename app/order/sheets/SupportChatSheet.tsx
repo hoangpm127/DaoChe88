@@ -21,7 +21,7 @@ export default function SupportChatSheet({ model }: SupportChatSheetProps) {
               <span className={styles.chatAgentIcon}><MessageCircleMore size={23} /></span>
               <div>
                 <small>TƯ VẤN &amp; ĐẶT MÓN</small>
-                <h2 id="chat-title">Chat cùng Tào Phớ 88</h2>
+                <h2 id="chat-title">Chat cùng Đảo Chè</h2>
                 <p><i /> {chatMode === "ai" ? "AI đang hỗ trợ ngay" : "Đã chuyển tới nhân viên"}</p>
               </div>
               <button type="button" aria-label="Đóng Chat" onClick={() => setShowChat(false)}><X size={20} /></button>

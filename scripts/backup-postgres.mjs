@@ -12,7 +12,7 @@ if (!directory) throw new Error("BACKUP_DIRECTORY phải trỏ tới nơi lưu n
 const targetDirectory = resolve(directory);
 await mkdir(targetDirectory, { recursive: true });
 const stamp = new Date().toISOString().replaceAll(":", "-");
-const outputPath = resolve(targetDirectory, `tp88-postgres-${stamp}.dump.enc`);
+const outputPath = resolve(targetDirectory, `daoche-postgres-${stamp}.dump.enc`);
 const child = spawn("pg_dump", ["--format=custom", "--compress=6", "--no-owner", "--no-acl"], {
   env: { ...process.env, PGDATABASE: databaseUrl },
   stdio: ["ignore", "pipe", "pipe"],
@@ -40,5 +40,5 @@ if (remote) {
     upload.once("close", (code) => code === 0 ? resolveUpload() : reject(new Error(`rclone lỗi (${code}).`)));
   });
 }
-const deleted = await pruneBackups(targetDirectory, "tp88-postgres-", Number(process.env.BACKUP_RETENTION_DAYS || 30));
+const deleted = await pruneBackups(targetDirectory, "daoche-postgres-", Number(process.env.BACKUP_RETENTION_DAYS || 30));
 console.log(JSON.stringify({ ok: true, backup: outputPath, uploaded: Boolean(remote), oldBackupsDeleted: deleted }));

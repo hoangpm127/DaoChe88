@@ -52,7 +52,7 @@ test("hai phiên độc lập giữ riêng vai trò đã xác thực của mình
 
   const worker = await loadWorker();
   const request = (pathname, init) => worker.fetch(
-    new Request(`https://taopho88.example${pathname}`, init),
+    new Request(`https://daoche.example${pathname}`, init),
     runtimeEnv,
     executionContext,
   );
@@ -100,7 +100,7 @@ test("hai phiên độc lập giữ riêng vai trò đã xác thực của mình
   });
   assert.equal(phoneAResponse.status, 200);
   const phoneACookie = cookiePair(phoneAResponse);
-  assert.match(phoneACookie, /^tp88_portal_session=/);
+  assert.match(phoneACookie, /^daoche_portal_session=/);
   assert.match(phoneAResponse.headers.get("set-cookie") || "", /HttpOnly/i);
   assert.match(phoneAResponse.headers.get("set-cookie") || "", /SameSite=Strict/i);
   assert.match(phoneAResponse.headers.get("set-cookie") || "", /Secure/i);
@@ -192,7 +192,7 @@ test("đổi mật khẩu phải biết mật khẩu cũ và đá các thiết b
 
   const worker = await loadServer("portal-password-test");
   const request = (pathname, init) => worker.fetch(
-    new Request(`https://taopho88.example${pathname}`, init),
+    new Request(`https://daoche.example${pathname}`, init),
     runtimeEnv,
     executionContext,
   );

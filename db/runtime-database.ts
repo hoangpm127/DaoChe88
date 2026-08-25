@@ -50,7 +50,7 @@ function asSafeNumber(value: number | bigint | undefined) {
 }
 
 type RuntimeDatabaseGlobal = typeof globalThis & {
-  __tp88PostgresRuntime?: {
+  __daoChePostgresRuntime?: {
     url: string;
     promise: Promise<RuntimeDatabase>;
   };
@@ -71,13 +71,13 @@ const runtimeGlobal = globalThis as RuntimeDatabaseGlobal;
 export async function getRuntimeDatabase(): Promise<RuntimeDatabase | null> {
   const databaseUrl = envValue("DATABASE_URL");
   if (databaseUrl) {
-    if (!runtimeGlobal.__tp88PostgresRuntime || runtimeGlobal.__tp88PostgresRuntime.url !== databaseUrl) {
-      runtimeGlobal.__tp88PostgresRuntime = {
+    if (!runtimeGlobal.__daoChePostgresRuntime || runtimeGlobal.__daoChePostgresRuntime.url !== databaseUrl) {
+      runtimeGlobal.__daoChePostgresRuntime = {
         url: databaseUrl,
         promise: import("./postgres-runtime.ts").then((module) => module.createPostgresRuntime(databaseUrl)),
       };
     }
-    return runtimeGlobal.__tp88PostgresRuntime.promise;
+    return runtimeGlobal.__daoChePostgresRuntime.promise;
   }
 
   return null;
@@ -97,8 +97,8 @@ export function getRuntimeDatabaseKind(_database: RuntimeDatabase): "postgres" {
 
 /** Trả runtime về trạng thái trắng giữa hai bài test. */
 export async function resetRuntimeDatabaseForTests() {
-  const postgres = runtimeGlobal.__tp88PostgresRuntime;
-  runtimeGlobal.__tp88PostgresRuntime = undefined;
+  const postgres = runtimeGlobal.__daoChePostgresRuntime;
+  runtimeGlobal.__daoChePostgresRuntime = undefined;
   if (postgres) {
     const database = await postgres.promise;
     const closable = database as unknown as { close?: () => unknown };

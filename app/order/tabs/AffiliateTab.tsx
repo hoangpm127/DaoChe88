@@ -129,7 +129,7 @@ export default function AffiliateTab({ model }: AffiliateTabProps) {
         </div>
         <p>Mỗi khách mở link sẽ được ghi nhận đúng về bạn. Thu nhập tự động cập nhật sau khi đơn giao thành công.</p>
         <button className={styles.referralLink} type="button" onClick={copyReferralLink} aria-label="Sao chép link Affiliate">
-          <span>{`taopho88.app/order?ref=${affiliateAccount.code}`}</span><Copy size={16} />
+          <span>{`daoche.app/order?ref=${affiliateAccount.code}`}</span><Copy size={16} />
         </button>
         <div className={styles.referralActions}>
           <button type="button" onClick={copyReferralLink}><Copy size={16} /> Sao chép</button>

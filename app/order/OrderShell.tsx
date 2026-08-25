@@ -35,7 +35,7 @@ export default function OrderShell({ model }: OrderShellProps) {
               <Brand />
             </div>
             <div className={styles.headerActions}>
-              <button className={`${styles.topbarIconButton} ${styles.chatHeaderButton}`} type="button" aria-label="Mở Chat tư vấn Tào Phớ 88" onClick={() => setShowChat(true)}>
+              <button className={`${styles.topbarIconButton} ${styles.chatHeaderButton}`} type="button" aria-label="Mở Chat tư vấn Đảo Chè" onClick={() => setShowChat(true)}>
                 <MessageCircleMore size={20} />
                 <span className={styles.aiPulse}>AI</span>
               </button>
@@ -118,12 +118,12 @@ export default function OrderShell({ model }: OrderShellProps) {
                 type="button"
                 className={`${isActive ? styles.navActive : ""} ${isLoveAction ? styles.navLoveAction : ""}`}
                 key={item.id}
-                aria-label={isLoveAction ? "Mở trung tâm I love Tào Phớ" : item.label}
+                aria-label={isLoveAction ? "Mở trung tâm I love Đảo Chè" : item.label}
                 onClick={() => (isLoveAction ? setShowNearbyActions(true) : goTo(item.id))}
               >
                 <span>
                   <Icon size={isLoveAction ? 25 : 22} fill={isLoveAction ? "currentColor" : "none"} />
-                  {isLoveAction && <b className={styles.navLove88} aria-hidden="true">88</b>}
+                  {isLoveAction && <b className={styles.navLove88} aria-hidden="true">ĐC</b>}
                   {isLoveAction && groupRoom && <i />}
                 </span>
                 <small>{item.label}</small>

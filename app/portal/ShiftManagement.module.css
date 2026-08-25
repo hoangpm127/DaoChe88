@@ -1,21 +1,21 @@
-.shift { margin: 14px 0; padding: 16px; border: 1px solid rgba(24,55,42,.12); border-radius: 20px; background: #fffdf8; }
+.shift { margin: 14px 0; padding: 16px; border: 1px solid rgba(57, 46, 27, .12); border-radius: 20px; background: #fffdf8; }
 .heading { display: flex; align-items: center; gap: 11px; }
-.heading > span { width: 43px; height: 43px; border-radius: 14px; display: grid; place-items: center; color: #168d34; background: #e9f6e5; }
+.heading > span { width: 43px; height: 43px; border-radius: 14px; display: grid; place-items: center; color: #9f6803; background: #fdefdf; }
 .heading small, .heading strong, .heading p { display: block; }
 .heading small { color: #c65323; font-size: 10px; font-weight: 900; letter-spacing: .12em; }
-.heading p { margin: 3px 0 0; color: #687a70; font-size: 12px; }
+.heading p { margin: 3px 0 0; color: #7d7464; font-size: 12px; }
 .modes { display: flex; gap: 8px; margin: 14px 0 10px; }
-.modes button { min-height: 36px; padding: 0 12px; border: 1px solid rgba(24,55,42,.15); border-radius: 11px; display: inline-flex; align-items: center; gap: 6px; background: #fff; font-weight: 800; }
-.modes .active { color: #fff; background: #18372a; }
+.modes button { min-height: 36px; padding: 0 12px; border: 1px solid rgba(57, 46, 27, .15); border-radius: 11px; display: inline-flex; align-items: center; gap: 6px; background: #fff; font-weight: 800; }
+.modes .active { color: #fff; background: #392e1b; }
 .shift form { display: grid; grid-template-columns: 1.1fr 1fr 1.5fr auto; align-items: end; gap: 9px; }
-.shift label span { display: block; margin-bottom: 5px; color: #53675d; font-size: 11px; font-weight: 800; }
-.shift input, .shift select { width: 100%; height: 41px; padding: 0 10px; border: 1px solid rgba(24,55,42,.18); border-radius: 11px; background: #fff; }
-.shift form > button { height: 41px; padding: 0 14px; border: 0; border-radius: 11px; color: #fff; background: #168d34; font-weight: 850; }
+.shift label span { display: block; margin-bottom: 5px; color: #696051; font-size: 11px; font-weight: 800; }
+.shift input, .shift select { width: 100%; height: 41px; padding: 0 10px; border: 1px solid rgba(57, 46, 27, .18); border-radius: 11px; background: #fff; }
+.shift form > button { height: 41px; padding: 0 14px; border: 0; border-radius: 11px; color: #fff; background: #9f6803; font-weight: 850; }
 @media (max-width: 850px) { .shift form { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 540px) { .shift form { grid-template-columns: 1fr; } }
 
 .shiftList { display: grid; gap: 6px; margin-top: 12px; }
 .shiftList > div { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 9px 10px; border-radius: 10px; background: #f5f2e9; }
 .shiftList strong { display: block; font-size: 12.5px; }
-.shiftList small { display: block; margin-top: 2px; color: #687a70; font-size: 10.5px; }
-.shiftList a { display: inline-flex; align-items: center; gap: 5px; min-height: 32px; padding: 0 11px; border: 1px solid rgba(24,55,42,.16); border-radius: 9px; background: #fff; color: #18372a; font-size: 11.5px; font-weight: 800; text-decoration: none; white-space: nowrap; }
+.shiftList small { display: block; margin-top: 2px; color: #7d7464; font-size: 10.5px; }
+.shiftList a { display: inline-flex; align-items: center; gap: 5px; min-height: 32px; padding: 0 11px; border: 1px solid rgba(57, 46, 27, .16); border-radius: 9px; background: #fff; color: #392e1b; font-size: 11.5px; font-weight: 800; text-decoration: none; white-space: nowrap; }

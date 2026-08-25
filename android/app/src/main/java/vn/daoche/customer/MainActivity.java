@@ -1,4 +1,4 @@
-package vn.taopho88.customer;
+package vn.daoche.customer;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -20,8 +20,8 @@ import android.widget.ProgressBar;
 
 public class MainActivity extends Activity {
     private static final String APP_URL =
-            "https://taopho88-production.up.railway.app/order?source=android&app=tao-pho-88";
-    private static final String APP_HOST = "taopho88-production.up.railway.app";
+            "https://daoche-production.up.railway.app/order?source=android&app=dao-che";
+    private static final String APP_HOST = "daoche-production.up.railway.app";
 
     private WebView webView;
     private ProgressBar progressBar;
@@ -50,7 +50,7 @@ public class MainActivity extends Activity {
         settings.setDatabaseEnabled(true);
         settings.setLoadsImagesAutomatically(true);
         settings.setMediaPlaybackRequiresUserGesture(false);
-        settings.setUserAgentString(settings.getUserAgentString() + " TaoPho88Android/0.1");
+        settings.setUserAgentString(settings.getUserAgentString() + " DaoCheAndroid/0.1");
 
         webView.setWebChromeClient(new WebChromeClient() {
             @Override
@@ -125,7 +125,7 @@ public class MainActivity extends Activity {
                 + "font-family:sans-serif;background:#fffdf4;color:#18301f;display:grid;"
                 + "place-items:center;min-height:100vh'><main style='padding:32px;text-align:center;"
                 + "max-width:340px'><div style='font-size:48px'>🍵</div><h1 style='font-size:24px'>"
-                + "Không thể kết nối Tào Phớ 88</h1><p style='line-height:1.5;color:#667067'>"
+                + "Không thể kết nối Đảo Chè</h1><p style='line-height:1.5;color:#667067'>"
                 + "Hãy kiểm tra kết nối Internet rồi thử lại. Ứng dụng không cần cắm cáp máy tính.</p><a href='"
                 + APP_URL + "' style='display:inline-block;margin-top:12px;padding:13px 22px;"
                 + "border-radius:999px;background:#168d34;color:white;text-decoration:none;"

@@ -216,7 +216,7 @@ export default function CheckoutSheet({ model }: CheckoutSheetProps) {
                     </button>
                   </div>
                   <strong>{money(checkoutTotal)}</strong>
-                  <small>{fulfillment === "delivery" ? customer.address : `Nhận tại Tào Phớ 88 ${location.name}`}</small>
+                  <small>{fulfillment === "delivery" ? customer.address : `Nhận tại Đảo Chè ${location.name}`}</small>
                 </div>
                 <div className={styles.checkoutAssurance}>
                   <ShieldCheck size={18} />

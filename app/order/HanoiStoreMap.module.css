@@ -2,10 +2,10 @@
   position: relative;
   height: clamp(226px, 31dvh, 258px);
   overflow: hidden;
-  border: 1px solid #cfd9ca;
+  border: 1px solid #e0d3c6;
   border-radius: 20px;
-  background: #e8eee5;
-  box-shadow: 0 8px 24px rgba(36, 71, 42, 0.08);
+  background: #f2eae2;
+  box-shadow: 0 8px 24px rgba(78, 57, 28, 0.08);
 }
 
 .mapCanvas {
@@ -20,8 +20,8 @@
   inset: 0;
   display: grid;
   place-items: center;
-  background: linear-gradient(135deg, #edf4e8, #f8f3e6);
-  color: #3d5b45;
+  background: linear-gradient(135deg, #faefe5, #f8f3e6);
+  color: #614f36;
   font-size: 12px;
   font-weight: 750;
 }
@@ -32,10 +32,10 @@
   z-index: 500;
   display: flex;
   align-items: center;
-  border: 1px solid rgba(204, 215, 200, 0.92);
+  border: 1px solid rgba(222, 209, 195, 0.92);
   background: rgba(255, 255, 255, 0.94);
-  color: #294535;
-  box-shadow: 0 4px 14px rgba(36, 61, 41, 0.1);
+  color: #483c28;
+  box-shadow: 0 4px 14px rgba(66, 51, 32, 0.1);
   backdrop-filter: blur(10px);
 }
 
@@ -46,7 +46,7 @@
   min-height: 36px;
   padding: 0 11px;
   border-radius: 12px;
-  color: #147735;
+  color: #865902;
   font-size: 10px;
 }
 
@@ -70,7 +70,7 @@
   padding: 2px 4px;
   border-radius: 5px;
   background: rgba(255, 255, 255, 0.76);
-  color: #788178;
+  color: #857d73;
   font-size: 6px;
   line-height: 1;
   pointer-events: none;
@@ -79,22 +79,22 @@
 .officialMarker,
 .partnerMarker,
 .deliveryMarker {
-  filter: drop-shadow(0 3px 4px rgba(39, 65, 43, 0.25));
+  filter: drop-shadow(0 3px 4px rgba(70, 55, 34, 0.25));
   cursor: pointer;
 }
 
 .mapShell :global(.leaflet-control-zoom) {
   overflow: hidden;
-  border: 1px solid rgba(199, 211, 195, 0.92) !important;
+  border: 1px solid rgba(218, 204, 189, 0.92) !important;
   border-radius: 11px;
-  box-shadow: 0 4px 14px rgba(36, 61, 41, 0.12);
+  box-shadow: 0 4px 14px rgba(66, 51, 32, 0.12);
 }
 
 .mapShell :global(.leaflet-control-zoom a) {
   width: 32px;
   height: 32px;
-  border-color: #e0e7dd;
-  color: #157a35;
+  border-color: #ece3da;
+  color: #8a5b01;
   font-size: 18px;
   line-height: 32px;
 }
@@ -103,11 +103,11 @@
   padding: 5px 7px;
   border: 0;
   border-radius: 8px;
-  color: #243c2b;
+  color: #403322;
   font-family: inherit;
   font-size: 9px;
   font-weight: 800;
-  box-shadow: 0 4px 12px rgba(28, 53, 34, 0.16);
+  box-shadow: 0 4px 12px rgba(57, 44, 25, 0.16);
 }
 
 @media (max-width: 365px) {

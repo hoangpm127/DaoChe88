@@ -1,0 +1,11 @@
+# Dữ liệu mồi CSV được sinh ra bởi scripts/extract-seed-data.mjs và
+# scripts/build-network-seed.mjs, cả hai đều ghi BOM + CRLF cho Excel.
+#
+# Ghim eol=crlf ở đây để `core.autocrlf` của từng máy không đổi đuôi dòng khi
+# checkout. Không có dòng này thì test "dựng lại từ dữ liệu cũ cho ra đúng tệp
+# đang commit" sẽ đỏ trên máy này và xanh trên máy khác — cùng một mã nguồn.
+data/seed/*.csv text eol=crlf
+docs/*.csv text eol=crlf
+
+# Mọi thứ còn lại dùng LF trong repo, đuôi dòng lúc checkout do git tự quyết.
+* text=auto

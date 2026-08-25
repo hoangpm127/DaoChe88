@@ -10,7 +10,7 @@ import { configureAuthEnvironment, createAccount, login, ownerCookie, portalCook
 
 const executionContext = { waitUntil() {}, passThroughOnException() {} };
 const runtimeEnv = { ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) } };
-const webhookSecret = "tp88-m8-sepay-webhook-secret-at-least-32-characters";
+const webhookSecret = "daoche-m8-sepay-webhook-secret-at-least-32-characters";
 
 function signedWebhook(payload) {
   const body = JSON.stringify(payload);
@@ -45,7 +45,7 @@ test("M8 đối soát 20 đơn, hoàn tiền từng phần và kiểm quỹ ca b
   process.env.ORDER_DATA_MODE = "test";
   process.env.SEPAY_BANK_ACCOUNT = "88888888188";
   process.env.SEPAY_BANK_CODE = "TPBank";
-  process.env.SEPAY_PAYMENT_PREFIX = "TPHO";
+  process.env.SEPAY_PAYMENT_PREFIX = "DCHE";
   process.env.SEPAY_WEBHOOK_AUTH_MODE = "hmac";
   process.env.SEPAY_WEBHOOK_SECRET = webhookSecret;
 
@@ -59,7 +59,7 @@ test("M8 đối soát 20 đơn, hoàn tiền từng phần và kiểm quỹ ca b
   await database.run("UPDATE operation_sites SET opening_hours_json = ?, capacity_per_hour = 100, status = 'open', accepts_orders = 1 WHERE id = 'site-my-dinh'", allDay);
   // INSERT OR REPLACE la cu phap rieng SQLite; PostgreSQL dung ON CONFLICT.
   await database.run(`INSERT INTO catalog_site_stock (id, site_id, product_sku, on_hand, reserved, track_stock, status)
-    VALUES ('m8-stock', 'site-my-dinh', 'TP-T2-S', 100, 0, 1, 'available')
+    VALUES ('m8-stock', 'site-my-dinh', 'DC-BUOI', 100, 0, 1, 'available')
     ON CONFLICT (id) DO UPDATE SET on_hand = excluded.on_hand, reserved = excluded.reserved,
       track_stock = excluded.track_stock, status = excluded.status`);
 
@@ -87,13 +87,13 @@ test("M8 đối soát 20 đơn, hoàn tiền từng phần và kiểm quỹ ca b
           paymentMethod,
           siteId: "site-my-dinh",
           payerLabel: `M8-${index + 1}`,
-          items: [{ productCode: "TP-T2-S", quantity: 1 }],
+          items: [{ productCode: "DC-BUOI", quantity: 1 }],
         },
       }),
     });
     const created = await response.json();
     assert.equal(response.status, 201, JSON.stringify(created));
-    assert.equal(created.result.amounts.total, 15_000);
+    assert.equal(created.result.amounts.total, 28_000);
     if (paymentMethod === "cash") cashOrders.push(created.result);
     else bankOrders.push(created.result);
   }
@@ -108,8 +108,8 @@ test("M8 đối soát 20 đơn, hoàn tiền từng phần và kiểm quỹ ca b
       content: `${order.payment.paymentCode} THANH TOAN M8`,
       transferType: "in",
       description: "Khách M8 chuyển khoản",
-      transferAmount: 15_000,
-      accumulated: (index + 1) * 15_000,
+      transferAmount: 28_000,
+      accumulated: (index + 1) * 28_000,
       referenceCode: `FT-M8-${index}`,
     };
     const response = await worker.fetch(signedWebhook(payload), runtimeEnv, executionContext);
@@ -134,17 +134,17 @@ test("M8 đối soát 20 đơn, hoàn tiền từng phần và kiểm quỹ ca b
     amount: 10_000,
     reason: "Rút bớt tiền khỏi két",
   });
-  const closed = await command(request, owner, "shift.close", { siteId: "site-my-dinh", shiftId, countedCash: 260_000 });
-  assert.equal(closed.result.expectedCash, 260_000);
+  const closed = await command(request, owner, "shift.close", { siteId: "site-my-dinh", shiftId, countedCash: 390_000 });
+  assert.equal(closed.result.expectedCash, 390_000);
   assert.equal(closed.result.variance, 0);
-  assert.deepEqual(closed.result.movements, { sales: 150_000, refunds: 0, drops: 10_000, floatIn: 20_000, payouts: 0, corrections: 0 });
+  assert.deepEqual(closed.result.movements, { sales: 280_000, refunds: 0, drops: 10_000, floatIn: 20_000, payouts: 0, corrections: 0 });
 
   const reportResponse = await request(`/api/reports/shift/${shiftId}`, { headers: { cookie: owner } });
   const report = await reportResponse.json();
   assert.equal(reportResponse.status, 200, JSON.stringify(report));
   assert.equal(report.report.billCount, 10);
-  assert.equal(report.report.cashRevenue, 150_000);
-  assert.equal(report.report.expectedCash, 260_000);
+  assert.equal(report.report.cashRevenue, 280_000);
+  assert.equal(report.report.expectedCash, 390_000);
   const printResponse = await request(`/api/reports/shift/${shiftId}?format=print`, { headers: { cookie: owner } });
   assert.equal(printResponse.status, 200);
   assert.match(printResponse.headers.get("content-type"), /^text\/html/);
@@ -176,7 +176,7 @@ test("M8 đối soát 20 đơn, hoàn tiền từng phần và kiểm quỹ ca b
   assert.equal(partial.result.refundType, "partial");
   assert.equal(partial.result.paymentStatus, "partially_refunded");
   assert.equal(partial.result.orderStatus, "new");
-  assert.equal(partial.result.refundableRemaining, 10_000);
+  assert.equal(partial.result.refundableRemaining, 23_000);
   const duplicatePartial = await command(request, accountant, "payment.refund", {
     orderId: bankOrders[0].orderId,
     amount: 5_000,
@@ -187,16 +187,16 @@ test("M8 đối soát 20 đơn, hoàn tiền từng phần và kiểm quỹ ca b
   const excessive = await request("/api/operations", {
     method: "POST",
     headers: { "content-type": "application/json", cookie: accountant, "idempotency-key": "m8-refund-too-large" },
-    body: JSON.stringify({ command: "payment.refund", data: { orderId: bankOrders[0].orderId, amount: 10_001, reason: "Thử hoàn quá số đã nhận", providerReference: "RF-M8-TOO-LARGE" } }),
+    body: JSON.stringify({ command: "payment.refund", data: { orderId: bankOrders[0].orderId, amount: 23_001, reason: "Thử hoàn quá số đã nhận", providerReference: "RF-M8-TOO-LARGE" } }),
   });
   assert.equal(excessive.status, 409);
   assert.equal((await excessive.json()).code, "refund_amount_exceeded");
 
   const csvLines = ["providerTransactionId,transactionDate,amount,content,paymentCode"];
   for (const [index, order] of bankOrders.entries()) {
-    csvLines.push(`${8100 + index},2026-08-18 10:${String(index).padStart(2, "0")}:00,15000,${order.payment.paymentCode} THANH TOAN M8,${order.payment.paymentCode}`);
+    csvLines.push(`${8100 + index},2026-08-18 10:${String(index).padStart(2, "0")}:00,28000,${order.payment.paymentCode} THANH TOAN M8,${order.payment.paymentCode}`);
   }
-  const reconciliationResponse = await request("/api/reconciliations/bank?statementDate=2026-08-18&accountNumber=88888888188&openingBalance=0&closingBalance=150000", {
+  const reconciliationResponse = await request("/api/reconciliations/bank?statementDate=2026-08-18&accountNumber=88888888188&openingBalance=0&closingBalance=280000", {
     method: "POST",
     headers: { "content-type": "text/csv", cookie: accountant },
     body: csvLines.join("\n"),
@@ -238,7 +238,7 @@ test("M8 đối soát 20 đơn, hoàn tiền từng phần và kiểm quỹ ca b
       fulfillmentType: "delivery",
       paymentMethod: "cash",
       siteId: "site-my-dinh",
-      items: [{ productCode: "TP-T2-S", quantity: 1 }],
+      items: [{ productCode: "DC-BUOI", quantity: 1 }],
     } }),
   });
   const codCreated = await codCreateResponse.json();
@@ -255,20 +255,20 @@ test("M8 đối soát 20 đơn, hoàn tiền từng phần và kiểm quỹ ca b
   const heldResponse = await request("/api/reports/cash-held", { headers: { cookie: shipper } });
   const held = await heldResponse.json();
   assert.equal(heldResponse.status, 200, JSON.stringify(held));
-  assert.equal(held.totalHeld, 30_000);
+  assert.equal(held.totalHeld, 43_000);
   assert.equal(held.holders.length, 1);
   assert.equal(held.holders[0].actorUserId, shipperAccount.userId);
   const remitted = await command(request, shipper, "cash.remit", { siteId: "site-my-dinh", reason: "Nộp COD cho cửa hàng" });
-  assert.equal(remitted.result.amount, 30_000);
+  assert.equal(remitted.result.amount, 43_000);
   assert.equal(remitted.result.movementCount, 1);
   const afterRemit = await (await request("/api/reports/cash-held", { headers: { cookie: shipper } })).json();
   assert.equal(afterRemit.totalHeld, 0);
   const receivingClose = await command(request, owner, "shift.close", {
     siteId: "site-my-dinh",
     shiftId: receivingShift.result.shiftId,
-    countedCash: 30_000,
+    countedCash: 43_000,
   });
-  assert.equal(receivingClose.result.expectedCash, 30_000);
+  assert.equal(receivingClose.result.expectedCash, 43_000);
 
   assert.equal((await database.get("SELECT COUNT(*) AS count FROM operation_orders WHERE customer_name LIKE 'Khách M8 %'")).count, 20);
   assert.equal((await database.get("SELECT COUNT(*) AS count FROM cash_movements WHERE shift_id = ? AND movement_type = 'sale'", shiftId)).count, 10);

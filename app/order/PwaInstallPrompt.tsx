@@ -102,10 +102,10 @@ export default function PwaInstallPrompt() {
   const isUpdate = Boolean(updateWorker);
 
   return (
-    <aside className={styles.installPrompt} aria-label={isUpdate ? "Cập nhật ứng dụng Tào Phớ 88" : "Cài ứng dụng Tào Phớ 88"} role="status">
+    <aside className={styles.installPrompt} aria-label={isUpdate ? "Cập nhật ứng dụng Đảo Chè" : "Cài ứng dụng Đảo Chè"} role="status">
       <Image src="/pwa-icon-192.png" width={44} height={44} alt="" unoptimized />
       <div>
-        <strong>{isUpdate ? "Tào Phớ 88 có bản mới" : "Cài Tào Phớ 88"}</strong>
+        <strong>{isUpdate ? "Đảo Chè có bản mới" : "Cài Đảo Chè"}</strong>
         <small>{isUpdate ? "Cập nhật giao diện mới và giữ nguyên giỏ hàng" : "Mở nhanh như một ứng dụng trên điện thoại"}</small>
       </div>
       <button type="button" onClick={isUpdate ? update : install} disabled={updating} data-install-pwa={!isUpdate || undefined} data-update-pwa={isUpdate || undefined}>

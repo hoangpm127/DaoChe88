@@ -40,7 +40,7 @@ async function createOrder(request, suffix, siteId, affiliateCode) {
         siteId,
         paymentMethod: "cash",
         affiliateCode,
-        items: [{ productCode: "TP-HN", quantity: 1 }],
+        items: [{ productCode: "DC-CHEBUOI", quantity: 1 }],
       },
     }),
   });

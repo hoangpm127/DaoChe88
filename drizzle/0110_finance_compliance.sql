@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS einvoices (
 );
 CREATE INDEX IF NOT EXISTS einvoices_status_idx ON einvoices (status, created_at);
 
-CREATE OR REPLACE FUNCTION tp88_reject_closed_period_ledger() RETURNS trigger AS $$
+CREATE OR REPLACE FUNCTION daoche_reject_closed_period_ledger() RETURNS trigger AS $$
 BEGIN
   IF EXISTS (
     SELECT 1 FROM accounting_periods p
@@ -90,4 +90,4 @@ $$ LANGUAGE plpgsql;
 DROP TRIGGER IF EXISTS finance_ledger_closed_period_guard ON finance_ledger_entries;
 CREATE TRIGGER finance_ledger_closed_period_guard
   BEFORE INSERT OR UPDATE ON finance_ledger_entries
-  FOR EACH ROW EXECUTE FUNCTION tp88_reject_closed_period_ledger();
+  FOR EACH ROW EXECUTE FUNCTION daoche_reject_closed_period_ledger();

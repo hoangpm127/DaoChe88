@@ -74,7 +74,7 @@ function assertions(database) {
  * biến môi trường và xoá thư mục dữ liệu.
  */
 export async function freshDatabase(tag = "test", options = {}) {
-  const directory = await mkdtemp(path.join(os.tmpdir(), `tp88-${tag}-`));
+  const directory = await mkdtemp(path.join(os.tmpdir(), `daoche-${tag}-`));
   const previousUrl = process.env.DATABASE_URL;
   const previousSqlite = process.env.SQLITE_PATH;
 

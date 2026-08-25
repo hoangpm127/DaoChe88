@@ -30,7 +30,7 @@ type ProductRow = {
   updatedAt: string;
 };
 
-const categories = ["Tào phớ", "Chè", "Đồ uống", "Combo văn phòng", "Kiểm thử"] as const;
+const categories = ["Chè", "Đồ uống", "Combo văn phòng", "Kiểm thử"] as const;
 
 function jsonObject(value: unknown, field: string) {
   if (value === undefined) return undefined;

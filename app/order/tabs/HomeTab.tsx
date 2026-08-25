@@ -73,7 +73,7 @@ export default function HomeTab({ model }: HomeTabProps) {
             <div className={styles.noResults}>
               <Search size={28} />
               <strong>Chưa tìm thấy món phù hợp</strong>
-              <span>Thử tìm “tào phớ”, “chè” hoặc “matcha”.</span>
+              <span>Thử tìm “chè bưởi”, “khúc bạch” hoặc “sầu riêng”.</span>
             </div>
           )}
         </div>

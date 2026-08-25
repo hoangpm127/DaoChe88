@@ -65,7 +65,7 @@ function routeError(error: unknown, fallback: string) {
 function makeCode() {
   const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
   const random = crypto.getRandomValues(new Uint8Array(7));
-  return `TP88-${Array.from(random, (value) => alphabet[value % alphabet.length]).join("")}`;
+  return `DC-${Array.from(random, (value) => alphabet[value % alphabet.length]).join("")}`;
 }
 
 function normalizedGuestName(value: string) {
@@ -115,7 +115,7 @@ export async function GET(request: Request) {
     const url = new URL(request.url);
     const code = cleanCode(url.searchParams.get("code"));
     if (!code) return json({ error: "Thiếu mã phòng." }, 400);
-    const hostToken = request.headers.get("x-tp88-host-token") || undefined;
+    const hostToken = request.headers.get("x-daoche-host-token") || undefined;
     const payload = await roomPayload(code, hostToken);
     if (!payload) return json({ error: "Phòng không tồn tại hoặc đã được đóng." }, 404);
     if (roomExpired(payload.room)) return json({ error: "Phòng đã hết thời gian nhận món.", status: "expired" }, 410);
@@ -131,7 +131,7 @@ export async function POST(request: Request) {
     if (limit.blocked) return json({ error: "Bạn đã tạo quá nhiều phòng nhóm. Vui lòng thử lại sau.", code: "group_room_rate_limited" }, 429, { "retry-after": String(limit.retryAfterSeconds) });
     await ensureGroupRoomsSchema();
     const payload = await readJsonObject<CreatePayload>(request);
-    const office = payload.office?.trim() || "Phòng Tào Phớ 88";
+    const office = payload.office?.trim() || "Phòng Đảo Chè";
     const phone = payload.phone?.trim().replace(/[\s.-]/g, "") || "";
     if (office.length > 100 || (payload.address?.length || 0) > 240 || (payload.recipient?.length || 0) > 80
       || (payload.slot?.length || 0) > 40 || (payload.cutoff?.length || 0) > 40 || (payload.payment?.length || 0) > 80) {

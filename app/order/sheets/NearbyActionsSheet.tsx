@@ -34,7 +34,7 @@ export default function NearbyActionsSheet({ model }: NearbyActionsSheetProps) {
               </div>
             </div>
 
-            <div className={styles.actionHubDivider}><span>ĐỒNG HÀNH CÙNG TÀO PHỚ 88</span></div>
+            <div className={styles.actionHubDivider}><span>ĐỒNG HÀNH CÙNG ĐẢO CHÈ</span></div>
             <div className={styles.actionHubBusinessGrid}>
               <button className={styles.actionHubAffiliate} type="button" onClick={() => { setShowNearbyActions(false); openAffiliateApplication(); }}>
                 <span><UserPlus size={21} /></span>
@@ -51,7 +51,7 @@ export default function NearbyActionsSheet({ model }: NearbyActionsSheetProps) {
             </div>
             <blockquote className={styles.actionHubVerse}>
               {dailyActionHubVerse.map((line) => <span key={line}>{line}</span>)}
-              <strong>Tào Phớ 88 — “Mang vị quê hương mời bạn thưởng mỗi ngày”</strong>
+              <strong>Đảo Chè — “Mang vị quê hương mời bạn thưởng mỗi ngày”</strong>
             </blockquote>
           </section>
         </div>

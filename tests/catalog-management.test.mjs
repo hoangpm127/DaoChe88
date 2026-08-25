@@ -41,12 +41,12 @@ test("M3 quản trị catalog, giá theo điểm/loại điểm và giữ nguyê
   const unauthenticated = await request("/api/operations", {
     method: "POST",
     headers: { "content-type": "application/json" },
-    body: JSON.stringify({ command: "catalog.price.set", data: { sku: "TP-T2-S", scopeType: "base", price: 16_000 } }),
+    body: JSON.stringify({ command: "catalog.price.set", data: { sku: "DC-BUOI", scopeType: "base", price: 16_000 } }),
   });
   assert.equal(unauthenticated.status, 401);
 
-  await command({ command: "catalog.price.set", data: { sku: "TP-T2-S", scopeType: "site_kind", scopeValue: "official-store", price: 16_000, reason: "Giá cửa hàng chính thức" } });
-  await command({ command: "catalog.price.set", data: { sku: "TP-T2-S", scopeType: "site_kind", scopeValue: "partner-counter", price: 17_000, reason: "Giá quầy đối tác" } });
+  await command({ command: "catalog.price.set", data: { sku: "DC-BUOI", scopeType: "site_kind", scopeValue: "official-store", price: 16_000, reason: "Giá cửa hàng chính thức" } });
+  await command({ command: "catalog.price.set", data: { sku: "DC-BUOI", scopeType: "site_kind", scopeValue: "partner-counter", price: 17_000, reason: "Giá quầy đối tác" } });
 
   const [officialResponse, partnerResponse] = await Promise.all([
     request("/api/catalog?siteId=site-my-dinh&channel=webapp"),
@@ -54,9 +54,9 @@ test("M3 quản trị catalog, giá theo điểm/loại điểm và giữ nguyê
   ]);
   const official = await officialResponse.json();
   const partner = await partnerResponse.json();
-  assert.equal(official.products.find((product) => product.sku === "TP-T2-S").price, 16_000);
-  assert.match(official.products.find((product) => product.sku === "TP-T2-S").description, /đậu tương/i);
-  assert.equal(partner.products.find((product) => product.sku === "TP-T2-S").price, 17_000);
+  assert.equal(official.products.find((product) => product.sku === "DC-BUOI").price, 16_000);
+  assert.match(official.products.find((product) => product.sku === "DC-BUOI").description, /đậu xanh/i);
+  assert.equal(partner.products.find((product) => product.sku === "DC-BUOI").price, 17_000);
 
   const imageForm = new FormData();
   imageForm.set("file", new File([new Uint8Array([137, 80, 78, 71])], "catalog.png", { type: "image/png" }));
@@ -79,7 +79,7 @@ test("M3 quản trị catalog, giá theo điểm/loại điểm và giữ nguyê
         deliveryAddress: "Mỹ Đình, Hà Nội",
         siteId: "site-my-dinh",
         paymentMethod: "cash",
-        items: [{ productCode: "TP-T2-S", quantity: 1, unitPrice: 1 }],
+        items: [{ productCode: "DC-BUOI", quantity: 1, unitPrice: 1 }],
       },
     }),
   });
@@ -87,7 +87,7 @@ test("M3 quản trị catalog, giá theo điểm/loại điểm và giữ nguyê
   assert.equal(orderResponse.status, 201, JSON.stringify(order));
   assert.equal(order.result.amounts.subtotal, 16_000, "server phải bỏ qua giá giả từ client");
 
-  await command({ command: "catalog.price.set", data: { sku: "TP-T2-S", scopeType: "site", scopeValue: "site-my-dinh", price: 18_000, reason: "Giá mới sau khi đã đặt" } });
+  await command({ command: "catalog.price.set", data: { sku: "DC-BUOI", scopeType: "site", scopeValue: "site-my-dinh", price: 18_000, reason: "Giá mới sau khi đã đặt" } });
   const oldItem = await active.database.get("SELECT base_unit_price FROM operation_order_items WHERE order_id = ?", order.result.orderId);
   assert.equal(Number(oldItem.base_unit_price), 16_000, "đổi giá catalog không được sửa giá snapshot của đơn cũ");
 
@@ -96,10 +96,10 @@ test("M3 quản trị catalog, giá theo điểm/loại điểm và giữ nguyê
     data: {
       sku: "M3-TEST-PRODUCT",
       name: "Món kiểm thử M3",
-      category: "Tào phớ",
+      category: "Chè",
       basePrice: 19_000,
       description: "Nội dung lấy từ database",
-      ingredients: "Đậu nành",
+      ingredients: "Đậu xanh",
       tags: ["mới"],
       nutrition: { calories: 120 },
       sweetness: ["30%", "50%"],
@@ -111,7 +111,7 @@ test("M3 quản trị catalog, giá theo điểm/loại điểm và giữ nguyê
   assert.equal(createdProduct.description, "Nội dung lấy từ database");
   assert.equal(createdProduct.options[0].priceDelta, 6_000);
 
-  const invalidPrice = await command({ command: "catalog.price.set", data: { sku: "TP-T2-S", scopeType: "base", price: -1 } }, 400);
+  const invalidPrice = await command({ command: "catalog.price.set", data: { sku: "DC-BUOI", scopeType: "base", price: -1 } }, 400);
   assert.equal(invalidPrice.code, "number_out_of_range");
 
   await command({ command: "catalog.option.archive", data: { code: "M3-TEST-PRODUCT.TOPPING.1" } });

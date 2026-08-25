@@ -66,7 +66,7 @@ export default function OffersTab({ model }: OffersTabProps) {
         <div className={styles.offersEmpty}>
           <TicketPercent size={30} />
           <strong>Chưa có ưu đãi nào</strong>
-          <p>Khi Tào Phớ 88 phát hành mã giảm giá áp dụng cho bạn, mã sẽ xuất hiện ở đây. Bạn cũng có thể nhập mã trực tiếp ở bước thanh toán.</p>
+          <p>Khi Đảo Chè phát hành mã giảm giá áp dụng cho bạn, mã sẽ xuất hiện ở đây. Bạn cũng có thể nhập mã trực tiếp ở bước thanh toán.</p>
         </div>
       ) : (
         <>

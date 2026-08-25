@@ -13,7 +13,7 @@ export default function CatalogView({ model }: CatalogViewProps) {
     <section className={styles.catalogPage}>
       <div className={styles.catalogHeading}>
         <div>
-          <small>THỰC ĐƠN TÀO PHỚ 88</small>
+          <small>THỰC ĐƠN ĐẢO CHÈ</small>
           <h1>Tất cả món</h1>
           <p>
             {visibleProducts.length} lựa chọn · làm từ {selectedServicePoint}

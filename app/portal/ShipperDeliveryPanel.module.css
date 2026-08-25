@@ -1,19 +1,19 @@
 .panel { display: grid; gap: 10px; margin-top: 14px; }
 .panel button { min-height: 44px; border-radius: 13px; padding: 0 14px; font-weight: 850; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
-.primary { border: 0; background: #168d34; color: white; }
-.location { border: 1px solid rgba(24,55,42,.14); background: #edf7e6; color: #126e2c; }
+.primary { border: 0; background: #9f6803; color: white; }
+.location { border: 1px solid rgba(57, 46, 27, .14); background: #fff0e2; color: #7c5102; }
 .choices { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
-.choices button:first-child { border: 0; background: #168d34; color: white; }
+.choices button:first-child { border: 0; background: #9f6803; color: white; }
 .choices button:last-child { border: 1px solid #efb09a; background: #fff0eb; color: #b9330b; }
 .failureLink { border: 0; background: transparent; color: #b9330b; text-decoration: underline; }
 .form { display: grid; gap: 11px; padding: 14px; border-radius: 15px; background: #f7f4eb; }
 .form label { display: grid; gap: 6px; font-size: 12px; font-weight: 800; }
-.form input, .form textarea { border: 1px solid rgba(24,55,42,.14); border-radius: 11px; padding: 10px; background: white; color: #18372a; }
+.form input, .form textarea { border: 1px solid rgba(57, 46, 27, .14); border-radius: 11px; padding: 10px; background: white; color: #392e1b; }
 .form textarea { min-height: 74px; resize: vertical; }
-.photo { min-height: 48px; place-items: center; grid-template-columns: auto 1fr; padding: 0 12px; border: 1px dashed #168d34; border-radius: 12px; color: #126e2c; background: white; }
+.photo { min-height: 48px; place-items: center; grid-template-columns: auto 1fr; padding: 0 12px; border: 1px dashed #9f6803; border-radius: 12px; color: #7c5102; background: white; }
 .photo input { position: absolute; width: 1px; height: 1px; opacity: 0; }
 .form > div { display: grid; grid-template-columns: 1fr 1.4fr; gap: 8px; }
-.form > div button:first-child { border: 1px solid rgba(24,55,42,.14); background: white; color: #18372a; }
-.form > div button:last-child { border: 0; background: #168d34; color: white; }
-.panel > small { color: #65756d; }
+.form > div button:first-child { border: 1px solid rgba(57, 46, 27, .14); background: white; color: #392e1b; }
+.form > div button:last-child { border: 0; background: #9f6803; color: white; }
+.panel > small { color: #777063; }
 .panel > p { margin: 0; padding: 9px 11px; border-radius: 11px; background: #fff0eb; color: #b9330b; font-size: 12px; font-weight: 750; }

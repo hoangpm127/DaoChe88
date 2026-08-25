@@ -100,7 +100,7 @@ export default function OrderTraceability() {
           <span>Mã đơn hàng</span>
           <input
             required
-            placeholder="TP88-260825-…"
+            placeholder="DC-260825-…"
             value={orderCode}
             onChange={(event) => setOrderCode(event.target.value)}
           />

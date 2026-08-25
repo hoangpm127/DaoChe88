@@ -9,7 +9,7 @@ import path from "node:path";
 
 process.env.SEPAY_BANK_ACCOUNT = "88888888188";
 process.env.SEPAY_BANK_CODE = "TPBank";
-process.env.SEPAY_PAYMENT_PREFIX = "TPHO";
+process.env.SEPAY_PAYMENT_PREFIX = "DCHE";
 process.env.ORDER_DATA_MODE = "test";
 
 async function loadWorker() {
@@ -84,10 +84,10 @@ test("operations API seeds a usable snapshot and persists demo commands on Postg
   assert.equal(catalog.ok, true);
   assert.equal(catalog.currency, "VND");
   assert.ok(catalog.products.length >= 12);
-  assert.equal(catalog.products.find((product) => product.sku === "TP-T2-S").price, 15000);
+  assert.equal(catalog.products.find((product) => product.sku === "DC-BUOI").price, 28000);
   assert.deepEqual(
-    catalog.products.find((product) => product.sku === "TP-T2-S").options[0],
-    { code: "TP-T2-S.TOPPING.1", kind: "topping", name: "Trân châu mini", priceDelta: 5000 },
+    catalog.products.find((product) => product.sku === "DC-BUOI").options[0],
+    { code: "DC-BUOI.TOPPING.1", kind: "topping", name: "Trân châu trắng", priceDelta: 5000 },
   );
 
   const commandResponse = await request("/api/operations", {
@@ -96,14 +96,14 @@ test("operations API seeds a usable snapshot and persists demo commands on Postg
     body: JSON.stringify({
       command: "inventory.adjust",
       actor: { role: "kitchen", name: "Test bếp" },
-      data: { inventoryId: "inv-jasmine-central", delta: 6, reason: "Nhập ca chiều" },
+      data: { inventoryId: "inv-sen-central", delta: 6, reason: "Nhập ca chiều" },
     }),
   });
   assert.equal(commandResponse.status, 200);
   const commandBody = await commandResponse.json();
   assert.equal(commandBody.ok, true);
   assert.equal(commandBody.result.onHand, 20);
-  assert.equal(commandBody.snapshot.inventory.find((item) => item.id === "inv-jasmine-central").quantity, 20);
+  assert.equal(commandBody.snapshot.inventory.find((item) => item.id === "inv-sen-central").quantity, 20);
   assert.equal(commandBody.snapshot.events[0].action, "inventory.adjust");
 
   const createResponse = await request("/api/operations", {
@@ -120,7 +120,7 @@ test("operations API seeds a usable snapshot and persists demo commands on Postg
         paymentStatus: "paid",
         affiliateCode: "HA88",
         affiliateBps: 800,
-        items: [{ productCode: "TP-HN", productName: "Tên giả từ client", quantity: 2, unitPrice: 1 }],
+        items: [{ productCode: "DC-CHEBUOI", productName: "Tên giả từ client", quantity: 2, unitPrice: 1 }],
       },
     }),
   });
@@ -128,9 +128,9 @@ test("operations API seeds a usable snapshot and persists demo commands on Postg
   const created = await createResponse.json();
   assert.equal(created.ok, true);
   assert.equal("snapshot" in created, false, "public order creation must not return an operations snapshot");
-  assert.equal(created.result.amounts.total, 45000);
+  assert.equal(created.result.amounts.total, 71000);
   assert.equal(created.result.amounts.deliveryFee, 15000);
-  assert.match(created.result.payment.paymentCode, /^TPHO[A-F0-9]{12}$/);
+  assert.match(created.result.payment.paymentCode, /^DCHE[A-F0-9]{12}$/);
   assert.equal(created.result.payment.bankAccount, "88888888188");
 
   const customizedResponse = await request("/api/operations", {
@@ -144,19 +144,19 @@ test("operations API seeds a usable snapshot and persists demo commands on Postg
         deliveryAddress: "Mỹ Đình, Hà Nội",
         siteId: "site-my-dinh",
         paymentMethod: "cash",
-        items: [{ productCode: "TP-T2-S", quantity: 2, unitPrice: 1, optionCodes: ["TP-T2-S.TOPPING.1"], sweetness: "30%", temperature: "Lạnh" }],
+        items: [{ productCode: "DC-BUOI", quantity: 2, unitPrice: 1, optionCodes: ["DC-BUOI.TOPPING.1"], sweetness: "30%", temperature: "Lạnh" }],
       },
     }),
   });
   assert.equal(customizedResponse.status, 201);
   const customized = await customizedResponse.json();
-  assert.equal(customized.result.amounts.subtotal, 40000, "backend must calculate base price plus topping and ignore client price");
-  assert.equal(customized.result.amounts.total, 55000);
+  assert.equal(customized.result.amounts.subtotal, 66000, "backend must calculate base price plus topping and ignore client price");
+  assert.equal(customized.result.amounts.total, 81000);
 
   const invalidOptionResponse = await request("/api/operations", {
     method: "POST",
     headers: { "content-type": "application/json" },
-    body: JSON.stringify({ command: "order.create", data: { customerName: "Khách topping sai", deliveryAddress: "Mỹ Đình, Hà Nội", siteId: "site-my-dinh", items: [{ productCode: "TP-T2-S", quantity: 1, optionCodes: ["CH-KB.TOPPING.1"] }] } }),
+    body: JSON.stringify({ command: "order.create", data: { customerName: "Khách topping sai", deliveryAddress: "Mỹ Đình, Hà Nội", siteId: "site-my-dinh", items: [{ productCode: "DC-BUOI", quantity: 1, optionCodes: ["DC-KHUCBACH.TOPPING.1"] }] } }),
   });
   assert.equal(invalidOptionResponse.status, 400);
   assert.equal((await invalidOptionResponse.json()).code, "invalid_product_option");
@@ -172,7 +172,7 @@ test("operations API seeds a usable snapshot and persists demo commands on Postg
         deliveryAddress: "Cầu Giấy, Hà Nội",
         siteId: "site-cau-giay",
         partnerId: "partner-forged",
-        items: [{ productCode: "TP-T2-S", quantity: 1 }],
+        items: [{ productCode: "DC-BUOI", quantity: 1 }],
       },
     }),
   });
@@ -188,7 +188,7 @@ test("operations API seeds a usable snapshot and persists demo commands on Postg
         customerName: "Khách chọn sai điểm",
         deliveryAddress: "Hà Nội",
         siteId: "site-central-kitchen",
-        items: [{ productCode: "TP-T2-S", quantity: 1 }],
+        items: [{ productCode: "DC-BUOI", quantity: 1 }],
       },
     }),
   });
@@ -201,17 +201,17 @@ test("operations API seeds a usable snapshot and persists demo commands on Postg
   const createdOrder = createdSnapshot.orders.find((order) => order.id === created.result.orderId);
   assert.equal(createdOrder.customerName, "Khách demo API");
   assert.equal(createdOrder.status, "new");
-  assert.equal(createdOrder.total, 45000);
+  assert.equal(createdOrder.total, 71000);
   assert.equal(createdOrder.paymentMethod, "bank_transfer");
   assert.equal(createdOrder.isTest, true);
   assert.equal(createdSnapshot.finance.orderEconomics.find((row) => row.orderId === partnerOrder.result.orderId).partnerId, "partner-moc-coffee");
   const economics = createdSnapshot.finance.orderEconomics.find((row) => row.orderId === created.result.orderId);
-  assert.equal(economics.workshopCost, 9000);
-  assert.equal(economics.partnerLogistics, 9000);
-  assert.equal(economics.landedPartner, 18000);
-  assert.equal(economics.channelPool, 27000);
-  assert.equal(economics.affiliateCommission, 3600);
-  assert.equal(economics.channelContribution, 23400);
+  assert.equal(economics.workshopCost, 14200);
+  assert.equal(economics.partnerLogistics, 14200);
+  assert.equal(economics.landedPartner, 28400);
+  assert.equal(economics.channelPool, 42600);
+  assert.equal(economics.affiliateCommission, 5680);
+  assert.equal(economics.channelContribution, 36920);
 
   const unknownProductResponse = await request("/api/operations", {
     method: "POST",
@@ -223,7 +223,7 @@ test("operations API seeds a usable snapshot and persists demo commands on Postg
         customerPhone: "0900000089",
         deliveryAddress: "Hà Nội",
         siteId: "site-my-dinh",
-        items: [{ productCode: "TP-NOT-REAL", quantity: 1, unitPrice: 1 }],
+        items: [{ productCode: "DC-NOT-REAL", quantity: 1, unitPrice: 1 }],
       },
     }),
   });
@@ -246,7 +246,7 @@ test("operations API seeds a usable snapshot and persists demo commands on Postg
       customerName: "Khách kiểm thử trùng mã",
       deliveryAddress: "Mỹ Đình, Hà Nội",
       siteId: "site-my-dinh",
-      items: [{ productCode: "TP-T2-S", quantity: 1 }],
+      items: [{ productCode: "DC-BUOI", quantity: 1 }],
     },
   };
   const firstReferenceResponse = await request("/api/operations", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(repeatedClientReference) });
@@ -273,7 +273,7 @@ test("operations API seeds a usable snapshot and persists demo commands on Postg
         customerName: "Khách gửi quá nhiều dòng",
         deliveryAddress: "Mỹ Đình, Hà Nội",
         siteId: "site-my-dinh",
-        items: Array.from({ length: 51 }, () => ({ productCode: "TP-T2-S", quantity: 1 })),
+        items: Array.from({ length: 51 }, () => ({ productCode: "DC-BUOI", quantity: 1 })),
       },
     }),
   });
@@ -292,7 +292,7 @@ test("operations API seeds a usable snapshot and persists demo commands on Postg
   assert.equal(prematureSettlementResponse.status, 409);
   assert.equal((await prematureSettlementResponse.json()).code, "ledger_not_settleable");
 
-  const earnedAffiliate = createdSnapshot.finance.ledger.find((row) => row.referenceId === "TP88-240799" && row.type === "affiliate_commission");
+  const earnedAffiliate = createdSnapshot.finance.ledger.find((row) => row.referenceId === "DC-240799" && row.type === "affiliate_commission");
   assert.equal(earnedAffiliate.status, "pending", "the finance view groups earned commissions into the pending settlement queue");
   const settleResponse = await request("/api/operations", {
     method: "POST",
@@ -311,7 +311,7 @@ test("operations API seeds a usable snapshot and persists demo commands on Postg
     body: JSON.stringify({
       command: "expense.create",
       actor: { role: "store", name: "Quản lý Mỹ Đình" },
-      data: { locationId: "site-my-dinh", locationName: "Tào Phớ 88 Mỹ Đình", category: "utilities", description: "Mua bổ sung đá sạch", amount: 125000, occurredAt: "2026-08-01", receiptReference: "HD-TEST-001", submittedBy: "Quản lý Mỹ Đình" },
+      data: { locationId: "site-my-dinh", locationName: "Đảo Chè Mỹ Đình", category: "utilities", description: "Mua bổ sung đá sạch", amount: 125000, occurredAt: "2026-08-01", receiptReference: "HD-TEST-001", submittedBy: "Quản lý Mỹ Đình" },
     }),
   });
   assert.equal(expenseResponse.status, 200);
@@ -376,7 +376,7 @@ test("public order creation rate limits repeated automated requests", async () =
       customerName: "Kiểm thử giới hạn",
       deliveryAddress: "Mỹ Đình, Hà Nội",
       siteId: "site-my-dinh",
-      items: [{ productCode: "TP-NOT-REAL", quantity: 1 }],
+      items: [{ productCode: "DC-NOT-REAL", quantity: 1 }],
     },
   });
   for (let attempt = 1; attempt <= 12; attempt += 1) {

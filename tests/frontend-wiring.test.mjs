@@ -237,7 +237,7 @@ test("sổ địa chỉ giao hàng không chứa địa điểm dựng sẵn", a
     /Keangnam Landmark/i,
     /FPT Tower/i,
     /Gardenia/i,
-    /Tào Phớ 88 Demo/i,
+    /Đảo Chè Demo/i,
     /Phạm Văn Bạch/i,
   ];
   const viPham = DIA_CHI_BIA.filter((pattern) => pattern.test(source)).map(String);

@@ -11,7 +11,7 @@ const sourcePath = resolve(source);
 const targetDirectory = resolve(directory);
 await mkdir(targetDirectory, { recursive: true });
 const stamp = new Date().toISOString().replaceAll(":", "-");
-const outputPath = resolve(targetDirectory, `tp88-volume-${stamp}.tar.enc`);
+const outputPath = resolve(targetDirectory, `daoche-volume-${stamp}.tar.enc`);
 const child = spawn("tar", ["-cf", "-", "-C", sourcePath, "."], { stdio: ["ignore", "pipe", "pipe"], windowsHide: true });
 let stderr = "";
 child.stderr.setEncoding("utf8");
@@ -34,5 +34,5 @@ if (remote) {
     upload.once("close", (code) => code === 0 ? resolveUpload() : reject(new Error(`rclone lỗi (${code}).`)));
   });
 }
-const deleted = await pruneBackups(targetDirectory, "tp88-volume-", Number(process.env.BACKUP_RETENTION_DAYS || 30));
+const deleted = await pruneBackups(targetDirectory, "daoche-volume-", Number(process.env.BACKUP_RETENTION_DAYS || 30));
 console.log(JSON.stringify({ ok: true, backup: outputPath, uploaded: Boolean(remote), oldBackupsDeleted: deleted }));

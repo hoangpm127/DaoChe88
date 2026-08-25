@@ -1,4 +1,4 @@
-# Tích hợp Lalamove cho Tào Phớ 88
+# Tích hợp Lalamove cho Đảo Chè
 
 ## Trạng thái triển khai
 
@@ -8,7 +8,7 @@
 - `LALAMOVE_ENABLED=true`, `LALAMOVE_ENV=sandbox`, `ORDER_DATA_MODE=test`, `LALAMOVE_AUTO_BOOK=false`.
 - Dịch vụ mặc định là `MOTORCYCLE`; ngưỡng cước tự động hiện đặt ở 30.000đ.
 - Chữ ký HMAC đã được xác minh bằng một yêu cầu đọc tới API Sandbox thật.
-- Webhook V3 đã đăng ký tại `https://taopho88-production.up.railway.app/api/webhooks/lalamove`.
+- Webhook V3 đã đăng ký tại `https://daoche-production.up.railway.app/api/webhooks/lalamove`.
 - Health production báo Lalamove `enabled=true`, `configured=true`, `credentials=true`.
 - E2E Sandbox thật đã đạt ngày 2026-08-18: quote 12.000đ/500m, book nhận mã chuyến, refresh và hủy thành công; hai webhook V3 `ASSIGNING_DRIVER`/`CANCELED` đều được xác thực, lưu DB và trả HTTP 200. Không có tài xế thật và không phát sinh phí.
 - Chưa go-live: còn phải cấp khóa/tín dụng Production và tách quyền cho phép đặt chuyến Production khỏi `LALAMOVE_AUTO_BOOK`, vì quy trình đã chốt là nhân viên bấm xác nhận thay vì tự động gọi tài xế.

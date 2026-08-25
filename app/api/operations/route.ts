@@ -87,7 +87,7 @@ export async function POST(request: Request) {
             channel: publicData.channel === "group-order" ? "group-order" : "webapp",
             paymentMethod: publicData.paymentMethod || (_ignoredPaymentStatus === "cod" ? "cash" : "bank_transfer"),
           },
-        }, { role: "customer", actorName: customerName || "Khách hàng Tào Phớ 88", includeSnapshot: false });
+        }, { role: "customer", actorName: customerName || "Khách hàng Đảo Chè", includeSnapshot: false });
 
         // Đánh dấu lượt bấm đã thành đơn để không quy kết lại cho đơn kế tiếp.
         const createdOrderId = (result as { result?: { orderId?: string } }).result?.orderId;

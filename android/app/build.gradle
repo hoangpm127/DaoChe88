@@ -1,11 +1,11 @@
 apply plugin: "com.android.application"
 
 android {
-    namespace "vn.taopho88.customer"
+    namespace "vn.daoche.customer"
     compileSdk 35
 
     defaultConfig {
-        applicationId "vn.taopho88.customer"
+        applicationId "vn.daoche.customer"
         minSdk 24
         targetSdk 34
         versionCode 2

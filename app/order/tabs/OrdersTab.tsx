@@ -42,7 +42,7 @@ export default function OrdersTab({ model }: OrdersTabProps) {
             <span>{activeOrder.status === "preparing" ? "ĐANG LÀM MÓN" : activeOrder.status === "delivering" ? "ĐANG GIAO" : activeOrder.status === "completed" ? "ĐÃ GIAO" : activeOrder.status === "cancelled" ? "ĐÃ HỦY" : "ĐÃ XÁC NHẬN"}</span>
             <small>#{activeOrder.id}</small>
           </div>
-          <h2>Đơn từ Tào Phớ 88 {activeOrder.point}</h2>
+          <h2>Đơn từ Đảo Chè {activeOrder.point}</h2>
           <p>
             {activeOrder.lines.reduce((sum, line) => sum + line.quantity, 0)} món · {money(activeOrder.total)} · {activeOrder.payment === "qr" ? "thanh toán QR" : "tiền mặt"}
           </p>

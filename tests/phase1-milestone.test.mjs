@@ -53,8 +53,8 @@ test("chủ cửa hàng Hà Đông chỉ thấy dữ liệu Hà Đông", async (
     return (await response.json()).result.siteId;
   };
 
-  const haDongId = await createSite("NT-HADONG", "Tào Phớ 88 Hà Đông", "Hà Đông");
-  const myDinhId = await createSite("NT-MYDINH2", "Tào Phớ 88 Mỹ Đình 2", "Nam Từ Liêm");
+  const haDongId = await createSite("NT-HADONG", "Đảo Chè Hà Đông", "Hà Đông");
+  const myDinhId = await createSite("NT-MYDINH2", "Đảo Chè Mỹ Đình 2", "Nam Từ Liêm");
   assert.notEqual(haDongId, myDinhId);
 
   // --- Đơn hàng thật ở cả hai điểm, để có gì đó mà phân biệt ---
@@ -72,7 +72,7 @@ test("chủ cửa hàng Hà Đông chỉ thấy dữ liệu Hà Đông", async (
           fulfillmentType: "pickup",
           siteId,
           paymentMethod: "cash",
-          items: [{ productCode: "TP-HN", quantity: 1 }],
+          items: [{ productCode: "DC-CHEBUOI", quantity: 1 }],
         },
       }),
     });

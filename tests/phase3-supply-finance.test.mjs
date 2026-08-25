@@ -17,7 +17,7 @@ async function setup(name, demoSeed) {
   process.env.ORDER_DATA_MODE = "test";
   process.env.SEPAY_BANK_ACCOUNT = "88888888188";
   process.env.SEPAY_BANK_CODE = "TPBank";
-  process.env.SEPAY_PAYMENT_PREFIX = "TPHO";
+  process.env.SEPAY_PAYMENT_PREFIX = "DCHE";
   const worker = await loadServer(name);
   const request = (pathname, init) => worker.fetch(new Request(`http://localhost${pathname}`, init), runtimeEnv, executionContext);
   const owner = await ownerCookie(request);
@@ -47,13 +47,13 @@ test("M7 mua hàng, sản xuất, FEFO, nhận thiếu, COGS thực, truy xuất
     items: [{ materialSku: "NL-M7-DAU", materialName: "Đậu nành M7", unit: "kg", quantity: 100_000, unitCost: 10_000 }],
   });
   await command(request, owner, "purchase.receive", { purchaseOrderId: purchase.result.purchaseOrderId, items: [] });
-  await command(request, owner, "recipe.upsert", { productSku: "TP-T2-S", materials: [{ materialSku: "NL-M7-DAU", quantityPerUnit: 500, unit: "kg" }] });
-  const planned = await command(request, owner, "production.plan", { siteId: "site-central-kitchen", productSku: "TP-T2-S", batchCode: "LOT-M7-001", plannedQuantity: 200 });
+  await command(request, owner, "recipe.upsert", { productSku: "DC-BUOI", materials: [{ materialSku: "NL-M7-DAU", quantityPerUnit: 500, unit: "kg" }] });
+  const planned = await command(request, owner, "production.plan", { siteId: "site-central-kitchen", productSku: "DC-BUOI", batchCode: "LOT-M7-001", plannedQuantity: 200 });
   await command(request, owner, "production.start", { batchId: planned.result.batchId });
   const completed = await command(request, owner, "production.complete", { batchId: planned.result.batchId, producedQuantity: 200, rejectedQuantity: 0, laborCost: 100_000, overheadCost: 100_000, expiresAt, qualityNote: "Đạt QA M7" });
   assert.equal(completed.result.unitCost, 6_000);
 
-  const transfer = await command(request, owner, "transfer.request", { fromSiteId: "site-central-kitchen", toSiteId: "site-my-dinh", transferCode: "DC-M7-001", items: [{ productSku: "TP-T2-S", quantity: 30 }] });
+  const transfer = await command(request, owner, "transfer.request", { fromSiteId: "site-central-kitchen", toSiteId: "site-my-dinh", transferCode: "DC-M7-001", items: [{ productSku: "DC-BUOI", quantity: 30 }] });
   await command(request, owner, "transfer.approve", { transferId: transfer.result.transferId });
   await command(request, owner, "transfer.pack", { transferId: transfer.result.transferId });
   await command(request, owner, "transfer.ship", { transferId: transfer.result.transferId, vehicle: "29A-M7", driverName: "Tài xế M7" });
@@ -71,7 +71,7 @@ test("M7 mua hàng, sản xuất, FEFO, nhận thiếu, COGS thực, truy xuất
   const orderResponse = await request("/api/operations", {
     method: "POST",
     headers: { "content-type": "application/json", "idempotency-key": "m7-real-cogs-order" },
-    body: JSON.stringify({ command: "order.create", data: { customerName: "Khách COGS M7", customerPhone: "0900000707", deliveryAddress: "Mỹ Đình", fulfillmentType: "pickup", siteId: "site-my-dinh", paymentMethod: "bank_transfer", items: [{ productCode: "TP-T2-S", quantity: 1 }] } }),
+    body: JSON.stringify({ command: "order.create", data: { customerName: "Khách COGS M7", customerPhone: "0900000707", deliveryAddress: "Mỹ Đình", fulfillmentType: "pickup", siteId: "site-my-dinh", paymentMethod: "bank_transfer", items: [{ productCode: "DC-BUOI", quantity: 1 }] } }),
   });
   const order = await orderResponse.json();
   assert.equal(orderResponse.status, 201, JSON.stringify(order));
@@ -91,7 +91,7 @@ test("M7 mua hàng, sản xuất, FEFO, nhận thiếu, COGS thực, truy xuất
   assert.equal(trace.materialUsage[0].supplierCode, "NCC-M7");
 
   const count = await command(request, storeOwner, "stockcount.open", { siteId: "site-my-dinh", countType: "shift_close" });
-  const countItem = (await database.get("SELECT product_sku, system_quantity FROM stock_count_items WHERE count_id = ? AND product_sku = 'TP-T2-S'", count.result.countId));
+  const countItem = (await database.get("SELECT product_sku, system_quantity FROM stock_count_items WHERE count_id = ? AND product_sku = 'DC-BUOI'", count.result.countId));
   await command(request, storeOwner, "stockcount.submit", { countId: count.result.countId, items: [{ productSku: countItem.product_sku, countedQuantity: countItem.system_quantity - 3, reason: "Thiếu ba phần cuối ca" }] });
   await command(request, storeOwner, "stockcount.approve", { countId: count.result.countId });
   assert.equal((await database.get("SELECT COUNT(*) AS count FROM operation_alerts WHERE entity_id = ? AND category = 'stock-variance'", count.result.countId)).count, 1);
@@ -100,20 +100,20 @@ test("M7 mua hàng, sản xuất, FEFO, nhận thiếu, COGS thực, truy xuất
   const expiredAt = new Date(Date.now() - 86_400_000).toISOString();
   // INSERT OR REPLACE la cu phap rieng SQLite; PostgreSQL dung ON CONFLICT.
   await database.run(`INSERT INTO catalog_site_stock (id, site_id, product_sku, on_hand, reserved, track_stock, status)
-    VALUES ('m7-expired-stock', 'site-keangnam', 'TP-T2-S', 5, 0, 1, 'available')
+    VALUES ('m7-expired-stock', 'site-keangnam', 'DC-BUOI', 5, 0, 1, 'available')
     ON CONFLICT (id) DO UPDATE SET on_hand = excluded.on_hand, reserved = excluded.reserved,
       track_stock = excluded.track_stock, status = excluded.status`);
-  await database.run("INSERT INTO site_stock_lots (id, site_id, product_sku, batch_id, quantity, unit_cost, expires_at, received_at, status) VALUES ('m7-expired-lot', 'site-keangnam', 'TP-T2-S', NULL, 5, 6000, ?, ?, 'available')", expiredAt, expiredAt);
-  const expiredOrder = await request("/api/operations", { method: "POST", headers: { "content-type": "application/json", "idempotency-key": "m7-expired-order" }, body: JSON.stringify({ command: "order.create", data: { customerName: "Khách hết hạn", customerPhone: "0900000708", deliveryAddress: "Keangnam", fulfillmentType: "pickup", siteId: "site-keangnam", paymentMethod: "cash", items: [{ productCode: "TP-T2-S", quantity: 1 }] } }) });
+  await database.run("INSERT INTO site_stock_lots (id, site_id, product_sku, batch_id, quantity, unit_cost, expires_at, received_at, status) VALUES ('m7-expired-lot', 'site-keangnam', 'DC-BUOI', NULL, 5, 6000, ?, ?, 'available')", expiredAt, expiredAt);
+  const expiredOrder = await request("/api/operations", { method: "POST", headers: { "content-type": "application/json", "idempotency-key": "m7-expired-order" }, body: JSON.stringify({ command: "order.create", data: { customerName: "Khách hết hạn", customerPhone: "0900000708", deliveryAddress: "Keangnam", fulfillmentType: "pickup", siteId: "site-keangnam", paymentMethod: "cash", items: [{ productCode: "DC-BUOI", quantity: 1 }] } }) });
   const expiredBody = await expiredOrder.json();
   assert.equal(expiredOrder.status, 409, JSON.stringify(expiredBody));
   assert.equal(expiredBody.code, "insufficient_fefo_stock");
-  const expiredWaste = await command(request, owner, "waste.record", { siteId: "site-keangnam", productSku: "TP-T2-S", quantity: 5, reason: "expired", photoUrl: "https://example.invalid/evidence/m7-expired.jpg" });
+  const expiredWaste = await command(request, owner, "waste.record", { siteId: "site-keangnam", productSku: "DC-BUOI", quantity: 5, reason: "expired", photoUrl: "https://example.invalid/evidence/m7-expired.jpg" });
   assert.equal(expiredWaste.result.totalCost, 30_000);
   assert.equal((await database.get("SELECT COUNT(*) AS count FROM waste_records WHERE site_id = 'site-keangnam' AND reason = 'expired'")).count, 1);
-  assert.equal((await database.get("SELECT on_hand FROM catalog_site_stock WHERE site_id = 'site-keangnam' AND product_sku = 'TP-T2-S'")).on_hand, 0);
+  assert.equal((await database.get("SELECT on_hand FROM catalog_site_stock WHERE site_id = 'site-keangnam' AND product_sku = 'DC-BUOI'")).on_hand, 0);
 
-  const restrictedTransfer = await command(request, owner, "transfer.request", { fromSiteId: "site-central-kitchen", toSiteId: "site-my-dinh", transferCode: "DC-M7-SCOPE", items: [{ productSku: "TP-T2-S", quantity: 1 }] });
+  const restrictedTransfer = await command(request, owner, "transfer.request", { fromSiteId: "site-central-kitchen", toSiteId: "site-my-dinh", transferCode: "DC-M7-SCOPE", items: [{ productSku: "DC-BUOI", quantity: 1 }] });
   const otherStoreStaff = await portalCookie(request, "store-staff", { siteIds: ["site-keangnam"] });
   const forbiddenReject = await command(request, otherStoreStaff, "transfer.reject", { transferId: restrictedTransfer.result.transferId, reason: "Không thuộc điểm được giao" }, 403);
   assert.equal(forbiddenReject.code, "entity_out_of_scope");

@@ -11,7 +11,7 @@ import { getRuntimeDatabase } from "../db/runtime-database.ts";
 import { readSessionForCustomer, type CustomerSession } from "./auth/sessions.ts";
 import { readCookie, secureCookieSuffix, signSessionToken, verifySignedToken } from "./portal-session.ts";
 
-export const CUSTOMER_SESSION_COOKIE = "tp88_customer_session";
+export const CUSTOMER_SESSION_COOKIE = "daoche_customer_session";
 export const CUSTOMER_SESSION_TTL_SECONDS = 60 * 24 * 60 * 60;
 
 export function customerSessionConfigReady() {

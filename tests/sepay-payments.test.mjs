@@ -10,7 +10,7 @@ import { portalCookie, configureAuthEnvironment } from "./helpers/portal-login.m
 
 const executionContext = { waitUntil() {}, passThroughOnException() {} };
 const runtimeEnv = { ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) } };
-const webhookSecret = "tp88-sepay-test-webhook-secret-at-least-32-characters";
+const webhookSecret = "daoche-sepay-test-webhook-secret-at-least-32-characters";
 
 async function loadWorker() {
   return loadServer("sepay-payments-test");
@@ -37,7 +37,7 @@ test("SePay payment flow stores normalized test orders and reconciles signed web
   process.env.ORDER_DATA_MODE = "test";
   process.env.SEPAY_BANK_ACCOUNT = "88888888188";
   process.env.SEPAY_BANK_CODE = "TPBank";
-  process.env.SEPAY_PAYMENT_PREFIX = "TPHO";
+  process.env.SEPAY_PAYMENT_PREFIX = "DCHE";
   process.env.SEPAY_WEBHOOK_AUTH_MODE = "hmac";
   process.env.SEPAY_WEBHOOK_SECRET = webhookSecret;
 
@@ -60,22 +60,22 @@ test("SePay payment flow stores normalized test orders and reconciles signed web
         fulfillmentType: "delivery",
         paymentMethod: "qr",
         siteId: "site-my-dinh",
-        items: [{ productCode: "TP-T2-S", quantity: 2, unitPrice: 1 }],
+        items: [{ productCode: "DC-BUOI", quantity: 2, unitPrice: 1 }],
       },
     }),
   });
   assert.equal(createResponse.status, 201);
   const created = await createResponse.json();
-  assert.equal(created.result.amounts.subtotal, 30000);
+  assert.equal(created.result.amounts.subtotal, 56000);
   assert.equal(created.result.amounts.deliveryFee, 15000);
-  assert.equal(created.result.amounts.total, 45000);
-  assert.equal(created.result.payment.amount, 45000);
+  assert.equal(created.result.amounts.total, 71000);
+  assert.equal(created.result.payment.amount, 71000);
   assert.equal(created.result.payment.bankCode, "TPBank");
   assert.equal(created.result.payment.bankAccount, "88888888188");
-  assert.match(created.result.payment.paymentCode, /^TPHO[A-F0-9]{12}$/);
+  assert.match(created.result.payment.paymentCode, /^DCHE[A-F0-9]{12}$/);
   assert.match(created.result.payment.qrUrl, /^https:\/\/vietqr\.app\/img\?/);
   assert.notEqual(created.result.orderId, "DR-SEPAY-TEST-001");
-  assert.match(created.result.orderCode, /^TP88-\d{6}-[A-F0-9]{10}$/);
+  assert.match(created.result.orderCode, /^DC-\d{6}-[A-F0-9]{10}$/);
   const primaryOrderId = created.result.orderId;
   const paymentCode = created.result.payment.paymentCode;
   assert.equal((await database.get("SELECT status FROM finance_order_allocations WHERE order_id = ?", primaryOrderId)).status, "pending");
@@ -147,28 +147,28 @@ test("SePay payment flow stores normalized test orders and reconciles signed web
     ...partialPayload,
     id: 1002,
     transactionDate: "2026-08-15 10:01:00",
-    transferAmount: 25000,
-    accumulated: 45000,
+    transferAmount: 51000,
+    accumulated: 71000,
     referenceCode: "FT-TEST-1002",
   };
   const completionResponse = await worker.fetch(signedWebhook("/api/webhooks/sepay", completionPayload), runtimeEnv, executionContext);
   assert.equal(completionResponse.status, 200);
   const paidStatus = await (await request(`/api/payments/sepay?code=${paymentCode}`)).json();
   assert.equal(paidStatus.payment.status, "paid");
-  assert.equal(paidStatus.payment.receivedAmount, 45000);
+  assert.equal(paidStatus.payment.receivedAmount, 71000);
   assert.ok(paidStatus.payment.paidAt);
 
-  const wrongAccountPayload = { ...partialPayload, id: 1003, accountNumber: "00000000000", transferAmount: 45000 };
+  const wrongAccountPayload = { ...partialPayload, id: 1003, accountNumber: "00000000000", transferAmount: 71000 };
   const wrongAccountResponse = await worker.fetch(signedWebhook("/api/webhooks/sepay", wrongAccountPayload), runtimeEnv, executionContext);
   assert.equal(wrongAccountResponse.status, 200);
 
   const order = (await database.get("SELECT * FROM operation_orders WHERE id = ?", primaryOrderId));
   assert.equal(order.customer_email, "test@example.com");
   assert.equal(order.currency, "VND");
-  assert.equal(order.subtotal_amount, 30000);
+  assert.equal(order.subtotal_amount, 56000);
   assert.equal(order.delivery_fee_amount, 15000);
   assert.equal(order.discount_amount, 0);
-  assert.equal(order.total_amount, 45000);
+  assert.equal(order.total_amount, 71000);
   assert.equal(order.payment_method, "bank_transfer");
   assert.equal(order.payment_provider, "sepay");
   assert.equal(order.payment_status, "paid");
@@ -196,7 +196,7 @@ test("SePay payment flow stores normalized test orders and reconciles signed web
   const unauthorizedRefund = await request("/api/operations", {
     method: "POST",
     headers: { "content-type": "application/json", cookie: managerCookie },
-    body: JSON.stringify({ command: "payment.refund", data: { orderId: primaryOrderId, amount: 45000, reason: "Khách yêu cầu hủy", providerReference: "RF-BANK-1002" } }),
+    body: JSON.stringify({ command: "payment.refund", data: { orderId: primaryOrderId, amount: 71000, reason: "Khách yêu cầu hủy", providerReference: "RF-BANK-1002" } }),
   });
   assert.equal(unauthorizedRefund.status, 403);
   assert.equal((await unauthorizedRefund.json()).code, "forbidden_role");
@@ -211,9 +211,9 @@ test("SePay payment flow stores normalized test orders and reconciles signed web
   assert.equal(partialRefundResult.result.refundType, "partial");
   assert.equal(partialRefundResult.result.paymentStatus, "partially_refunded");
   assert.equal(partialRefundResult.result.orderStatus, "new");
-  assert.equal(partialRefundResult.result.refundableRemaining, 25000);
+  assert.equal(partialRefundResult.result.refundableRemaining, 51000);
 
-  const refundPayload = { command: "payment.refund", data: { orderId: primaryOrderId, amount: 25000, reason: "Khách yêu cầu hủy trước khi làm món", providerReference: "RF-BANK-1002" } };
+  const refundPayload = { command: "payment.refund", data: { orderId: primaryOrderId, amount: 51000, reason: "Khách yêu cầu hủy trước khi làm món", providerReference: "RF-BANK-1002" } };
   const refundResponse = await request("/api/operations", {
     method: "POST",
     headers: { "content-type": "application/json", cookie: financeCookie },
@@ -242,7 +242,7 @@ test("SePay payment flow stores normalized test orders and reconciles signed web
   assert.equal((await database.get("SELECT status FROM payment_attempts WHERE order_id = ?", primaryOrderId)).status, "refunded");
   assert.equal((await database.get("SELECT status FROM finance_order_allocations WHERE order_id = ?", primaryOrderId)).status, "voided");
   assert.equal((await database.get("SELECT COUNT(*) AS count FROM finance_ledger_entries WHERE order_id = ? AND entry_type != 'customer_refund' AND status != 'voided'", primaryOrderId)).count, 0);
-  assert.equal((await database.get("SELECT SUM(amount) AS amount FROM finance_ledger_entries WHERE order_id = ? AND entry_type = 'customer_refund' AND status = 'posted'", primaryOrderId)).amount, 45000);
+  assert.equal((await database.get("SELECT SUM(amount) AS amount FROM finance_ledger_entries WHERE order_id = ? AND entry_type = 'customer_refund' AND status = 'posted'", primaryOrderId)).amount, 71000);
   assert.equal((await database.get("SELECT COUNT(*) AS count FROM operation_event_log WHERE entity_id = ? AND action = 'payment.refund'", primaryOrderId)).count, 2);
 
   const abandonedResponse = await request("/api/operations", {
@@ -257,7 +257,7 @@ test("SePay payment flow stores normalized test orders and reconciles signed web
         deliveryAddress: "Mỹ Đình, Hà Nội",
         paymentMethod: "bank_transfer",
         siteId: "site-my-dinh",
-        items: [{ productCode: "TP-T2-S", quantity: 1 }],
+        items: [{ productCode: "DC-BUOI", quantity: 1 }],
       },
     }),
   });

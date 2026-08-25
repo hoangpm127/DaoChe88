@@ -9,7 +9,7 @@
 .queue header button { background: #f5efe7; border: 0; border-radius: 10px; cursor: pointer; padding: 10px; }
 .orders { display: grid; gap: 13px; margin-top: 17px; }
 .orders > article { border: 1px solid #e4d9ce; border-radius: 16px; overflow: hidden; }
-.orders > article.ready { border-color: #77a56f; }
+.orders > article.ready { border-color: #bb8d55; }
 .orderHead { align-items: center; background: #faf7f2; display: flex; gap: 12px; padding: 12px 14px; }
 .orderHead > span:first-child { display: grid; flex: 1; }
 .orderHead > span:nth-child(2) { align-items: center; display: flex; gap: 5px; }
@@ -19,10 +19,10 @@
 .orders article section > div { display: grid; flex: 1; }
 .orders article section small { color: #766c64; }
 .orders article section em { font-size: 11px; font-style: normal; font-weight: 700; }
-.orders article section button { align-items: center; background: #315f32; border: 0; border-radius: 9px; color: #fff; cursor: pointer; display: flex; gap: 5px; padding: 8px 10px; }
+.orders article section button { align-items: center; background: #6d4b1b; border: 0; border-radius: 9px; color: #fff; cursor: pointer; display: flex; gap: 5px; padding: 8px 10px; }
 .item_done { opacity: .65; }
 .item_in_progress { background: #fffaf0; }
-.orders article > p { align-items: center; background: #edf7e9; color: #315f32; display: flex; gap: 7px; margin: 0; padding: 10px 14px; }
+.orders article > p { align-items: center; background: #fdf1e5; color: #6d4b1b; display: flex; gap: 7px; margin: 0; padding: 10px 14px; }
 .error { background: #fff0ef; color: #a23930; padding: 10px; }
 .empty { align-items: center; color: #746b63; display: grid; justify-items: center; padding: 30px; }
 @media (max-width: 700px) { .queue header, .orderHead { align-items: stretch; flex-wrap: wrap; } .queue header label { flex-basis: 100%; } .orders article section { align-items: flex-start; flex-wrap: wrap; } .orders article section > div { min-width: 65%; } }

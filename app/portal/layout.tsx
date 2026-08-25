@@ -2,9 +2,9 @@ import type { Metadata, Viewport } from "next";
 import PortalPwaBridge from "./PortalPwaBridge";
 
 export const metadata: Metadata = {
-  title: "Không gian vận hành | Tào Phớ 88 OS",
-  description: "Sáu không gian làm việc và phân quyền theo vai trò của nền tảng Tào Phớ 88.",
-  applicationName: "Tào Phớ 88 OS",
+  title: "Không gian vận hành | Đảo Chè OS",
+  description: "Sáu không gian làm việc và phân quyền theo vai trò của nền tảng Đảo Chè.",
+  applicationName: "Đảo Chè OS",
   manifest: "/portal.webmanifest?v=1",
   icons: {
     icon: [
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Tào Phớ 88 OS",
+    title: "Đảo Chè OS",
   },
 };
 

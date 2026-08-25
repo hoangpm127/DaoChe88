@@ -80,7 +80,7 @@ export default function GroupTab({ model }: GroupTabProps) {
               <small>Nhập mã đồng nghiệp gửi để chọn món cùng nhóm.</small>
             </div>
             <div>
-              <input value={joinCode} onChange={(event) => setJoinCode(event.target.value)} placeholder="VD: TP88-7K9M2QX" aria-label="Mã phòng nhóm" />
+              <input value={joinCode} onChange={(event) => setJoinCode(event.target.value)} placeholder="VD: DC-7K9M2QX" aria-label="Mã phòng nhóm" />
               <button type="button" onClick={joinGroupRoom}>
                 Tham gia
               </button>

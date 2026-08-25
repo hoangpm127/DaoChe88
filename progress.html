@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Tào Phớ 88 · Bảng theo dõi tiến độ</title>
+<title>Đảo Chè · Bảng theo dõi tiến độ</title>
 <style>
   :root {
     --bg: #f6f7f9;
@@ -158,7 +158,7 @@
 <body>
 
 <header>
-  <h1>Tào Phớ 88 · Bảng theo dõi tiến độ phát triển</h1>
+  <h1>Đảo Chè · Bảng theo dõi tiến độ phát triển</h1>
   <p>15 module đưa bản demo thành phần mềm vận hành thật cho 23 cửa hàng + bếp tổng · bám theo <code style="background:#2a3038;color:#cfd6de">docs/KE_HOACH_PHAT_TRIEN.md</code></p>
   <div class="bar-wrap">
     <div class="bar"><i id="progressBar"></i></div>
@@ -208,7 +208,7 @@
 
   <div class="card" style="border-left:5px solid #c2410c">
     <h2>Dữ liệu thật trong SQLite — kết quả kiểm chứng</h2>
-    <p>Đã kiểm tra: <b>không tìm thấy file SQLite có dữ liệu thật trong dự án này.</b> <code>SQLITE_PATH</code> trỏ tới <code>./data/taopho88.sqlite</code> nhưng thư mục <code>data/</code> không tồn tại. File SQLite duy nhất là DB cục bộ của miniflare — <b>2 bảng, không có dữ liệu nghiệp vụ nào</b>.</p>
+    <p>Đã kiểm tra: <b>không tìm thấy file SQLite có dữ liệu thật trong dự án này.</b> <code>SQLITE_PATH</code> trỏ tới <code>./data/daoche.sqlite</code> nhưng thư mục <code>data/</code> không tồn tại. File SQLite duy nhất là DB cục bộ của miniflare — <b>2 bảng, không có dữ liệu nghiệp vụ nào</b>.</p>
     <p><b>Tin tốt: dữ liệu thật vẫn có — nó nằm trong mã nguồn, không nằm trong database.</b></p>
     <table class="simple">
       <thead><tr><th style="width:330px">Dữ liệu</th><th style="width:250px">Vị trí</th><th style="width:90px">Số lượng</th><th>Đánh giá</th></tr></thead>
@@ -258,7 +258,7 @@
 
   <div class="card" style="margin-top:14px">
     <h2>Cách dùng cột "Prompt cho AI"</h2>
-    <p>Mỗi module có một prompt đầy đủ, tự chứa, viết sẵn cho AI agent (Claude Code, Cursor, Codex…). Bấm <b>Xem</b> để đọc, <b>Sao chép</b> để dán thẳng vào agent đang mở tại thư mục <code>D:\Xproject\TaoPho88</code>.</p>
+    <p>Mỗi module có một prompt đầy đủ, tự chứa, viết sẵn cho AI agent (Claude Code, Cursor, Codex…). Bấm <b>Xem</b> để đọc, <b>Sao chép</b> để dán thẳng vào agent đang mở tại thư mục <code>D:\Xproject\DaoChe</code>.</p>
     <ul>
       <li>Chạy <b>đúng thứ tự phụ thuộc</b> ở cột "Phụ thuộc" — chạy M4 trước M2 sẽ hỏng.</li>
       <li>Mỗi prompt đã gồm ràng buộc chung, schema, checklist nghiệm thu. Không cần dán thêm bối cảnh.</li>
@@ -586,7 +586,7 @@ Trạng thái song song:
       <tbody>
         <tr><td>Một cửa hàng chính thống + một điểm đối tác</td><td>M2</td><td>Điểm đối tác khác gì về giờ mở, dịch vụ, cách chia tiền?</td></tr>
         <tr><td>Một món bán ở cả hai loại điểm</td><td>M3</td><td>Chênh giá bao nhiêu? Vì sao chênh — phí mặt bằng hay chiết khấu đối tác?</td></tr>
-        <tr><td>Công thức một món, ví dụ tào phớ hoa nhài</td><td>M7</td><td>Một phần cần bao nhiêu đậu, đường, hoa nhài? Đơn vị tính là gì?</td></tr>
+        <tr><td>Công thức một món, ví dụ chè bưởi Năm Roi</td><td>M7</td><td>Một phần cần bao nhiêu cùi bưởi, đậu xanh, đường? Đơn vị tính là gì?</td></tr>
         <tr><td>Một phiếu giao hàng bếp → cửa hàng đang làm tay</td><td>M7</td><td>Hiện ghi gì trên phiếu? Ai ký? Cửa hàng kiểm đếm thế nào?</td></tr>
         <tr><td>Một ngày chốt quỹ của một cửa hàng</td><td>M8</td><td>Đang đếm tiền ra sao? Chênh lệch bao nhiêu thì phải báo?</td></tr>
         <tr><td>Cách tính hoa hồng đang áp dụng</td><td>M5, M6</td><td>Chủ phòng nhóm hiện có được gì không, hay đây là cơ chế mới?</td></tr>
@@ -953,7 +953,7 @@ Trạng thái song song:
 
 <!-- ======================= PROMPT STORE ======================= -->
 <script type="text/plain" id="p-GD0-A">
-Bạn đang làm việc trong repo Tào Phớ 88 tại D:\Xproject\TaoPho88.
+Bạn đang làm việc trong repo Đảo Chè tại D:\Xproject\DaoChe.
 Đây là nhiệm vụ chạy SONG SONG với một agent khác. Đọc kỹ mục QUYỀN SỞ HỮU FILE trước khi làm bất cứ gì.
 
 *** QUYỀN SỞ HỮU FILE ***
@@ -996,7 +996,7 @@ Nếu test đỏ, dán nguyên output và dừng lại.
 </script>
 
 <script type="text/plain" id="p-GD0-B">
-Bạn đang làm việc trong repo Tào Phớ 88 tại D:\Xproject\TaoPho88.
+Bạn đang làm việc trong repo Đảo Chè tại D:\Xproject\DaoChe.
 Đây là nhiệm vụ chạy SONG SONG với một agent khác. Đọc kỹ mục QUYỀN SỞ HỮU FILE trước khi làm bất cứ gì.
 
 *** QUYỀN SỞ HỮU FILE ***
@@ -1046,7 +1046,7 @@ Nếu test đỏ, dán nguyên output và dừng lại.
 </script>
 
 <script type="text/plain" id="p-GD0-C">
-Bạn đang làm việc trong repo Tào Phớ 88 tại D:\Xproject\TaoPho88.
+Bạn đang làm việc trong repo Đảo Chè tại D:\Xproject\DaoChe.
 Đây là nhiệm vụ chạy SONG SONG với agent khác. Nhiệm vụ này CHỈ ĐỌC mã nguồn và GHI FILE MỚI — không sửa file nào đang có, nên gần như không xung đột.
 
 *** QUYỀN SỞ HỮU FILE ***
@@ -1067,7 +1067,7 @@ Viết scripts/extract-seed-data.mjs đọc các file trên và xuất ra CSV đ
 
 1. data/seed/cua-hang.csv — cột: code, name, kind, address, district, lat, lng, hours, services, distance_km
    - `kind` chuẩn hóa từ chuỗi tiếng Việt trong code sang mã: "Cửa hàng chính thống"/"Điểm bán chính thống" -> official-store; "Đối tác Affiliate" -> partner-counter; "Đối tác phân phối" -> distribution-partner.
-   - `code` sinh từ id (ví dụ "my-dinh" -> "TP88-MYDINH"), viết hoa, không dấu.
+   - `code` sinh từ id (ví dụ "my-dinh" -> "DC-MYDINH"), viết hoa, không dấu.
    - Thêm cột trống `owner_phone` và `capacity_per_hour` để chủ hệ thống điền tay.
 
 2. data/seed/thuc-don.csv — cột: sku, name, category, base_price, description, note, ingredients, allergens, origin, serving, prep, calories, reward_points, sweetness (ngăn cách bằng |), tags (ngăn cách bằng |)
@@ -1101,7 +1101,7 @@ NGHIỆM THU
 </script>
 
 <script type="text/plain" id="p-SPLIT-FE">
-Bạn đang làm việc trong repo Tào Phớ 88 tại D:\Xproject\TaoPho88.
+Bạn đang làm việc trong repo Đảo Chè tại D:\Xproject\DaoChe.
 Đây là nhiệm vụ chạy SONG SONG với một agent khác đang làm module M0 (chuyển PostgreSQL). Đọc kỹ mục QUYỀN SỞ HỮU FILE.
 
 *** QUYỀN SỞ HỮU FILE ***
@@ -1166,7 +1166,7 @@ Liệt kê: số dòng page.tsx trước/sau, danh sách file mới tạo, và n
 </script>
 
 <script type="text/plain" id="p-SPLIT-BE">
-Bạn đang làm việc trong repo Tào Phớ 88 tại D:\Xproject\TaoPho88.
+Bạn đang làm việc trong repo Đảo Chè tại D:\Xproject\DaoChe.
 
 *** ĐIỀU KIỆN TIÊN QUYẾT ***
 Module M0 (chuyển PostgreSQL, bỏ memory fallback, bỏ Cloudflare) PHẢI xong và đã ghép vào nhánh chính trước khi bắt đầu. Nếu chưa, DỪNG LẠI.
@@ -1241,7 +1241,7 @@ Liệt kê: số dòng từng file mới, những hàm bạn thấy trùng lặp
 </script>
 
 <script type="text/plain" id="p-M0">
-Bạn đang làm việc trong repo Tào Phớ 88 tại D:\Xproject\TaoPho88.
+Bạn đang làm việc trong repo Đảo Chè tại D:\Xproject\DaoChe.
 
 BỐI CẢNH
 Webapp đặt món + vận hành chuỗi 23 cửa hàng + 1 bếp tổng. Stack: Next.js 16 (vinext) + React 19 + Drizzle ORM 0.45 + SQLite (node:sqlite trên Railway) / Cloudflare D1, chạy trên Cloudflare Workers runtime. Thông báo người dùng bằng tiếng Việt.
@@ -1358,7 +1358,7 @@ Nếu test đỏ, dán nguyên output và dừng lại. Đừng báo xong khi ch
 </script>
 
 <script type="text/plain" id="p-M1">
-Bạn đang làm việc trong repo Tào Phớ 88 tại D:\Xproject\TaoPho88.
+Bạn đang làm việc trong repo Đảo Chè tại D:\Xproject\DaoChe.
 
 BỐI CẢNH
 Webapp vận hành chuỗi 23 cửa hàng + 1 bếp tổng. Next.js 16 (vinext) + React 19 + Drizzle + SQLite/D1 trên Cloudflare Workers runtime. Tiếng Việt.
@@ -1428,7 +1428,7 @@ VIỆC PHẢI LÀM
 1) ĐĂNG NHẬP BẰNG SĐT + MẬT KHẨU (Q2 + Q3 đã chốt)
 Đây là cơ chế đăng nhập DUY NHẤT dùng hằng ngày, cho CẢ nhân viên lẫn khách hàng. Không dùng OTP để đăng nhập.
 - Băm mật khẩu: PBKDF2-HMAC-SHA256 qua WebCrypto (crypto.subtle.deriveBits), >= 210.000 vòng, salt 16 byte ngẫu nhiên, lưu salt riêng. KHÔNG dùng bcrypt/argon2.
-- Mật khẩu tối thiểu 8 ký tự; chặn danh sách mật khẩu phổ biến (123456, matkhau, taopho88...).
+- Mật khẩu tối thiểu 8 ký tự; chặn danh sách mật khẩu phổ biến (123456, matkhau, daoche...).
 - Sai 8 lần liên tiếp -> khóa 15 phút. Đếm theo SĐT VÀ theo IP, lấy điều kiện chặt hơn.
 - Nhân viên: admin mời -> hệ thống sinh mật khẩu tạm gửi qua SMS -> bắt buộc đổi ở lần đăng nhập đầu (cờ must_change_password).
 - Khách hàng: tự đăng ký bằng SĐT -> xác thực OTP một lần -> đặt mật khẩu.
@@ -1513,7 +1513,7 @@ NGHIỆM THU
 </script>
 
 <script type="text/plain" id="p-M2">
-Bạn đang làm việc trong repo Tào Phớ 88 tại D:\Xproject\TaoPho88.
+Bạn đang làm việc trong repo Đảo Chè tại D:\Xproject\DaoChe.
 
 BỐI CẢNH
 Chuỗi 23 cửa hàng (chính thống + đối tác phân phối) + 1 bếp tổng. Next.js 16 (vinext) + React 19 + Drizzle + SQLite/D1 trên Workers runtime. Tiếng Việt.
@@ -1606,7 +1606,7 @@ NGHIỆM THU
 </script>
 
 <script type="text/plain" id="p-M3">
-Bạn đang làm việc trong repo Tào Phớ 88 tại D:\Xproject\TaoPho88.
+Bạn đang làm việc trong repo Đảo Chè tại D:\Xproject\DaoChe.
 
 BỐI CẢNH
 Chuỗi 23 cửa hàng + bếp tổng. Next.js 16 (vinext) + React 19 + Drizzle + SQLite/D1 trên Workers runtime. Tiếng Việt.
@@ -1617,7 +1617,7 @@ HIỆN TRẠNG
 - Backend ĐÃ đọc thực đơn từ DB (lib/catalog-store.ts: catalog_products + catalog_product_options) và tính giá hoàn toàn phía server (lib/operations-store.ts hàm orderItemsFrom, dòng ~2012). Phần này tốt, giữ lại.
 - NHƯNG giao diện khách hardcode 12 món kèm mô tả, thành phần, dị ứng, dinh dưỡng, rating, tags, sweetness, toppings: app/order/page.tsx mảng `products` dòng 325–678.
 - KHÔNG có lệnh nào để sửa món/giá. Muốn đổi giá phải sửa BOOTSTRAP_CATALOG trong lib/catalog-store.ts và deploy.
-- KHÔNG có giá theo điểm bán, dù nhu cầu đã lộ ra trong dữ liệu mẫu: cùng món TP-HN giá 15.000đ ở cửa hàng chính thống nhưng 23.000đ ở điểm đối tác (lib/operations-store.ts:858).
+- KHÔNG có giá theo điểm bán, dù nhu cầu đã lộ ra trong dữ liệu mẫu: cùng món DC-CHEBUOI giá 15.000đ ở cửa hàng chính thống nhưng 23.000đ ở điểm đối tác (lib/operations-store.ts:858).
 
 MỤC TIÊU
 Admin sửa được món và giá không cần deploy; giá khác nhau theo loại điểm bán; UI khách đọc thực đơn từ API.
@@ -1699,7 +1699,7 @@ RÀNG BUỘC
 - Giữ nguyên UI/UX.
 
 NGHIỆM THU
-- [ ] Admin đổi giá tào phớ 15.000 -> 16.000 trên giao diện -> khách thấy giá mới sau lần tải tiếp theo, không cần deploy.
+- [ ] Admin đổi giá chè bưởi 28.000 -> 29.000 trên giao diện -> khách thấy giá mới sau lần tải tiếp theo, không cần deploy.
 - [ ] Cùng một món hiển thị và tính đúng hai mức giá ở cửa hàng chính thống vs điểm đối tác.
 - [ ] Test: tạo đơn -> đổi giá -> đọc lại đơn cũ, số tiền KHÔNG đổi.
 - [ ] Test: gửi order.create với unitPrice giả mạo trong body -> server bỏ qua, tính theo giá DB.
@@ -1708,7 +1708,7 @@ NGHIỆM THU
 </script>
 
 <script type="text/plain" id="p-M4">
-Bạn đang làm việc trong repo Tào Phớ 88 tại D:\Xproject\TaoPho88.
+Bạn đang làm việc trong repo Đảo Chè tại D:\Xproject\DaoChe.
 
 BỐI CẢNH
 Chuỗi 23 cửa hàng + bếp tổng. Next.js 16 (vinext) + React 19 + Drizzle + SQLite/D1 trên Workers runtime. Tiếng Việt.
@@ -1805,7 +1805,7 @@ NGHIỆM THU
 </script>
 
 <script type="text/plain" id="p-M14">
-Bạn đang làm việc trong repo Tào Phớ 88 tại D:\Xproject\TaoPho88.
+Bạn đang làm việc trong repo Đảo Chè tại D:\Xproject\DaoChe.
 
 BỐI CẢNH
 Chuỗi 23 cửa hàng + bếp tổng. Next.js 16 (vinext) + React 19 + Drizzle + PostgreSQL (Railway) trên Node runtime. Tiếng Việt.
@@ -1898,7 +1898,7 @@ Từ module này trở đi, mọi thông số nghiệp vụ mới phải ĐĂNG 
 </script>
 
 <script type="text/plain" id="p-M8">
-Bạn đang làm việc trong repo Tào Phớ 88 tại D:\Xproject\TaoPho88.
+Bạn đang làm việc trong repo Đảo Chè tại D:\Xproject\DaoChe.
 
 BỐI CẢNH
 Chuỗi 23 cửa hàng + bếp tổng. Next.js 16 (vinext) + React 19 + Drizzle + SQLite/D1 trên Workers runtime. Tiếng Việt.
@@ -1992,7 +1992,7 @@ NGHIỆM THU
 </script>
 
 <script type="text/plain" id="p-M9">
-Bạn đang làm việc trong repo Tào Phớ 88 tại D:\Xproject\TaoPho88.
+Bạn đang làm việc trong repo Đảo Chè tại D:\Xproject\DaoChe.
 
 BỐI CẢNH
 Chuỗi 23 cửa hàng + bếp tổng. Next.js 16 (vinext) + React 19 + Drizzle + SQLite/D1 trên Workers runtime. Tiếng Việt.
@@ -2087,7 +2087,7 @@ NGHIỆM THU
 </script>
 
 <script type="text/plain" id="p-M7">
-Bạn đang làm việc trong repo Tào Phớ 88 tại D:\Xproject\TaoPho88.
+Bạn đang làm việc trong repo Đảo Chè tại D:\Xproject\DaoChe.
 
 BỐI CẢNH
 Chuỗi 23 cửa hàng + 1 BẾP TỔNG. Admin tổng sở hữu bếp tổng; bếp tổng sản xuất và phân phối hàng cho 23 cửa hàng; cửa hàng là nơi bán. Next.js 16 (vinext) + React 19 + Drizzle + SQLite/D1 trên Workers runtime. Tiếng Việt.
@@ -2280,7 +2280,7 @@ Báo cáo rõ đã hoàn thành tới đợt nào (A/B/C).
 </script>
 
 <script type="text/plain" id="p-M10">
-Bạn đang làm việc trong repo Tào Phớ 88 tại D:\Xproject\TaoPho88.
+Bạn đang làm việc trong repo Đảo Chè tại D:\Xproject\DaoChe.
 
 BỐI CẢNH
 Chuỗi 23 cửa hàng + bếp tổng. Next.js 16 (vinext) + React 19 + Drizzle + SQLite/D1 trên Workers runtime. Tiếng Việt.
@@ -2390,7 +2390,7 @@ NGHIỆM THU
 </script>
 
 <script type="text/plain" id="p-M5">
-Bạn đang làm việc trong repo Tào Phớ 88 tại D:\Xproject\TaoPho88.
+Bạn đang làm việc trong repo Đảo Chè tại D:\Xproject\DaoChe.
 
 BỐI CẢNH
 Chuỗi 23 cửa hàng + bếp tổng. Next.js 16 (vinext) + React 19 + Drizzle + SQLite/D1 trên Workers runtime. Tiếng Việt.
@@ -2498,7 +2498,7 @@ NGHIỆM THU
 </script>
 
 <script type="text/plain" id="p-M6">
-Bạn đang làm việc trong repo Tào Phớ 88 tại D:\Xproject\TaoPho88.
+Bạn đang làm việc trong repo Đảo Chè tại D:\Xproject\DaoChe.
 
 BỐI CẢNH
 Chuỗi 23 cửa hàng + bếp tổng. Next.js 16 (vinext) + React 19 + Drizzle + SQLite/D1 trên Workers runtime. Tiếng Việt.
@@ -2600,7 +2600,7 @@ NGHIỆM THU
 </script>
 
 <script type="text/plain" id="p-M11">
-Bạn đang làm việc trong repo Tào Phớ 88 tại D:\Xproject\TaoPho88.
+Bạn đang làm việc trong repo Đảo Chè tại D:\Xproject\DaoChe.
 
 BỐI CẢNH
 Chuỗi 23 cửa hàng + bếp tổng. Next.js 16 (vinext) + React 19 + Drizzle + SQLite/D1 trên Workers runtime. Tiếng Việt.
@@ -2742,7 +2742,7 @@ NGHIỆM THU
 </script>
 
 <script type="text/plain" id="p-M12">
-Bạn đang làm việc trong repo Tào Phớ 88 tại D:\Xproject\TaoPho88.
+Bạn đang làm việc trong repo Đảo Chè tại D:\Xproject\DaoChe.
 
 BỐI CẢNH
 Chuỗi 23 cửa hàng + bếp tổng, nhiều thiết bị cùng dùng portal giờ cao điểm. Next.js 16 (vinext) + React 19 + Drizzle + SQLite/D1 trên Workers runtime. Tiếng Việt.
@@ -2821,7 +2821,7 @@ NGHIỆM THU
 </script>
 
 <script type="text/plain" id="p-M13">
-Bạn đang làm việc trong repo Tào Phớ 88 tại D:\Xproject\TaoPho88.
+Bạn đang làm việc trong repo Đảo Chè tại D:\Xproject\DaoChe.
 
 BỐI CẢNH
 Chuỗi 23 cửa hàng + bếp tổng, xử lý tiền thật của khách. Next.js 16 (vinext) + React 19 + Drizzle + SQLite/D1, triển khai trên Railway (railway.toml, healthcheck /api/health) và/hoặc Cloudflare. Tiếng Việt.
@@ -2990,7 +2990,7 @@ const BASE_COLS = [
   { key: "note",  label: "Ghi chú", w: "230px" }
 ];
 
-const STORE_KEY = "tp88.progress.v1";
+const STORE_KEY = "daoche.progress.v1";
 const GIT_COMMAND = 'git add tasks.json && git commit -m "docs: Cập nhật tiến độ nhiệm vụ" && git push';
 
 let state = loadInitialLocal();

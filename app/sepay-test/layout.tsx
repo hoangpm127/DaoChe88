@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from "next";
 
 export const metadata: Metadata = {
-  title: "Kiểm thử SePay 2.000đ | Tào Phớ 88",
-  description: "Trang kiểm thử giao dịch TPBank, webhook SePay và đối soát tự động của Tào Phớ 88.",
+  title: "Kiểm thử SePay 2.000đ | Đảo Chè",
+  description: "Trang kiểm thử giao dịch TPBank, webhook SePay và đối soát tự động của Đảo Chè.",
   robots: { index: false, follow: false },
 };
 

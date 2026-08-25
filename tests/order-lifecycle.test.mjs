@@ -9,7 +9,7 @@ import { configureAuthEnvironment, ownerCookie, portalCookie } from "./helpers/p
 
 process.env.SEPAY_BANK_ACCOUNT = "88888888188";
 process.env.SEPAY_BANK_CODE = "TPBank";
-process.env.SEPAY_PAYMENT_PREFIX = "TPHO";
+process.env.SEPAY_PAYMENT_PREFIX = "DCHE";
 process.env.ORDER_DATA_MODE = "test";
 
 const executionContext = { waitUntil() {}, passThroughOnException() {} };
@@ -27,7 +27,7 @@ async function setup() {
   await database.run("UPDATE operation_sites SET opening_hours_json = ?, capacity_per_hour = 20, status = 'open', accepts_orders = 1 WHERE id = 'site-my-dinh'", allDay);
   // INSERT OR REPLACE la cu phap rieng cua SQLite; PostgreSQL dung ON CONFLICT.
   await database.run(`INSERT INTO catalog_site_stock (id, site_id, product_sku, on_hand, reserved, track_stock, status)
-    VALUES ('m4-stock', 'site-my-dinh', 'TP-T2-S', 50, 0, 1, 'available')
+    VALUES ('m4-stock', 'site-my-dinh', 'DC-BUOI', 50, 0, 1, 'available')
     ON CONFLICT (id) DO UPDATE SET on_hand = excluded.on_hand, reserved = excluded.reserved,
       track_stock = excluded.track_stock, status = excluded.status`);
   return { request, owner, database };
@@ -41,7 +41,7 @@ function publicOrder(request, key, overrides = {}) {
     siteId: "site-my-dinh",
     paymentMethod: "cash",
     fulfillmentType: "delivery",
-    items: [{ productCode: "TP-T2-S", quantity: 1 }],
+    items: [{ productCode: "DC-BUOI", quantity: 1 }],
   };
   return request("/api/operations", {
     method: "POST",
@@ -82,20 +82,20 @@ test("M4 idempotency, amend, dine-in, capacity, KDS và delivery_failed", async 
   assert.equal(dineRow.delivery_address, "");
   assert.equal((await database.get("SELECT fulfillment_type FROM order_fulfillment_details WHERE order_id = ?", dine.result.orderId)).fulfillment_type, "dine-in");
 
-  const amendCreatedResponse = await publicOrder(request, "m4-amend-key", { paymentMethod: "cash", items: [{ productCode: "TP-T2-S", quantity: 1, optionCodes: ["TP-T2-S.TOPPING.1"] }] });
+  const amendCreatedResponse = await publicOrder(request, "m4-amend-key", { paymentMethod: "cash", items: [{ productCode: "DC-BUOI", quantity: 1, optionCodes: ["DC-BUOI.TOPPING.1"] }] });
   const amendCreated = await amendCreatedResponse.json();
   assert.equal(amendCreatedResponse.status, 201, JSON.stringify(amendCreated));
   const amended = await command(request, owner, "order.amend", {
     orderId: amendCreated.result.orderId,
     reason: "Khách gọi thêm một phần",
-    items: [{ productCode: "TP-T2-S", quantity: 2, optionCodes: ["TP-T2-S.TOPPING.1"] }],
+    items: [{ productCode: "DC-BUOI", quantity: 2, optionCodes: ["DC-BUOI.TOPPING.1"] }],
   });
-  assert.equal(amended.result.amountDelta, 20_000);
+  assert.equal(amended.result.amountDelta, 33_000);
   assert.equal(amended.result.paymentAdjustment.direction, "collect");
-  assert.equal((await database.get("SELECT total_amount FROM operation_orders WHERE id = ?", amendCreated.result.orderId)).total_amount, 55_000);
-  assert.equal((await database.get("SELECT amount_delta FROM order_amendments WHERE order_id = ?", amendCreated.result.orderId)).amount_delta, 20_000);
-  assert.equal((await database.get("SELECT amount FROM order_payment_adjustments WHERE order_id = ? AND direction = 'collect'", amendCreated.result.orderId)).amount, 20_000);
-  assert.equal((await database.get("SELECT quantity FROM catalog_stock_reservations WHERE order_id = ? AND product_sku = 'TP-T2-S'", amendCreated.result.orderId)).quantity, 2);
+  assert.equal((await database.get("SELECT total_amount FROM operation_orders WHERE id = ?", amendCreated.result.orderId)).total_amount, 81_000);
+  assert.equal((await database.get("SELECT amount_delta FROM order_amendments WHERE order_id = ?", amendCreated.result.orderId)).amount_delta, 33_000);
+  assert.equal((await database.get("SELECT amount FROM order_payment_adjustments WHERE order_id = ? AND direction = 'collect'", amendCreated.result.orderId)).amount, 33_000);
+  assert.equal((await database.get("SELECT quantity FROM catalog_stock_reservations WHERE order_id = ? AND product_sku = 'DC-BUOI'", amendCreated.result.orderId)).quantity, 2);
 
   await database.run("UPDATE operation_sites SET capacity_per_hour = 2 WHERE id = 'site-my-dinh'");
   const scheduledAt = new Date(Date.now() + 24 * 60 * 60_000);

@@ -110,7 +110,7 @@ export async function handlePartnerCommands(d1: D1Database, context: CommandCont
     if (!member) throw new OperationsError("Không tìm thấy hồ sơ Affiliate.", 404, "affiliate_not_found");
     if (["rejected", "paused"].includes(member.status)) throw new OperationsError("Hồ sơ Affiliate đang bị khóa và cần mở lại trước khi duyệt.", 409, "affiliate_not_approvable");
     const requestedCode = readString(data, "code", false);
-    const generatedCode = `TP88-${member.phone.replace(/\D/g, "").slice(-4) || "AFF"}-${member.id.replace(/[^a-z0-9]/gi, "").slice(-4)}`;
+    const generatedCode = `DC-${member.phone.replace(/\D/g, "").slice(-4) || "AFF"}-${member.id.replace(/[^a-z0-9]/gi, "").slice(-4)}`;
     const code = affiliateCodeOf({ affiliateCode: requestedCode || generatedCode })!;
     const affiliateTiers = await resolveSetting<number[]>(d1, "commission.affiliate_tiers_bps");
     const configuredDefault = affiliateTiers[2] ?? affiliateTiers.find((tier) => tier > 0) ?? 0;

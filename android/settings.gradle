@@ -14,5 +14,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "TaoPho88Customer"
+rootProject.name = "DaoCheCustomer"
 include(":app")

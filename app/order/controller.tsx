@@ -338,49 +338,47 @@ export const loyaltyTierLabels: Record<string, string> = {
 
 export function Brand() {
   return (
-    <div className={styles.brand} aria-label="Tào Phớ 88">
+    <div className={styles.brand} aria-label="Đảo Chè">
       <span className={styles.brandAppIcon} aria-hidden="true" />
-      <span>Tào Phớ</span>
-      <b>88</b>
+      <span>Đảo</span>
+      <b>Chè</b>
     </div>
   );
 }
 
-export function ProductPhoto({ index, imageUrl = "", gallery = false }: { index: Product["image"]; imageUrl?: string; gallery?: boolean }) {
-  const column = index % 4;
-  const row = Math.floor(index / 4);
+/**
+ * Ô màu thay ảnh khi món chưa có ảnh thật.
+ *
+ * Bản gốc cắt ô từ một tấm sprite ảnh chụp món của thương hiệu cũ. Đảo Chè là
+ * thương hiệu riêng nên không dùng lại bộ ảnh đó được, mà ảnh chè thật thì chưa
+ * chụp. Vậy nên chỗ này vẽ một ô gradient theo bảng màu mới,
+ * chọn theo `index` để mỗi món vẫn có một ô riêng biệt và ổn định.
+ *
+ * Khi có ảnh thật, chỉ cần đặt `imageUrl` cho món trong Quản trị → Thực đơn; nhánh
+ * `imageUrl` ở dưới sẽ tự động thắng, không phải sửa mã.
+ */
+const PHOTO_TILES: ReadonlyArray<readonly [string, string]> = [
+  ["#f5a524", "#ffd79a"], // mật ong
+  ["#8b5fbf", "#e5d4f4"], // khoai môn
+  ["#4e9a5b", "#cfe9d3"], // lá dứa
+  ["#e06c3f", "#ffd3bd"], // gấc
+  ["#d9800b", "#ffe1b0"], // xoài chín
+  ["#a86a4f", "#efd2c0"], // cốt dừa rang
+  ["#c3487a", "#f7cfdf"], // thanh long
+  ["#3f8fa8", "#cfe7ef"], // thạch mát
+];
 
+function tileBackground(index: Product["image"]) {
+  const [deep, soft] = PHOTO_TILES[index % PHOTO_TILES.length];
+  return `radial-gradient(120% 90% at 28% 22%, ${soft} 0%, ${deep} 72%)`;
+}
+
+export function ProductPhoto({ index, imageUrl = "" }: { index: Product["image"]; imageUrl?: string }) {
   if (imageUrl) {
     return <div className={styles.productPhoto} style={{ backgroundImage: `url(${JSON.stringify(imageUrl)})`, backgroundPosition: "center", backgroundSize: "cover" }} role="img" aria-label="Ảnh món từ catalog" />;
   }
 
-  if (gallery) {
-    const galleryLabels = ["Góc nghiêng 45 độ", "Góc nhìn từ trên", "Cận cảnh độ mềm mịn", "Quy cách đóng gói giao hàng"];
-
-    return (
-      <div className={`${styles.productPhoto} ${styles.productPhotoGallery}`} role="region" aria-label="Bộ ảnh Tào phớ hoa nhài, vuốt ngang để xem" tabIndex={0}>
-        <span className={styles.productGalleryStrip}>
-          {galleryLabels.map((label, frame) => (
-            <span
-              className={styles.productGallerySlide}
-              role="img"
-              aria-label={`${label}, ảnh ${frame + 1} trên 4`}
-              key={label}
-              style={{
-                backgroundPosition: `${(frame % 2) * 100}% ${Math.floor(frame / 2) * 100}%`,
-              }}
-            >
-              <i>
-                {frame + 1}/4{frame === 0 ? " · Vuốt để xem" : ""}
-              </i>
-            </span>
-          ))}
-        </span>
-      </div>
-    );
-  }
-
-  return <div className={styles.productPhoto} style={{ backgroundPosition: `${column * 33.333}% ${row * 100}%` }} aria-hidden="true" />;
+  return <div className={styles.productPhoto} style={{ backgroundImage: tileBackground(index) }} aria-hidden="true" />;
 }
 
 export function SectionTitle({ title, action, onAction }: { title: string; action?: string; onAction?: () => void }) {
@@ -415,7 +413,7 @@ export function useOrderController() {
   const [dailyActionHubVerse] = useState(pickDailyActionHubVerse);
   const [activeTab, setActiveTab] = useState<TabId>("home");
   const [previousTab, setPreviousTab] = useState<TabId>("home");
-  const [category, setCategory] = useState<ProductFilter>("Tào phớ");
+  const [category, setCategory] = useState<ProductFilter>("Chè");
   const [query, setQuery] = useState("");
   const [showAllProducts, setShowAllProducts] = useState(false);
   const [location, setLocation] = useState<DeliveryLocation>(emptyDeliveryLocation);
@@ -459,7 +457,7 @@ export function useOrderController() {
     {
       id: "welcome",
       sender: "assistant",
-      text: "Chào bạn, mình là trợ lý Tào Phớ 88. Mình có thể gợi ý món, lên đơn cho nhóm hoặc hỗ trợ tìm hiểu mở điểm bán.",
+      text: "Chào bạn, mình là trợ lý Đảo Chè. Mình có thể gợi ý món, lên đơn cho nhóm hoặc hỗ trợ tìm hiểu mở điểm bán.",
     },
   ]);
   const [showFilters, setShowFilters] = useState(false);
@@ -654,17 +652,17 @@ export function useOrderController() {
       if (cancelled) return;
       let parsedRoom: Partial<GroupRoom> | null = null;
       try {
-        const storedCart = localStorage.getItem("tp88.cart");
-        const storedCartChoices = localStorage.getItem("tp88.cartChoices");
-        const storedLocation = localStorage.getItem("tp88.location");
-        const storedCustomer = localStorage.getItem("tp88.customer");
-        const storedCustomerAvatar = localStorage.getItem("tp88.customerAvatar");
-        const storedOrder = localStorage.getItem("tp88.activeOrder");
-        const storedFavorites = localStorage.getItem("tp88.favorites");
-        const storedRoom = localStorage.getItem("tp88.groupRoom");
-        const storedGroupRosters = localStorage.getItem("tp88.groupRosters");
-        const storedSavedLocations = localStorage.getItem("tp88.savedLocations");
-        if (sharedAffiliateCode) localStorage.setItem("tp88.affiliateCode", sharedAffiliateCode);
+        const storedCart = localStorage.getItem("daoche.cart");
+        const storedCartChoices = localStorage.getItem("daoche.cartChoices");
+        const storedLocation = localStorage.getItem("daoche.location");
+        const storedCustomer = localStorage.getItem("daoche.customer");
+        const storedCustomerAvatar = localStorage.getItem("daoche.customerAvatar");
+        const storedOrder = localStorage.getItem("daoche.activeOrder");
+        const storedFavorites = localStorage.getItem("daoche.favorites");
+        const storedRoom = localStorage.getItem("daoche.groupRoom");
+        const storedGroupRosters = localStorage.getItem("daoche.groupRosters");
+        const storedSavedLocations = localStorage.getItem("daoche.savedLocations");
+        if (sharedAffiliateCode) localStorage.setItem("daoche.affiliateCode", sharedAffiliateCode);
         // localStorage chỉ là chỗ tạm cho khách CHƯA đăng nhập. Đã đăng nhập thì
         // sổ địa chỉ lấy từ máy chủ (xem effect đồng bộ bên dưới) — nếu không,
         // dữ liệu cũ nằm lại trong trình duyệt sẽ sống mãi kể cả sau khi mã
@@ -689,7 +687,7 @@ export function useOrderController() {
         if (parsedRoom?.code) {
           setGroupRoom({
             code: parsedRoom.code,
-            office: parsedRoom.office || "Phòng Tào Phớ 88",
+            office: parsedRoom.office || "Phòng Đảo Chè",
             slot: parsedRoom.slot || "14:30",
             cutoff: parsedRoom.cutoff || "Sau 5 phút",
             participants: parsedRoom.participants || 1,
@@ -710,11 +708,11 @@ export function useOrderController() {
             items: parsedRoom.items || [],
           });
         }
-        localStorage.removeItem("tp88.floatingAction");
-        localStorage.removeItem("tp88.servicePoint");
+        localStorage.removeItem("daoche.floatingAction");
+        localStorage.removeItem("daoche.servicePoint");
       } catch {
-        localStorage.removeItem("tp88.cart");
-        localStorage.removeItem("tp88.cartChoices");
+        localStorage.removeItem("daoche.cart");
+        localStorage.removeItem("daoche.cartChoices");
       }
 
       if (requestedTab && validTabs.includes(requestedTab)) setActiveTab(requestedTab);
@@ -723,7 +721,7 @@ export function useOrderController() {
         const normalizedCode = roomCode.toUpperCase();
         const hostToken = parsedRoom?.code === normalizedCode ? parsedRoom.hostToken : undefined;
         fetch(`/api/group-rooms?code=${encodeURIComponent(normalizedCode)}`, {
-          headers: hostToken ? { "X-TP88-Host-Token": hostToken } : undefined,
+          headers: hostToken ? { "X-DaoChe-Host-Token": hostToken } : undefined,
         })
           .then(async (response) => {
             const payload = (await response.json()) as GroupRoomResponse;
@@ -862,7 +860,7 @@ export function useOrderController() {
     const refresh = () => {
       const hostToken = groupRoom.hostToken;
       fetch(`/api/group-rooms?code=${encodeURIComponent(groupRoom.code)}`, {
-        headers: hostToken ? { "X-TP88-Host-Token": hostToken } : undefined,
+        headers: hostToken ? { "X-DaoChe-Host-Token": hostToken } : undefined,
       })
         .then(async (response) => {
           const payload = (await response.json()) as GroupRoomResponse;
@@ -881,27 +879,27 @@ export function useOrderController() {
 
   useEffect(() => {
     if (!hydrated) return;
-    localStorage.setItem("tp88.cart", JSON.stringify(cart));
-    localStorage.setItem("tp88.cartChoices", JSON.stringify(cartChoices));
-    localStorage.setItem("tp88.location", location.name);
+    localStorage.setItem("daoche.cart", JSON.stringify(cart));
+    localStorage.setItem("daoche.cartChoices", JSON.stringify(cartChoices));
+    localStorage.setItem("daoche.location", location.name);
     const persistedCustomer = { ...customer };
     delete persistedCustomer.avatar;
-    localStorage.setItem("tp88.customer", JSON.stringify(persistedCustomer));
-    localStorage.setItem("tp88.favorites", JSON.stringify(favorites));
+    localStorage.setItem("daoche.customer", JSON.stringify(persistedCustomer));
+    localStorage.setItem("daoche.favorites", JSON.stringify(favorites));
     // Đã đăng nhập thì máy chủ giữ sổ địa chỉ; ghi thêm vào localStorage chỉ tạo
     // ra một bản sao lệch nhịp.
-    if (!customerSession) localStorage.setItem("tp88.savedLocations", JSON.stringify(savedLocations));
-    else localStorage.removeItem("tp88.savedLocations");
-    if (activeOrder) localStorage.setItem("tp88.activeOrder", JSON.stringify(activeOrder));
-    else localStorage.removeItem("tp88.activeOrder");
-    if (groupRoom) localStorage.setItem("tp88.groupRoom", JSON.stringify(groupRoom));
-    else localStorage.removeItem("tp88.groupRoom");
+    if (!customerSession) localStorage.setItem("daoche.savedLocations", JSON.stringify(savedLocations));
+    else localStorage.removeItem("daoche.savedLocations");
+    if (activeOrder) localStorage.setItem("daoche.activeOrder", JSON.stringify(activeOrder));
+    else localStorage.removeItem("daoche.activeOrder");
+    if (groupRoom) localStorage.setItem("daoche.groupRoom", JSON.stringify(groupRoom));
+    else localStorage.removeItem("daoche.groupRoom");
   }, [activeOrder, cart, cartChoices, customer, favorites, groupRoom, hydrated, location, savedLocations]);
 
   useEffect(() => {
     if (!hydrated) return;
-    if (customer.avatar) localStorage.setItem("tp88.customerAvatar", customer.avatar);
-    else localStorage.removeItem("tp88.customerAvatar");
+    if (customer.avatar) localStorage.setItem("daoche.customerAvatar", customer.avatar);
+    else localStorage.removeItem("daoche.customerAvatar");
   }, [customer.avatar, hydrated]);
 
   useEffect(() => {
@@ -1083,7 +1081,7 @@ export function useOrderController() {
       }));
       setAuthDraft({ phone: "", password: "", fullName: "" });
       setShowAuthSheet(false);
-      flash(authMode === "register" ? "Đã tạo tài khoản Tào Phớ 88." : `Chào bạn ${payload.session.userName}.`);
+      flash(authMode === "register" ? "Đã tạo tài khoản Đảo Chè." : `Chào bạn ${payload.session.userName}.`);
     } catch {
       setAuthError("Không kết nối được máy chủ. Bạn kiểm tra mạng rồi thử lại.");
     } finally {
@@ -1214,7 +1212,7 @@ export function useOrderController() {
 
   useEffect(() => {
     if (!hydrated) return;
-    localStorage.setItem("tp88.groupRosters", JSON.stringify(groupRosters));
+    localStorage.setItem("daoche.groupRosters", JSON.stringify(groupRosters));
   }, [groupRosters, hydrated]);
 
   useEffect(() => {
@@ -1407,8 +1405,8 @@ export function useOrderController() {
   const groupChosenCount = groupRoster.length ? groupRoster.length - groupPendingNames.length : groupOrderedNames.size;
   const groupGuestSubmitted = Boolean(groupGuestName.trim() && groupOrderedNames.has(groupGuestName.trim().toLocaleLowerCase("vi-VN")));
 
-  const referralUrl = affiliateAccount?.code ? `https://taopho88-production.up.railway.app/order?ref=${encodeURIComponent(affiliateAccount.code)}` : "";
-  const referralMessage = `Mời bạn đặt Tào Phớ 88 qua link của ${affiliateAccount?.displayName || "tôi"}.`;
+  const referralUrl = affiliateAccount?.code ? `https://daoche-production.up.railway.app/order?ref=${encodeURIComponent(affiliateAccount.code)}` : "";
+  const referralMessage = `Mời bạn đặt Đảo Chè qua link của ${affiliateAccount?.displayName || "tôi"}.`;
 
   const copyReferralLink = async () => {
     if (!referralUrl) {
@@ -1440,7 +1438,7 @@ export function useOrderController() {
     if (channel === "other") {
       if (navigator.share) {
         try {
-          await navigator.share({ title: "Tào Phớ 88", text: referralMessage, url: referralUrl });
+          await navigator.share({ title: "Đảo Chè", text: referralMessage, url: referralUrl });
           setShowAffiliateShare(false);
           return;
         } catch {
@@ -1455,7 +1453,7 @@ export function useOrderController() {
       zalo: `https://zalo.me/share?url=${encodedUrl}`,
       facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
       sms: `sms:?&body=${encodedMessage}%20${encodedUrl}`,
-      email: `mailto:?subject=${encodeURIComponent("Mời bạn thưởng thức Tào Phớ 88")}&body=${encodedMessage}%0A${encodedUrl}`,
+      email: `mailto:?subject=${encodeURIComponent("Mời bạn thưởng thức Đảo Chè")}&body=${encodedMessage}%0A${encodedUrl}`,
     };
     window.open(shareTargets[channel], "_blank", "noopener,noreferrer");
     setShowAffiliateShare(false);
@@ -1515,7 +1513,7 @@ export function useOrderController() {
   const goBack = () => {
     if (showAllProducts) {
       setShowAllProducts(false);
-      setCategory("Tào phớ");
+      setCategory("Chè");
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
@@ -1686,7 +1684,7 @@ export function useOrderController() {
     if (!privacyConsent) return flash("Bạn cần đồng ý Điều khoản và Chính sách quyền riêng tư trước khi đặt đơn.");
     if (fulfillment === "delivery" && (!deliveryQuote || new Date(deliveryQuote.expiresAt).getTime() <= Date.now())) return flash("Báo phí giao hàng đã hết hạn. Bạn vui lòng quay lại giỏ để lấy phí mới.");
     const id = checkoutClientReference;
-    const affiliateCode = (new URL(window.location.href).searchParams.get("ref") || localStorage.getItem("tp88.affiliateCode") || "").trim().toUpperCase();
+    const affiliateCode = (new URL(window.location.href).searchParams.get("ref") || localStorage.getItem("daoche.affiliateCode") || "").trim().toUpperCase();
     const servicePoint = storePoints.find((point) => point.id === location.servicePointId)
       || storePoints.find((point) => point.name === location.servicePoint);
     if (!servicePoint) return flash("Danh sách điểm bán chưa sẵn sàng. Bạn vui lòng thử lại.");
@@ -1942,7 +1940,7 @@ export function useOrderController() {
 
   const groupShareLink = () => {
     const origin = /^(localhost|127\.0\.0\.1)$/.test(window.location.hostname)
-      ? "https://tao-pho-88-os.anhocpiano.chatgpt.site"
+      ? "https://dao-che-os.anhocpiano.chatgpt.site"
       : window.location.origin;
     const url = new URL("/order", origin);
     url.searchParams.set("tab", "group");
@@ -1985,7 +1983,7 @@ export function useOrderController() {
   const shareGroupTo = async (channel: "zalo" | "facebook" | "messenger" | "sms" | "copy" | "other") => {
     if (!groupRoom) return;
     const link = groupShareLink();
-    const message = `Vào phòng ${groupRoom.office} chọn Tào Phớ 88 trong 5 phút nhé. Hết giờ là chủ phòng chốt đơn luôn!`;
+    const message = `Vào phòng ${groupRoom.office} chọn Đảo Chè trong 5 phút nhé. Hết giờ là chủ phòng chốt đơn luôn!`;
     const encodedLink = encodeURIComponent(link);
     const encodedMessage = encodeURIComponent(`${message}\n${link}`);
     if (channel === "copy") {
@@ -2081,7 +2079,7 @@ export function useOrderController() {
   const submitAffiliateApplication = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!affiliateDraft.name.trim() || !affiliateDraft.phone.trim()) {
-      flash("Bạn điền tên và số điện thoại để Tào Phớ 88 liên hệ nhé.");
+      flash("Bạn điền tên và số điện thoại để Đảo Chè liên hệ nhé.");
       return;
     }
     try {
@@ -2093,7 +2091,7 @@ export function useOrderController() {
           name: affiliateDraft.name,
           phone: affiliateDraft.phone,
           email: customer.email,
-          subject: "Đăng ký Đại sứ Tào Phớ 88",
+          subject: "Đăng ký Đại sứ Đảo Chè",
           details: { community: affiliateDraft.community, reach: affiliateDraft.reach },
         }),
       });
@@ -2212,15 +2210,15 @@ export function useOrderController() {
     const copy = {
       menu: {
         question: "Tư vấn giúp mình một món dễ ăn nhé.",
-        answer: "Tào phớ hoa nhài là lựa chọn dễ bắt đầu nhất: mềm mịn, thơm nhẹ, 15.000đ. Mình đã đặt gợi ý ngay bên dưới để bạn có thể thêm thẳng vào giỏ.",
+        answer: "Chè bưởi Năm Roi là lựa chọn dễ bắt đầu nhất: cùi bưởi giòn sần sật, cốt dừa béo nhẹ, 28.000đ. Mình đã đặt gợi ý ngay bên dưới để bạn thêm thẳng vào giỏ.",
       },
       group: {
         question: "Mình muốn đặt món cho nhóm văn phòng.",
         answer: "Bạn có thể tạo một phòng chung để ai ăn người nấy chọn, tem in đúng tên và giao về một điểm. Mình sẽ đưa bạn tới bước tạo đơn nhóm.",
       },
       partner: {
-        question: "Mình muốn tìm hiểu mở điểm bán Tào Phớ 88.",
-        answer: "Tào Phớ 88 có thể khảo sát mô hình cửa hàng sẵn có hoặc vị trí bạn dự định đầu tư. Bạn điền vài thông tin cơ bản, đội mở rộng điểm bán sẽ liên hệ trong 1–2 ngày làm việc.",
+        question: "Mình muốn tìm hiểu mở điểm bán Đảo Chè.",
+        answer: "Đảo Chè có thể khảo sát mô hình cửa hàng sẵn có hoặc vị trí bạn dự định đầu tư. Bạn điền vài thông tin cơ bản, đội mở rộng điểm bán sẽ liên hệ trong 1–2 ngày làm việc.",
       },
     }[topic];
     setChatMessages((current) => [
@@ -2277,7 +2275,7 @@ export function useOrderController() {
         ? "Mình có thể mở ngay hồ sơ đăng ký đối tác và giữ lại nội dung bạn vừa chia sẻ để đội phát triển điểm bán tư vấn tiếp."
         : nextContext === "group"
           ? "Mình đề xuất tạo đơn nhóm: mỗi người tự chọn món, tem theo tên và giao chung một địa chỉ."
-          : "Mình gợi ý Tào phớ hoa nhài 15.000đ cho vị thanh nhẹ. Bạn có thể thêm ngay hoặc mở thực đơn để xem thêm lựa chọn.";
+          : "Mình gợi ý Chè bưởi Năm Roi 28.000đ cho lần đầu ghé đảo. Bạn có thể thêm ngay hoặc mở thực đơn để xem cả 15 món.";
     if (chatMode === "human") {
       try {
         const response = await fetch("/api/customer-requests", {

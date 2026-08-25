@@ -30,7 +30,7 @@ import { createAccount, login, ownerCookie, portalCookie, configureAuthEnvironme
 configureAuthEnvironment();
 process.env.SEPAY_BANK_ACCOUNT = "88888888188";
 process.env.SEPAY_BANK_CODE = "TPBank";
-process.env.SEPAY_PAYMENT_PREFIX = "TPHO";
+process.env.SEPAY_PAYMENT_PREFIX = "DCHE";
 process.env.ORDER_DATA_MODE = "test";
 
 const { database, cleanup } = await freshDatabase("portal", { seed: true });
@@ -82,7 +82,7 @@ test("phiên portal được ký, HttpOnly, và vai trò không thể tự đổ
   });
   assert.equal(staffResponse.status, 200);
   const setCookie = staffResponse.headers.get("set-cookie");
-  assert.match(setCookie, /tp88_portal_session=/);
+  assert.match(setCookie, /daoche_portal_session=/);
   assert.match(setCookie, /HttpOnly/i);
   assert.match(setCookie, /SameSite=Strict/i);
   assert.match(setCookie, /Max-Age=28800/i);
@@ -136,7 +136,7 @@ test("số lần đăng nhập sai bị giới hạn", async () => {
   const target = await createAccount(request, { role: "store-staff", siteIds: ["site-my-dinh"] });
   const headers = {
     "content-type": "application/json",
-    "user-agent": "tp88-rate-limit-test",
+    "user-agent": "daoche-rate-limit-test",
     "x-forwarded-for": "198.51.100.88",
   };
 
@@ -195,7 +195,7 @@ test("operations bỏ qua vai trò do client gửi, cắt snapshot theo phạm v
   const forgedScope = await request("/api/operations?role=owner", {
     method: "POST",
     headers: { "content-type": "application/json", cookie: storeCookie },
-    body: JSON.stringify({ command: "inventory.adjust", actor: { role: "owner", name: "Forged" }, data: { inventoryId: "inv-jasmine-central", delta: 1, reason: "Forged scope" } }),
+    body: JSON.stringify({ command: "inventory.adjust", actor: { role: "owner", name: "Forged" }, data: { inventoryId: "inv-sen-central", delta: 1, reason: "Forged scope" } }),
   });
   assert.equal(forgedScope.status, 403);
   assert.equal((await forgedScope.json()).code, "forbidden_scope");
@@ -262,7 +262,7 @@ test("đặt món công khai chỉ dành cho khách và không bao giờ trả s
         paymentStatus: "paid",
         affiliateCode: "HA88",
         affiliateBps: 1000,
-        items: [{ productCode: "TP-HN", productName: "Tên giả từ trình duyệt", quantity: 1, unitPrice: 1 }],
+        items: [{ productCode: "DC-CHEBUOI", productName: "Tên giả từ trình duyệt", quantity: 1, unitPrice: 1 }],
       },
     }),
   });
@@ -277,7 +277,7 @@ test("đặt món công khai chỉ dành cho khách và không bao giờ trả s
   const snapshot = await snapshotResponse.json();
   const order = snapshot.orders.find((entry) => entry.id === created.result.orderId);
   assert.equal(order.paymentStatus, "pending");
-  assert.equal(order.total, 30000);
+  assert.equal(order.total, 43000);
   const economics = snapshot.finance.orderEconomics.find((entry) => entry.orderId === created.result.orderId);
   assert.equal(economics.affiliateBps, 800);
   assert.equal(snapshot.events.find((event) => event.entityId === created.result.orderId)?.actorRole, "customer");

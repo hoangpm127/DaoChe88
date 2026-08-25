@@ -29,8 +29,8 @@ test("server-renders the mobile customer ordering experience", async () => {
 
   const html = await response.text();
   assert.match(html, /<html[^>]*\blang=["']vi["']/i);
-  assert.match(html, /<title>Đặt món \| Tào Phớ 88<\/title>/i);
-  assert.match(html, /Tào Phớ/);
+  assert.match(html, /<title>Đặt món \| Đảo Chè<\/title>/i);
+  assert.match(html, /Đảo Chè/);
   assert.match(html, /Đặt theo nhóm/);
   assert.match(html, /Món nổi bật/);
   assert.match(html, /Trang chủ/);
@@ -73,13 +73,13 @@ test("server-renders the isolated SePay 2.000đ diagnostic page", async () => {
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /Kiểm thử SePay 2\.000đ \| Tào Phớ 88/i);
+  assert.match(html, /Kiểm thử SePay 2\.000đ \| Đảo Chè/i);
   assert.match(html, /Kiểm thử nhận tiền tự động/i);
   assert.match(html, /Tạo mã 2\.000đ/i);
   assert.match(html, /noindex/i);
 });
 
-test("ships an installable Tào Phớ 88 PWA shell", async () => {
+test("ships an installable Đảo Chè PWA shell", async () => {
   const manifest = JSON.parse(
     await readFile(new URL("../public/manifest.webmanifest", import.meta.url), "utf8"),
   );
@@ -88,17 +88,17 @@ test("ships an installable Tào Phớ 88 PWA shell", async () => {
     "utf8",
   );
 
-  assert.equal(manifest.id, "/tao-pho-88-customer-app");
-  assert.equal(manifest.name, "Tào Phớ 88 - Đặt món");
+  assert.equal(manifest.id, "/dao-che-customer-app");
+  assert.equal(manifest.name, "Đảo Chè - Đặt món");
   assert.match(manifest.start_url, /^\/order\?/);
   assert.equal(manifest.display, "standalone");
   assert.equal(manifest.orientation, "portrait");
-  assert.equal(manifest.theme_color, "#168d34");
+  assert.equal(manifest.theme_color, "#f5a524");
   assert.ok(manifest.icons.some((icon) => icon.sizes === "192x192"));
   assert.ok(manifest.icons.some((icon) => icon.sizes === "512x512"));
   assert.ok(manifest.shortcuts.some((shortcut) => shortcut.url === "/order?tab=orders"));
 
-  assert.match(serviceWorker, /CACHE_PREFIX = "tao-pho-88-customer-"/);
+  assert.match(serviceWorker, /CACHE_PREFIX = "dao-che-customer-"/);
   assert.match(serviceWorker, /v7-safe-shell/);
   assert.match(serviceWorker, /PRIVATE_PATH_PREFIXES/);
   assert.match(serviceWorker, /"\/api"/);
@@ -107,11 +107,14 @@ test("ships an installable Tào Phớ 88 PWA shell", async () => {
   assert.match(serviceWorker, /self\.clients\.claim\(\)/);
   assert.match(serviceWorker, /SKIP_WAITING/);
 
+  // Sprite ảnh món cũ đã bị gỡ: Đảo Chè không dùng lại bộ ảnh chụp
+  // của thương hiệu cũ, và ảnh chè thật thì chưa có. Chỗ trống được thay bằng ô màu dựng
+  // trong ProductPhoto, nên ở đây chỉ còn kiểm bộ biểu trưng PWA.
   await Promise.all([
     access(new URL("../public/pwa-icon-192.png", import.meta.url)),
     access(new URL("../public/pwa-icon-512.png", import.meta.url)),
-    access(new URL("../public/customer-products.png", import.meta.url)),
-    access(new URL("../public/customer-products-v2.png", import.meta.url)),
+    access(new URL("../public/favicon.svg", import.meta.url)),
+    access(new URL("../public/og-v2.png", import.meta.url)),
   ]);
 });
 
@@ -123,7 +126,7 @@ test("ships a separate network-only operations PWA entry point", async () => {
   ]);
 
   assert.notEqual(portalManifest.id, customerManifest.id);
-  assert.equal(portalManifest.id, "/tao-pho-88-operations-app");
+  assert.equal(portalManifest.id, "/dao-che-operations-app");
   assert.match(portalManifest.start_url, /^\/portal\b/);
   assert.equal(portalManifest.scope, "/portal");
   assert.equal(portalManifest.display, "standalone");
@@ -187,14 +190,14 @@ test("keeps the customer journey and persistence wiring in place", async () => {
     assert.match(source, new RegExp(`"${tab}"`));
   }
   for (const storageKey of [
-    "tp88.cart",
-    "tp88.location",
-    "tp88.customer",
-    "tp88.activeOrder",
-    "tp88.favorites",
-    "tp88.groupRoom",
-    "tp88.savedLocations",
-    "tp88.servicePoint",
+    "daoche.cart",
+    "daoche.location",
+    "daoche.customer",
+    "daoche.activeOrder",
+    "daoche.favorites",
+    "daoche.groupRoom",
+    "daoche.savedLocations",
+    "daoche.servicePoint",
   ]) {
     assert.match(source, new RegExp(storageKey.replace(".", "\\.")));
   }
@@ -204,7 +207,7 @@ test("keeps the customer journey and persistence wiring in place", async () => {
   assert.match(source, /Xác nhận đặt đơn/);
   assert.match(source, /Tạo phòng chọn món chung/);
   assert.match(source, /Theo dõi đơn hàng/);
-  assert.match(source, /"X-TP88-Host-Token"/);
+  assert.match(source, /"X-DaoChe-Host-Token"/);
   assert.doesNotMatch(source, /&hostToken=/);
   assert.match(prompt, /navigator\.serviceWorker\s*\.register\("\/sw\.js"/);
   assert.match(prompt, /beforeinstallprompt/);

@@ -16,7 +16,7 @@
  * Chạy xoá bằng: node scripts/seed-test-accounts.mjs --remove
  *
  * CÁCH CHẠY (cần DATABASE_URL trỏ tới database đích):
- *   railway ssh --service TaoPho88 "cd /app && node scripts/seed-test-accounts.mjs"
+ *   railway ssh --service DaoChe "cd /app && node scripts/seed-test-accounts.mjs"
  */
 
 import postgres from "postgres";

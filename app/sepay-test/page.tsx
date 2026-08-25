@@ -174,9 +174,9 @@ export default function SePayTestPage() {
         </header>
 
         <div className={styles.intro}>
-          <div className={styles.brandMark}>88</div>
+          <div className={styles.brandMark}>ĐC</div>
           <div>
-            <small>TÀO PHỚ 88 · SEPAY DIAGNOSTIC</small>
+            <small>ĐẢO CHÈ · SEPAY DIAGNOSTIC</small>
             <h1>Kiểm thử nhận tiền tự động</h1>
             <p>Một trang độc lập để kiểm tra TPBank → SePay → webhook → database.</p>
           </div>

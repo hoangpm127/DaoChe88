@@ -155,7 +155,7 @@ export default function LalamoveDispatch() {
       <form className={styles.form} onSubmit={lookup}>
         <label>
           <span>Mã đơn hàng</span>
-          <input required placeholder="TP88-260825-…" value={orderCode} onChange={(event) => { setOrderCode(event.target.value); setLooked(false); }} />
+          <input required placeholder="DC-260825-…" value={orderCode} onChange={(event) => { setOrderCode(event.target.value); setLooked(false); }} />
         </label>
         <button type="submit" disabled={Boolean(busy)}>
           <Search size={15} /> {busy === "lookup" ? "Đang tra…" : "Tra đơn"}

@@ -31,7 +31,7 @@ export const accountServiceDetails: Record<AccountServiceId, AccountServiceDetai
     icon: CreditCard,
     eyebrow: "THANH TOÁN & HÓA ĐƠN",
     title: "Thanh toán theo cách bạn tiện nhất",
-    description: "Tào Phớ 88 nhận VietQR và tiền mặt khi nhận món. Phương thức bạn chọn được lưu trên thiết bị này, hệ thống vẫn hỏi lại trước khi hoàn tất đơn.",
+    description: "Đảo Chè nhận VietQR và tiền mặt khi nhận món. Phương thức bạn chọn được lưu trên thiết bị này, hệ thống vẫn hỏi lại trước khi hoàn tất đơn.",
     items: [
       { title: "VietQR ngân hàng", note: "Mỗi đơn có một mã riêng, hệ thống tự đối chiếu số tiền về đúng đơn." },
       { title: "Tiền mặt khi nhận món", note: "Trả trực tiếp cho nhân viên hoặc shipper; đơn được ghi nhận đã thu khi giao xong." },
@@ -56,7 +56,7 @@ export const accountServiceDetails: Record<AccountServiceId, AccountServiceDetai
   support: {
     icon: MessageCircleMore,
     eyebrow: "TRUNG TÂM HỖ TRỢ",
-    title: "Cần gì, Tào Phớ 88 hỗ trợ ngay",
+    title: "Cần gì, Đảo Chè hỗ trợ ngay",
     description: "Tin nhắn của bạn được ghi thành yêu cầu hỗ trợ và chuyển tới người phụ trách điểm bán.",
     items: [
       { title: "Hỏi về món", note: "Thành phần, độ ngọt, dị ứng hoặc tiến độ chuẩn bị." },
@@ -146,7 +146,7 @@ export const groupProfileTypes: Array<{
 export const navItems: Array<{ id: TabId; label: string; icon: LucideIcon }> = [
   { id: "home", label: "Trang chủ", icon: Home },
   { id: "nearby", label: "Gần bạn", icon: MapPinned },
-  { id: "group", label: "I love Tào Phớ", icon: Heart },
+  { id: "group", label: "I love Đảo Chè", icon: Heart },
   { id: "offers", label: "Ưu đãi", icon: Gift },
   { id: "account", label: "Tài khoản", icon: UserRound },
 ];
@@ -158,8 +158,8 @@ export const storeServiceIcons: Record<string, LucideIcon> = {
   "Nhận tại quầy": ShoppingBag,
   "Đơn văn phòng": BriefcaseBusiness,
   Coffee,
-  "Tào Phớ 88": Sparkles,
-  "Tào phớ signature": Sparkles,
+  "Đảo Chè": Sparkles,
+  "Chè signature": Sparkles,
   "Đối tác xác minh": ShieldCheck,
   "Đặt tại điểm": MapPin,
 };

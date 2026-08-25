@@ -1,4 +1,4 @@
--- Schema PostgreSQL ban đầu cho Tào Phớ 88 (M0).
+-- Schema PostgreSQL ban đầu cho Đảo Chè (M0).
 --
 -- Sinh từ chính schema mà ứng dụng tạo ra trên SQLite, nên đảm bảo không sót
 -- bảng nào. Ba khác biệt phải xử lý tay:

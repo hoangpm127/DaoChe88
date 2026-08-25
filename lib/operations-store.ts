@@ -118,7 +118,7 @@ export type CustomerOrderTracking = {
 export async function getCustomerOrderTracking(orderCodeInput: string, trackingTokenInput: string): Promise<CustomerOrderTracking> {
   const orderCode = orderCodeInput.trim().toLocaleUpperCase("en-US");
   const trackingToken = trackingTokenInput.trim();
-  if (!/^TP88-[A-Z0-9-]{8,40}$/.test(orderCode) || !/^[a-f0-9]{64}$/i.test(trackingToken)) {
+  if (!/^DC-[A-Z0-9-]{8,40}$/.test(orderCode) || !/^[a-f0-9]{64}$/i.test(trackingToken)) {
     throw new OperationsError("Không tìm thấy đơn hàng với thông tin theo dõi này.", 404, "order_tracking_not_found");
   }
   const trackingTokenHash = await hashTrackingToken(trackingToken);
@@ -134,7 +134,7 @@ export async function getCustomerOrderTracking(orderCodeInput: string, trackingT
         o.fulfillment_type AS fulfillment_type,
         o.promised_at AS promised_at,
         o.updated_at AS updated_at,
-        COALESCE(s.name, 'Tào Phớ 88') AS site_name,
+        COALESCE(s.name, 'Đảo Chè') AS site_name,
         d.tracking_url AS tracking_url,
         d.pickup_eta AS pickup_eta,
         d.delivery_eta AS delivery_eta
@@ -256,7 +256,7 @@ export async function runOperationsCommand(payload: CommandPayload, options: { r
   if (!payload.command) throw new OperationsError("Thiếu command.", 400, "missing_command");
   const role = options.role;
   if (role !== "customer" && !isPortalRole(role)) throw new OperationsError("Cần phiên portal hợp lệ để thao tác vận hành.", 401, "portal_session_required");
-  const actorName = options.actorName?.trim() || (role === "customer" ? "Khách hàng Tào Phớ 88" : getPortalRolePolicy(role).actorName);
+  const actorName = options.actorName?.trim() || (role === "customer" ? "Khách hàng Đảo Chè" : getPortalRolePolicy(role).actorName);
   const canonicalPayload: CommandPayload = {
     ...payload,
     actor: { role, name: actorName, userId: options.userId?.trim() || undefined, scope: options.scope ?? null },

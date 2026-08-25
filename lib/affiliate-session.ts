@@ -15,7 +15,7 @@ import { getRuntimeDatabase } from "../db/runtime-database.ts";
 import { readAffiliateSession, type AffiliateSession } from "./auth/sessions.ts";
 import { readCookie, secureCookieSuffix, signSessionToken, verifySignedToken } from "./portal-session.ts";
 
-export const AFFILIATE_SESSION_COOKIE = "tp88_affiliate_session";
+export const AFFILIATE_SESSION_COOKIE = "daoche_affiliate_session";
 /** Ngắn hơn phiên vận hành: đây là thiết bị cá nhân, không phải máy tại quầy. */
 export const AFFILIATE_SESSION_TTL_SECONDS = 30 * 24 * 60 * 60;
 

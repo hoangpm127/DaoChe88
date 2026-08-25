@@ -1,37 +1,37 @@
 ﻿code,name,kind,address,district,lat,lng,manager_name,phone,capacity_per_hour,opening_hours,owner_phone,partner_code
-TP88-MYDINH,Tào Phớ 88 Mỹ Đình,official-store,"Số 18 Nguyễn Hoàng, Mỹ Đình 2, Nam Từ Liêm, Hà Nội",Nam Từ Liêm,21.028741,105.777906,,,120,06:30-22:00,,
-TP88-KEANGNAM,Express Keangnam,official-express,"Sảnh A, Keangnam Landmark 72, Phạm Hùng, Hà Nội",Nam Từ Liêm,21.016662,105.783290,,,80,07:00-20:30,,
-TP88-GARDENIA,Mộc Coffee · Gardenia,partner-counter,"Shop S2-03, Vinhomes Gardenia, Hàm Nghi, Hà Nội",Nam Từ Liêm,21.035807,105.770995,,,60,07:30-22:30,,DT-GARDENIA
-TP88-CAUGIAY,Bếp Việt 24 · Cầu Giấy,partner-counter,"88 Trần Thái Tông, Dịch Vọng Hậu, Cầu Giấy, Hà Nội",Cầu Giấy,21.033915,105.789612,,,60,10:00-21:30,,DT-CAUGIAY
-TP88-TAYHO,Lá Coffee · Tây Hồ,partner-counter,"19 ngõ 67 Tô Ngọc Vân, Quảng An, Tây Hồ, Hà Nội",Tây Hồ,21.066217,105.826105,,,60,08:00-23:00,,DT-TAYHO
-TP88-METRI,Tào Phớ 88 Mễ Trì,official-store,"46 Mễ Trì Hạ, Nam Từ Liêm, Hà Nội",Nam Từ Liêm,21.010654,105.778829,,,120,06:30-22:00,,
-TP88-PHAMHUNG,Bếp nhanh Phạm Hùng,official-store,"Số 7 Phạm Hùng, Nam Từ Liêm, Hà Nội",Nam Từ Liêm,21.018915,105.782884,,,120,07:00-22:30,,
-TP88-DINHTHON,Nếp Coffee · Đình Thôn,partner-counter,"32 Đình Thôn, Mỹ Đình 1, Nam Từ Liêm, Hà Nội",Nam Từ Liêm,21.017974,105.774868,,,60,07:00-22:30,,DT-DINHTHON
-TP88-TRANDUYHUNG,Tào Phớ 88 Trần Duy Hưng,official-store,"128 Trần Duy Hưng, Trung Hòa, Cầu Giấy, Hà Nội",Cầu Giấy,21.007705,105.799005,,,120,06:30-22:00,,
-TP88-YENHOA,Mây Café · Yên Hòa,partner-counter,"19 Vũ Phạm Hàm, Yên Hòa, Cầu Giấy, Hà Nội",Cầu Giấy,21.017454,105.799854,,,60,07:00-22:30,,DT-YENHOA
-TP88-TRUNGKINH,Bếp Nhà 88 · Trung Kính,partner-counter,"57 Trung Kính, Trung Hòa, Cầu Giấy, Hà Nội",Cầu Giấy,21.013663,105.802186,,,60,07:00-22:30,,DT-TRUNGKINH
-TP88-XUANTHUY,Tào Phớ 88 Xuân Thủy,official-store,"165 Xuân Thủy, Dịch Vọng Hậu, Cầu Giấy, Hà Nội",Cầu Giấy,21.036368,105.783788,,,120,06:30-22:00,,
-TP88-HOTUNGMAU,An Coffee · Hồ Tùng Mậu,partner-counter,"92 Hồ Tùng Mậu, Mai Dịch, Cầu Giấy, Hà Nội",Cầu Giấy,21.040297,105.774621,,,60,09:00-21:00,,DT-HOTUNGMAU
-TP88-NHON,Tào Phớ 88 Nhổn,official-store,"218 Nhổn, Bắc Từ Liêm, Hà Nội",Bắc Từ Liêm,21.048230,105.741988,,,120,07:00-22:30,,
-TP88-XUANPHUONG,Bếp tổng Tào Phớ 88 · Xuân Phương,central-kitchen,"67 Trịnh Văn Bô, Xuân Phương, Nam Từ Liêm, Hà Nội",Nam Từ Liêm,21.040954,105.750220,,,600,06:30-22:00,,
-TP88-HADONG,Tào Phớ 88 Hà Đông,official-store,"86 Trần Phú, Mộ Lao, Hà Đông, Hà Nội",Hà Đông,20.981853,105.785055,,,120,07:00-22:30,,
-TP88-VANQUAN,Góc Nhỏ Café · Văn Quán,partner-counter,"B14 Văn Quán, Hà Đông, Hà Nội",Hà Đông,20.978980,105.790675,,,60,07:00-22:30,,DT-VANQUAN
-TP88-MYDINHSTADIUM,Express Sân vận động Mỹ Đình,official-express,"Đường Lê Đức Thọ, Mỹ Đình 1, Nam Từ Liêm, Hà Nội",Nam Từ Liêm,21.020995,105.763398,,,80,06:30-22:00,,
-TP88-VINCOMSKYLAKE,Skylake Pantry · Phạm Hùng,partner-counter,"Vincom Skylake, 50 Phạm Hùng, Nam Từ Liêm, Hà Nội",Nam Từ Liêm,21.020659,105.780811,,,60,07:00-22:30,,DT-VINCOMSKYLAKE
-TP88-ROYALCITY,Tào Phớ 88 Royal City,official-store,"72A Nguyễn Trãi, Thanh Xuân, Hà Nội",Thanh Xuân,21.003224,105.815646,,,120,07:00-22:30,,
-TP88-THANHXUAN,Bếp Việt · Thanh Xuân,partner-counter,"118 Nguyễn Tuân, Thanh Xuân, Hà Nội",Thanh Xuân,20.994747,105.805563,,,60,09:00-21:00,,DT-THANHXUAN
-TP88-LANGHA,Mầm Coffee · Láng Hạ,partner-counter,"61 Láng Hạ, Đống Đa, Hà Nội",Đống Đa,21.013159,105.815442,,,60,07:00-22:30,,DT-LANGHA
-TP88-GIANGVO,Tào Phớ 88 Giảng Võ,official-store,"148 Giảng Võ, Ba Đình, Hà Nội",Ba Đình,21.026452,105.821512,,,120,07:00-22:30,,
-TP88-LINHDAM,Lá Nếp · Linh Đàm,partner-counter,"HH2A Linh Đàm, Hoàng Mai, Hà Nội",Hoàng Mai,20.964165,105.825246,,,60,06:30-22:00,,DT-LINHDAM
-TP88-CAUDIEN,Tào Phớ 88 Cầu Diễn,official-store,"106 Cầu Diễn, Bắc Từ Liêm, Hà Nội",Bắc Từ Liêm,21.041312,105.760023,,,120,07:00-22:30,,
-TP88-TAYMO,Nhà Mình Café · Tây Mỗ,partner-counter,"33 Tây Mỗ, Nam Từ Liêm, Hà Nội",Nam Từ Liêm,21.005572,105.747574,,,60,07:00-22:30,,DT-TAYMO
-TP88-SMARTCITY,Tào Phớ 88 Smart City,official-store,"S2.05 Vinhomes Smart City, Tây Mỗ, Hà Nội",Nam Từ Liêm,21.006002,105.735499,,,120,06:30-22:00,,
-TP88-MOLAO,Nếp Mới · Mộ Lao,partner-counter,"KĐT Mộ Lao, Hà Đông, Hà Nội",Hà Đông,20.984979,105.793501,,,60,07:00-22:30,,DT-MOLAO
-TP88-VANPHUC,Tào Phớ 88 Vạn Phúc,official-store,"48 Vạn Phúc, Hà Đông, Hà Nội",Hà Đông,20.980983,105.770118,,,120,09:00-21:00,,
-TP88-NGOCKHANH,Trạm Xanh · Ngọc Khánh,partner-counter,"21 Phạm Huy Thông, Ba Đình, Hà Nội",Ba Đình,21.030029,105.818498,,,60,06:30-22:00,,DT-NGOCKHANH
-TP88-BUOI,Tào Phớ 88 Bưởi,official-store,"238 đường Bưởi, Ba Đình, Hà Nội",Ba Đình,21.044418,105.812751,,,120,07:00-22:30,,
-TP88-LACLONGQUAN,Mây Hồ Tây · Lạc Long Quân,partner-counter,"287 Lạc Long Quân, Tây Hồ, Hà Nội",Tây Hồ,21.062365,105.810012,,,60,07:00-22:30,,DT-LACLONGQUAN
-TP88-LONGBIEN,Tào Phớ 88 Long Biên,official-store,"56 Nguyễn Văn Cừ, Long Biên, Hà Nội",Long Biên,21.041002,105.872019,,,120,06:30-22:00,,
-TP88-GIALAM,Phố Nhỏ Café · Gia Lâm,partner-counter,"102 Ngô Xuân Quảng, Trâu Quỳ, Gia Lâm, Hà Nội",Gia Lâm,21.019574,105.938437,,,60,07:00-22:30,,DT-GIALAM
-TP88-DONGANH,Tào Phớ 88 Đông Anh,official-store,"68 Cao Lỗ, Uy Nỗ, Đông Anh, Hà Nội",Đông Anh,21.136858,105.847125,,,120,07:00-22:30,,
-TP88-HOAIDUC,Tào Phớ 88 Hoài Đức,partner-counter,"KĐT Geleximco, An Khánh, Hoài Đức, Hà Nội",Hoài Đức,20.993288,105.706735,,,60,06:30-22:00,,DT-HOAIDUC
+DC-MYDINH,Đảo Chè Mỹ Đình,official-store,"Số 18 Nguyễn Hoàng, Mỹ Đình 2, Nam Từ Liêm, Hà Nội",Nam Từ Liêm,21.028741,105.777906,,,120,06:30-22:00,,
+DC-KEANGNAM,Express Keangnam,official-express,"Sảnh A, Keangnam Landmark 72, Phạm Hùng, Hà Nội",Nam Từ Liêm,21.016662,105.783290,,,80,07:00-20:30,,
+DC-GARDENIA,Mộc Coffee · Gardenia,partner-counter,"Shop S2-03, Vinhomes Gardenia, Hàm Nghi, Hà Nội",Nam Từ Liêm,21.035807,105.770995,,,60,07:30-22:30,,DT-GARDENIA
+DC-CAUGIAY,Bếp Việt 24 · Cầu Giấy,partner-counter,"88 Trần Thái Tông, Dịch Vọng Hậu, Cầu Giấy, Hà Nội",Cầu Giấy,21.033915,105.789612,,,60,10:00-21:30,,DT-CAUGIAY
+DC-TAYHO,Lá Coffee · Tây Hồ,partner-counter,"19 ngõ 67 Tô Ngọc Vân, Quảng An, Tây Hồ, Hà Nội",Tây Hồ,21.066217,105.826105,,,60,08:00-23:00,,DT-TAYHO
+DC-METRI,Đảo Chè Mễ Trì,official-store,"46 Mễ Trì Hạ, Nam Từ Liêm, Hà Nội",Nam Từ Liêm,21.010654,105.778829,,,120,06:30-22:00,,
+DC-PHAMHUNG,Bếp nhanh Phạm Hùng,official-store,"Số 7 Phạm Hùng, Nam Từ Liêm, Hà Nội",Nam Từ Liêm,21.018915,105.782884,,,120,07:00-22:30,,
+DC-DINHTHON,Nếp Coffee · Đình Thôn,partner-counter,"32 Đình Thôn, Mỹ Đình 1, Nam Từ Liêm, Hà Nội",Nam Từ Liêm,21.017974,105.774868,,,60,07:00-22:30,,DT-DINHTHON
+DC-TRANDUYHUNG,Đảo Chè Trần Duy Hưng,official-store,"128 Trần Duy Hưng, Trung Hòa, Cầu Giấy, Hà Nội",Cầu Giấy,21.007705,105.799005,,,120,06:30-22:00,,
+DC-YENHOA,Mây Café · Yên Hòa,partner-counter,"19 Vũ Phạm Hàm, Yên Hòa, Cầu Giấy, Hà Nội",Cầu Giấy,21.017454,105.799854,,,60,07:00-22:30,,DT-YENHOA
+DC-TRUNGKINH,Bếp Nhà 88 · Trung Kính,partner-counter,"57 Trung Kính, Trung Hòa, Cầu Giấy, Hà Nội",Cầu Giấy,21.013663,105.802186,,,60,07:00-22:30,,DT-TRUNGKINH
+DC-XUANTHUY,Đảo Chè Xuân Thủy,official-store,"165 Xuân Thủy, Dịch Vọng Hậu, Cầu Giấy, Hà Nội",Cầu Giấy,21.036368,105.783788,,,120,06:30-22:00,,
+DC-HOTUNGMAU,An Coffee · Hồ Tùng Mậu,partner-counter,"92 Hồ Tùng Mậu, Mai Dịch, Cầu Giấy, Hà Nội",Cầu Giấy,21.040297,105.774621,,,60,09:00-21:00,,DT-HOTUNGMAU
+DC-NHON,Đảo Chè Nhổn,official-store,"218 Nhổn, Bắc Từ Liêm, Hà Nội",Bắc Từ Liêm,21.048230,105.741988,,,120,07:00-22:30,,
+DC-XUANPHUONG,Bếp tổng Đảo Chè · Xuân Phương,central-kitchen,"67 Trịnh Văn Bô, Xuân Phương, Nam Từ Liêm, Hà Nội",Nam Từ Liêm,21.040954,105.750220,,,600,06:30-22:00,,
+DC-HADONG,Đảo Chè Hà Đông,official-store,"86 Trần Phú, Mộ Lao, Hà Đông, Hà Nội",Hà Đông,20.981853,105.785055,,,120,07:00-22:30,,
+DC-VANQUAN,Góc Nhỏ Café · Văn Quán,partner-counter,"B14 Văn Quán, Hà Đông, Hà Nội",Hà Đông,20.978980,105.790675,,,60,07:00-22:30,,DT-VANQUAN
+DC-MYDINHSTADIUM,Express Sân vận động Mỹ Đình,official-express,"Đường Lê Đức Thọ, Mỹ Đình 1, Nam Từ Liêm, Hà Nội",Nam Từ Liêm,21.020995,105.763398,,,80,06:30-22:00,,
+DC-VINCOMSKYLAKE,Skylake Pantry · Phạm Hùng,partner-counter,"Vincom Skylake, 50 Phạm Hùng, Nam Từ Liêm, Hà Nội",Nam Từ Liêm,21.020659,105.780811,,,60,07:00-22:30,,DT-VINCOMSKYLAKE
+DC-ROYALCITY,Đảo Chè Royal City,official-store,"72A Nguyễn Trãi, Thanh Xuân, Hà Nội",Thanh Xuân,21.003224,105.815646,,,120,07:00-22:30,,
+DC-THANHXUAN,Bếp Việt · Thanh Xuân,partner-counter,"118 Nguyễn Tuân, Thanh Xuân, Hà Nội",Thanh Xuân,20.994747,105.805563,,,60,09:00-21:00,,DT-THANHXUAN
+DC-LANGHA,Mầm Coffee · Láng Hạ,partner-counter,"61 Láng Hạ, Đống Đa, Hà Nội",Đống Đa,21.013159,105.815442,,,60,07:00-22:30,,DT-LANGHA
+DC-GIANGVO,Đảo Chè Giảng Võ,official-store,"148 Giảng Võ, Ba Đình, Hà Nội",Ba Đình,21.026452,105.821512,,,120,07:00-22:30,,
+DC-LINHDAM,Lá Nếp · Linh Đàm,partner-counter,"HH2A Linh Đàm, Hoàng Mai, Hà Nội",Hoàng Mai,20.964165,105.825246,,,60,06:30-22:00,,DT-LINHDAM
+DC-CAUDIEN,Đảo Chè Cầu Diễn,official-store,"106 Cầu Diễn, Bắc Từ Liêm, Hà Nội",Bắc Từ Liêm,21.041312,105.760023,,,120,07:00-22:30,,
+DC-TAYMO,Nhà Mình Café · Tây Mỗ,partner-counter,"33 Tây Mỗ, Nam Từ Liêm, Hà Nội",Nam Từ Liêm,21.005572,105.747574,,,60,07:00-22:30,,DT-TAYMO
+DC-SMARTCITY,Đảo Chè Smart City,official-store,"S2.05 Vinhomes Smart City, Tây Mỗ, Hà Nội",Nam Từ Liêm,21.006002,105.735499,,,120,06:30-22:00,,
+DC-MOLAO,Nếp Mới · Mộ Lao,partner-counter,"KĐT Mộ Lao, Hà Đông, Hà Nội",Hà Đông,20.984979,105.793501,,,60,07:00-22:30,,DT-MOLAO
+DC-VANPHUC,Đảo Chè Vạn Phúc,official-store,"48 Vạn Phúc, Hà Đông, Hà Nội",Hà Đông,20.980983,105.770118,,,120,09:00-21:00,,
+DC-NGOCKHANH,Trạm Xanh · Ngọc Khánh,partner-counter,"21 Phạm Huy Thông, Ba Đình, Hà Nội",Ba Đình,21.030029,105.818498,,,60,06:30-22:00,,DT-NGOCKHANH
+DC-DUONGBUOI,Đảo Chè Bưởi,official-store,"238 đường Bưởi, Ba Đình, Hà Nội",Ba Đình,21.044418,105.812751,,,120,07:00-22:30,,
+DC-LACLONGQUAN,Mây Hồ Tây · Lạc Long Quân,partner-counter,"287 Lạc Long Quân, Tây Hồ, Hà Nội",Tây Hồ,21.062365,105.810012,,,60,07:00-22:30,,DT-LACLONGQUAN
+DC-LONGBIEN,Đảo Chè Long Biên,official-store,"56 Nguyễn Văn Cừ, Long Biên, Hà Nội",Long Biên,21.041002,105.872019,,,120,06:30-22:00,,
+DC-GIALAM,Phố Nhỏ Café · Gia Lâm,partner-counter,"102 Ngô Xuân Quảng, Trâu Quỳ, Gia Lâm, Hà Nội",Gia Lâm,21.019574,105.938437,,,60,07:00-22:30,,DT-GIALAM
+DC-DONGANH,Đảo Chè Đông Anh,official-store,"68 Cao Lỗ, Uy Nỗ, Đông Anh, Hà Nội",Đông Anh,21.136858,105.847125,,,120,07:00-22:30,,
+DC-HOAIDUC,Đảo Chè Hoài Đức,partner-counter,"KĐT Geleximco, An Khánh, Hoài Đức, Hà Nội",Hoài Đức,20.993288,105.706735,,,60,06:30-22:00,,DT-HOAIDUC

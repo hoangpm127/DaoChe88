@@ -105,7 +105,7 @@ function assertApiReady(action: "read" | "book" | "configure") {
   if (!credentialsMatch(config.environment, config.apiKey, config.apiSecret)) {
     throw new LalamoveError("Khóa API Lalamove chưa đúng với môi trường đang chọn.", 503, "lalamove_credentials_not_configured");
   }
-  if (config.market !== "VN") throw new LalamoveError("Tào Phớ 88 chỉ cho phép thị trường Lalamove Việt Nam.", 503, "invalid_lalamove_market");
+  if (config.market !== "VN") throw new LalamoveError("Đảo Chè chỉ cho phép thị trường Lalamove Việt Nam.", 503, "invalid_lalamove_market");
   if (config.environment === "production" && orderDataMode() !== "live") {
     throw new LalamoveError("Đơn test không được phép gọi Lalamove production.", 409, "production_delivery_blocked_in_test_mode");
   }
@@ -257,7 +257,7 @@ export async function placeLalamoveOrder(input: {
         ...(input.recipient.remarks ? { remarks: input.recipient.remarks.slice(0, 500) } : {}),
       }],
       isPODEnabled: true,
-      partner: "Tao Pho 88",
+      partner: "Dao Che",
       metadata: { restaurantOrderId: input.orderCode, restaurantName: input.siteName },
     },
   }, "book");

@@ -2,8 +2,8 @@
   min-height: 100vh;
   background:
     radial-gradient(circle at 10% 0%, rgba(238, 190, 88, 0.2), transparent 28rem),
-    linear-gradient(145deg, #f8f4ea 0%, #f1f7ef 52%, #e9f3eb 100%);
-  color: #193b2a;
+    linear-gradient(145deg, #f8f4ea 0%, #fbf4ec 52%, #f6efe5 100%);
+  color: #3e311b;
   padding: 24px;
 }
 
@@ -25,14 +25,14 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: #315a43;
+  color: #604c2d;
   font-size: 14px;
   font-weight: 750;
   text-decoration: none;
 }
 
 .header span {
-  border: 1px solid rgba(20, 107, 58, 0.16);
+  border: 1px solid rgba(120, 81, 4, 0.16);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.72);
   padding: 8px 12px;
@@ -52,8 +52,8 @@
   height: 62px;
   flex: 0 0 62px;
   border-radius: 20px;
-  background: #146b3a;
-  box-shadow: 0 12px 30px rgba(20, 107, 58, 0.22);
+  background: #785104;
+  box-shadow: 0 12px 30px rgba(120, 81, 4, 0.22);
   color: #fff8e4;
   font-size: 25px;
   font-weight: 900;
@@ -69,7 +69,7 @@
 
 .intro h1 {
   margin: 4px 0 5px;
-  color: #153a27;
+  color: #3e2f17;
   font-size: clamp(28px, 5vw, 48px);
   line-height: 1.03;
 }
@@ -78,7 +78,7 @@
 .statusCard p,
 .emptyCard p {
   margin: 0;
-  color: #63766a;
+  color: #7a6f5f;
   line-height: 1.55;
 }
 
@@ -87,10 +87,10 @@
 .qrCard,
 .detailsCard,
 .flowCard {
-  border: 1px solid rgba(24, 74, 45, 0.1);
+  border: 1px solid rgba(81, 58, 22, 0.1);
   border-radius: 26px;
   background: rgba(255, 255, 255, 0.88);
-  box-shadow: 0 20px 60px rgba(35, 67, 46, 0.1);
+  box-shadow: 0 20px 60px rgba(72, 56, 32, 0.1);
 }
 
 .emptyCard {
@@ -109,8 +109,8 @@
   width: 72px;
   height: 72px;
   border-radius: 24px;
-  background: #e6f3e8;
-  color: #146b3a;
+  background: #f7ede1;
+  color: #785104;
 }
 
 .emptyCard h2 {
@@ -128,7 +128,7 @@
   gap: 9px;
   border: 0;
   border-radius: 15px;
-  background: #146b3a;
+  background: #785104;
   color: white;
   padding: 14px 20px;
   margin-top: 24px;
@@ -172,9 +172,9 @@
 .pending .statusIcon { background: #f9e8b8; color: #9b6d1f; }
 .partial { border-color: rgba(211, 127, 34, 0.28); background: #fff4e8; }
 .partial .statusIcon { background: #fbd8b2; color: #a85917; }
-.success { border-color: rgba(20, 107, 58, 0.28); background: #eaf7ed; }
-.success .statusIcon { background: #146b3a; color: white; }
-.success small { color: #146b3a; }
+.success { border-color: rgba(120, 81, 4, 0.28); background: #fbf2e5; }
+.success .statusIcon { background: #785104; color: white; }
+.success small { color: #785104; }
 .danger { border-color: rgba(166, 58, 48, 0.25); background: #fff0ee; }
 .danger .statusIcon { background: #f4d0cb; color: #a63a30; }
 
@@ -196,19 +196,19 @@
 }
 
 .qrHeading span {
-  color: #748278;
+  color: #857c6f;
   font-size: 10px;
   font-weight: 900;
   letter-spacing: 0.08em;
 }
 
-.qrHeading b { color: #146b3a; font-size: 24px; }
+.qrHeading b { color: #785104; font-size: 24px; }
 
 .qrFrame {
   display: grid;
   place-items: center;
   overflow: hidden;
-  border: 1px solid #e2e9e1;
+  border: 1px solid #ece5de;
   border-radius: 20px;
   background: white;
   padding: 8px;
@@ -222,7 +222,7 @@
   justify-content: center;
   gap: 7px;
   margin: 14px 0 0;
-  color: #738178;
+  color: #847c6f;
   font-size: 13px;
 }
 
@@ -235,7 +235,7 @@
   padding: 14px 0;
 }
 
-.detailRow span { color: #77877c; font-size: 13px; }
+.detailRow span { color: #8b8172; font-size: 13px; }
 .detailRow strong { overflow-wrap: anywhere; font-size: 17px; }
 .detailRow button,
 .secondaryActions button {
@@ -243,10 +243,10 @@
   align-items: center;
   justify-content: center;
   gap: 7px;
-  border: 1px solid #dfe8df;
+  border: 1px solid #ece4da;
   border-radius: 11px;
   background: #f7faf7;
-  color: #315a43;
+  color: #604c2d;
   padding: 8px;
   font: inherit;
   font-size: 12px;
@@ -254,13 +254,13 @@
   cursor: pointer;
 }
 
-.codeRow strong { color: #146b3a; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: 0.04em; }
+.codeRow strong { color: #785104; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: 0.04em; }
 
 .progressBlock { margin-top: 22px; }
 .progressBlock > div { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; }
-.progressBlock > div span { color: #77877c; }
-.progressBlock i { display: block; overflow: hidden; height: 8px; border-radius: 999px; background: #e7ede8; margin-top: 9px; }
-.progressBlock i b { display: block; height: 100%; border-radius: inherit; background: #24a45c; transition: width 420ms ease; }
+.progressBlock > div span { color: #8b8172; }
+.progressBlock i { display: block; overflow: hidden; height: 8px; border-radius: 999px; background: #efeae5; margin-top: 9px; }
+.progressBlock i b { display: block; height: 100%; border-radius: inherit; background: #b77e07; transition: width 420ms ease; }
 
 .receipt,
 .error {
@@ -272,7 +272,7 @@
   margin-top: 16px;
 }
 
-.receipt { background: #eaf7ed; color: #146b3a; }
+.receipt { background: #fbf2e5; color: #785104; }
 .receipt div { display: flex; flex-direction: column; gap: 2px; }
 .receipt span { font-size: 11px; }
 .error { background: #fff0ee; color: #963b32; font-size: 13px; }
@@ -283,14 +283,14 @@
 .flowCard { padding: 22px; margin-top: 18px; }
 .flowCard h2 { margin: 0 0 16px; font-size: 19px; }
 .flowSteps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-.flowSteps article { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px; border: 1px solid #e4eae4; border-radius: 15px; padding: 13px; color: #87948b; }
+.flowSteps article { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px; border: 1px solid #ece7e1; border-radius: 15px; padding: 13px; color: #978f83; }
 .flowSteps article > span { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 9px; background: #edf1ed; font-size: 12px; font-weight: 900; }
 .flowSteps article div { display: flex; min-width: 0; flex-direction: column; gap: 2px; }
-.flowSteps article strong { color: #53665a; font-size: 13px; }
+.flowSteps article strong { color: #695f4f; font-size: 13px; }
 .flowSteps article small { overflow: hidden; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
-.flowSteps .flowActive { border-color: rgba(20, 107, 58, 0.22); background: #f0f8f1; color: #146b3a; }
-.flowSteps .flowActive > span { background: #146b3a; color: white; }
-.flowSteps .flowActive strong { color: #18482e; }
+.flowSteps .flowActive { border-color: rgba(120, 81, 4, 0.22); background: #fbf4ec; color: #785104; }
+.flowSteps .flowActive > span { background: #785104; color: white; }
+.flowSteps .flowActive strong { color: #4e3918; }
 
 .newCodeButton { margin: 18px auto 0; }
 .newCodeButton:disabled,

@@ -1,4 +1,4 @@
-# Kế hoạch phát triển Tào Phớ 88 — từ bản demo gọi vốn thành phần mềm vận hành thật
+# Kế hoạch phát triển Đảo Chè — từ bản demo gọi vốn thành phần mềm vận hành thật
 
 > Phạm vi: **backend + database + luồng dữ liệu nghiệp vụ**. Giữ nguyên UI/UX hiện có của `/order` và `/portal`; chỉ thay nguồn dữ liệu và bổ sung màn hình khi backend bắt buộc phải có chỗ nhập liệu.
 >
@@ -169,7 +169,7 @@ Phần này liệt kê các vấn đề mà chỉ đọc code mới thấy — a
 ```ts
 workshopCost = grossRevenue * policy.workshopCostBps / policy.retailBps   // = 20% giá bán
 ```
-Đây là **tỷ lệ chính sách**, không phải chi phí thật. Ly tào phớ hoa nhài 15.000đ và combo 438.000đ đều bị gán giá vốn đúng 20%. Khi giá nguyên liệu tăng, báo cáo vẫn hiển thị biên lợi nhuận 60% không đổi. **Không thể ra quyết định kinh doanh bằng con số này.** Cần giá vốn thật từ M7.
+Đây là **tỷ lệ chính sách**, không phải chi phí thật. Ly chè bưởi Năm Roi 28.000đ và combo 498.000đ đều bị gán giá vốn đúng 20%. Khi giá nguyên liệu tăng, báo cáo vẫn hiển thị biên lợi nhuận 60% không đổi. **Không thể ra quyết định kinh doanh bằng con số này.** Cần giá vốn thật từ M7.
 
 #### V2 — Giao diện portal trộn dữ liệu thật với dữ liệu bịa
 
@@ -629,7 +629,7 @@ CREATE INDEX work_shifts_site_idx ON work_shifts (site_id, opened_at);
 
 > **Mục tiêu:** admin sửa được món và giá không cần deploy; giá khác nhau theo loại điểm bán; UI khách đọc thực đơn từ API.
 
-**Hiện trạng.** Backend đọc catalog từ DB (tốt), nhưng UI hardcode 12 món kèm mô tả, dinh dưỡng, dị ứng, rating (`app/order/page.tsx:325–678`). Không có lệnh sửa giá. Không có giá theo điểm — dù dữ liệu mẫu đã lộ ra nhu cầu này: cùng món `TP-HN` giá 15.000đ ở cửa hàng chính thống nhưng 23.000đ ở điểm đối tác (`lib/operations-store.ts:858`).
+**Hiện trạng.** Backend đọc catalog từ DB (tốt), nhưng UI hardcode 12 món kèm mô tả, dinh dưỡng, dị ứng, rating (`app/order/page.tsx:325–678`). Không có lệnh sửa giá. Không có giá theo điểm — dù dữ liệu mẫu đã lộ ra nhu cầu này: cùng món `DC-CHEBUOI` giá 15.000đ ở cửa hàng chính thống nhưng 23.000đ ở điểm đối tác (`lib/operations-store.ts:858`).
 
 **Schema.**
 
@@ -685,7 +685,7 @@ CREATE TABLE catalog_transfer_prices (
 6. Màn hình quản trị thực đơn cho `owner` (thêm mới, phong cách UI hiện có).
 
 **Định nghĩa hoàn thành.**
-- [ ] Admin đổi giá tào phớ từ 15.000 → 16.000 trên giao diện → khách thấy giá mới sau lần tải tiếp theo, không cần deploy.
+- [ ] Admin đổi giá chè bưởi từ 28.000 → 29.000 trên giao diện → khách thấy giá mới sau lần tải tiếp theo, không cần deploy.
 - [ ] Cùng một món hiển thị và tính đúng hai mức giá ở cửa hàng chính thống vs điểm đối tác.
 - [ ] Đơn cũ giữ nguyên giá tại thời điểm mua (đã đúng nhờ `base_unit_price` trên từng dòng món — kiểm lại bằng test).
 - [ ] `grep "const products: Product\[\]" app/order/page.tsx` không còn kết quả.
@@ -943,7 +943,7 @@ CREATE TABLE production_batches (
   labor_cost INTEGER NOT NULL DEFAULT 0,
   overhead_cost INTEGER NOT NULL DEFAULT 0,
   unit_cost INTEGER NOT NULL DEFAULT 0,       -- = (material+labor+overhead)/produced_quantity
-  produced_at TEXT, expires_at TEXT,          -- hạn dùng, bắt buộc cho tào phớ
+  produced_at TEXT, expires_at TEXT,          -- hạn dùng, bắt buộc cho chè nấu trong ngày
   quality_check_by TEXT, quality_note TEXT NOT NULL DEFAULT '',
   created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL
 );
@@ -1609,7 +1609,7 @@ Không cần đủ bộ. Cần **1–2 bản ghi thật** để xác nhận thi�
 | --- | --- | --- |
 | Một cửa hàng chính thống + một điểm đối tác | M2 | Điểm đối tác có gì khác về giờ mở, dịch vụ, cách chia tiền? |
 | Một món bán ở cả hai loại điểm | M3 | Chênh giá bao nhiêu? Vì sao chênh — phí mặt bằng hay chiết khấu đối tác? |
-| Công thức một món, ví dụ tào phớ hoa nhài | M7 | Một phần cần bao nhiêu đậu, đường, hoa nhài? Đơn vị tính là gì? |
+| Công thức một món, ví dụ chè bưởi Năm Roi | M7 | Một phần cần bao nhiêu cùi bưởi, đậu xanh, đường? Đơn vị tính là gì? |
 | Một phiếu giao hàng bếp → cửa hàng đang làm tay | M7 | Hiện đang ghi gì trên phiếu? Ai ký? Cửa hàng kiểm đếm thế nào? |
 | Một ngày chốt quỹ của một cửa hàng | M8 | Đang đếm tiền ra sao? Chênh lệch bao nhiêu thì phải báo? |
 | Cách tính hoa hồng đang áp dụng | M5, M6 | Chủ phòng nhóm hiện có được gì không, hay đây là cơ chế mới? |
@@ -1620,7 +1620,7 @@ Anh cho biết dữ liệu cửa hàng, thực đơn và công thức món trong
 
 | Kiểm tra | Kết quả |
 | --- | --- |
-| `SQLITE_PATH` trong `.env` trỏ tới | `./data/taopho88.sqlite` |
+| `SQLITE_PATH` trong `.env` trỏ tới | `./data/daoche.sqlite` |
 | Thư mục `data/` | **Không tồn tại** |
 | File SQLite duy nhất tìm thấy | `.wrangler/state/v3/d1/…` — DB cục bộ của Cloudflare/miniflare |
 | Nội dung file đó | **2 bảng, không có dữ liệu nghiệp vụ nào** (chỉ `_cf_METADATA`, 1 dòng) |

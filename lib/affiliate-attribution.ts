@@ -20,7 +20,7 @@ import { resolveSetting } from "./settings-store.ts";
 export async function visitorHash(ip: string, userAgent: string): Promise<string> {
   const digest = await crypto.subtle.digest(
     "SHA-256",
-    new TextEncoder().encode(`tp88-visitor:${ip}:${userAgent}`),
+    new TextEncoder().encode(`daoche-visitor:${ip}:${userAgent}`),
   );
   return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("").slice(0, 32);
 }

@@ -53,3 +53,6 @@ next-env.d.ts
 *.sqlite
 *.sqlite-shm
 *.sqlite-wal
+
+# Database pglite cục bộ khi phát triển — không bao giờ commit.
+/data/daoche-dev/

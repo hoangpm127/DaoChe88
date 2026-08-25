@@ -57,7 +57,7 @@ export default function StoreDetailsSheet({ model }: StoreDetailsSheetProps) {
                 <ShieldCheck size={19} />
                 <p>
                   <strong>Điểm bán đã xác minh</strong>
-                  <small>Món, nguyên liệu và giá bán tuân theo tiêu chuẩn Tào Phớ 88.</small>
+                  <small>Món, nguyên liệu và giá bán tuân theo tiêu chuẩn Đảo Chè.</small>
                 </p>
               </div>
               <button

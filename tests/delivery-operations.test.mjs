@@ -10,9 +10,9 @@ import { configureAuthEnvironment, createAccount, login, ownerCookie } from "./h
 process.env.ORDER_DATA_MODE = "live";
 process.env.SEPAY_BANK_ACCOUNT = "88888888188";
 process.env.SEPAY_BANK_CODE = "TPBank";
-process.env.SEPAY_PAYMENT_PREFIX = "TPHO";
+process.env.SEPAY_PAYMENT_PREFIX = "DCHE";
 process.env.SEPAY_WEBHOOK_AUTH_MODE = "hmac";
-process.env.SEPAY_WEBHOOK_SECRET = "tp88-m9-test-sepay-secret-at-least-32-characters";
+process.env.SEPAY_WEBHOOK_SECRET = "daoche-m9-test-sepay-secret-at-least-32-characters";
 process.env.LALAMOVE_ENABLED = "false";
 
 const executionContext = { waitUntil() {}, passThroughOnException() {} };
@@ -20,7 +20,7 @@ const runtimeEnv = { ASSETS: { fetch: async () => new Response("Not found", { st
 const oneKilometer = "21.037600,105.778420";
 const sixKilometers = "21.082560,105.778420";
 const outsideRadius = "21.136500,105.778420";
-const items = [{ productCode: "TP-T2-S", quantity: 1 }];
+const items = [{ productCode: "DC-BUOI", quantity: 1 }];
 
 async function setup() {
   configureAuthEnvironment();
@@ -35,7 +35,7 @@ async function setup() {
   await database.run("UPDATE operation_sites SET opening_hours_json = ?, service_radius_m = 10000, capacity_per_hour = 100, status = 'open', accepts_orders = 1, latitude_e6 = 21028610, longitude_e6 = 105778420 WHERE id = 'site-my-dinh'", allDay);
   // INSERT OR REPLACE la cu phap rieng SQLite; PostgreSQL dung ON CONFLICT.
   await database.run(`INSERT INTO catalog_site_stock (id, site_id, product_sku, on_hand, reserved, track_stock, status)
-    VALUES ('m9-stock', 'site-my-dinh', 'TP-T2-S', 100, 0, 1, 'available')
+    VALUES ('m9-stock', 'site-my-dinh', 'DC-BUOI', 100, 0, 1, 'available')
     ON CONFLICT (id) DO UPDATE SET on_hand = excluded.on_hand, reserved = excluded.reserved,
       track_stock = excluded.track_stock, status = excluded.status`);
   const shipperAccount = await createAccount(request, { role: "shipper", fullName: "Shipper M9" });

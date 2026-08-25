@@ -86,8 +86,8 @@ export function createSeedState(): MemoryState {
   const locations: Location[] = [
     {
       id: "site-my-dinh",
-      code: "TP88-MD",
-      name: "Tào Phớ 88 Mỹ Đình",
+      code: "DC-MD",
+      name: "Đảo Chè Mỹ Đình",
       kind: "official-store",
       status: "open",
       address: "Số 18 Nguyễn Hoàng, Mỹ Đình 2, Nam Từ Liêm, Hà Nội",
@@ -104,7 +104,7 @@ export function createSeedState(): MemoryState {
     },
     {
       id: "site-keangnam",
-      code: "TP88-KN",
+      code: "DC-KN",
       name: "Express Keangnam",
       kind: "official-express",
       status: "open",
@@ -141,7 +141,7 @@ export function createSeedState(): MemoryState {
     {
       id: "site-central-kitchen",
       code: "BEP-TONG-01",
-      name: "Bếp tổng Tào Phớ 88",
+      name: "Bếp tổng Đảo Chè",
       kind: "central-kitchen",
       status: "open",
       address: "KCN Từ Liêm, Bắc Từ Liêm, Hà Nội",
@@ -211,41 +211,41 @@ export function createSeedState(): MemoryState {
 
   const members: Member[] = [
     { id: "member-ha", name: "Nguyễn Thu Hà", role: "store-manager", phone: "0901 880 088", siteId: "site-my-dinh", status: "available", currentTask: "Điều phối ca chiều", ratingX10: 49, completedToday: 18, createdAt, updatedAt },
-    { id: "member-yen", name: "Phạm Hải Yến", role: "kitchen-lead", phone: "0908 888 288", siteId: "site-central-kitchen", status: "busy", currentTask: "Mẻ tào phớ 16:30", ratingX10: 50, completedToday: 12, createdAt, updatedAt },
-    { id: "shipper-tuan", name: "Nguyễn Văn Tuấn", role: "shipper", phone: "0972 880 188", siteId: "site-my-dinh", status: "busy", currentTask: "Đơn TP88-240803", ratingX10: 49, completedToday: 14, createdAt, updatedAt },
+    { id: "member-yen", name: "Phạm Hải Yến", role: "kitchen-lead", phone: "0908 888 288", siteId: "site-central-kitchen", status: "busy", currentTask: "Mẻ chè bưởi 16:30", ratingX10: 50, completedToday: 12, createdAt, updatedAt },
+    { id: "shipper-tuan", name: "Nguyễn Văn Tuấn", role: "shipper", phone: "0972 880 188", siteId: "site-my-dinh", status: "busy", currentTask: "Đơn DC-240803", ratingX10: 49, completedToday: 14, createdAt, updatedAt },
     { id: "shipper-linh", name: "Trần Mỹ Linh", role: "shipper", phone: "0966 880 288", siteId: "site-keangnam", status: "available", currentTask: "Sẵn sàng nhận đơn", ratingX10: 50, completedToday: 11, createdAt, updatedAt },
     { id: "member-quan", name: "Trần Minh Quân", role: "store-staff", phone: "0902 880 088", siteId: "site-keangnam", status: "available", currentTask: "Quầy Express", ratingX10: 48, completedToday: 23, createdAt, updatedAt },
   ];
 
   const orders: OperationOrder[] = [
-    { id: "order-240801", orderCode: "TP88-240801", channel: "webapp", customerName: "Mai Anh", customerPhone: "0988 120 288", deliveryAddress: "Keangnam Landmark 72, Phạm Hùng", fulfillmentType: "delivery", siteId: "site-keangnam", partnerId: null, totalAmount: 126_000, itemCount: 5, paymentStatus: "paid", orderStatus: "new", kitchenStatus: "queued", deliveryStatus: "unassigned", assignedShipperId: null, promisedAt: iso(22), note: "Tem theo tên từng người", createdAt: iso(-18), updatedAt: iso(-7) },
-    { id: "order-240802", orderCode: "TP88-240802", channel: "group-order", customerName: "Nhóm Product Tầng 22", customerPhone: "0912 448 288", deliveryAddress: "Tầng 22, Keangnam Landmark 72", fulfillmentType: "delivery", siteId: "site-keangnam", partnerId: null, totalAmount: 438_000, itemCount: 18, paymentStatus: "paid", orderStatus: "preparing", kitchenStatus: "preparing", deliveryStatus: "unassigned", assignedShipperId: null, promisedAt: iso(14), note: "18 tem tên, không dùng đá", createdAt: iso(-26), updatedAt: iso(-3) },
-    { id: "order-240803", orderCode: "TP88-240803", channel: "webapp", customerName: "Hoàng Long", customerPhone: "0904 772 288", deliveryAddress: "Số 6 Lê Đức Thọ, Nam Từ Liêm", fulfillmentType: "delivery", siteId: "site-my-dinh", partnerId: null, totalAmount: 82_000, itemCount: 3, paymentStatus: "cod", orderStatus: "delivering", kitchenStatus: "handed-over", deliveryStatus: "picked-up", assignedShipperId: "shipper-tuan", promisedAt: iso(9), note: "Gọi trước khi giao", createdAt: iso(-38), updatedAt: iso(-6) },
-    { id: "order-240804", orderCode: "TP88-240804", channel: "partner", customerName: "Văn phòng Nova", customerPhone: "0933 129 288", deliveryAddress: "Trần Thái Tông, Cầu Giấy", fulfillmentType: "pickup", siteId: "site-cau-giay", partnerId: "partner-moc-coffee", totalAmount: 276_000, itemCount: 12, paymentStatus: "paid", orderStatus: "ready", kitchenStatus: "ready", deliveryStatus: "not-required", assignedShipperId: null, promisedAt: iso(4), note: "Khách tự lấy tại quầy", createdAt: iso(-30), updatedAt: iso(-2) },
-    { id: "order-240799", orderCode: "TP88-240799", channel: "webapp", customerName: "Thu Trang", customerPhone: "0915 882 088", deliveryAddress: "Mỹ Đình 2, Nam Từ Liêm", fulfillmentType: "delivery", siteId: "site-my-dinh", partnerId: null, totalAmount: 68_000, itemCount: 3, paymentStatus: "paid", orderStatus: "delivered", kitchenStatus: "completed", deliveryStatus: "delivered", assignedShipperId: "shipper-linh", promisedAt: iso(-35), note: "", createdAt: iso(-86), updatedAt: iso(-32) },
+    { id: "order-240801", orderCode: "DC-240801", channel: "webapp", customerName: "Mai Anh", customerPhone: "0988 120 288", deliveryAddress: "Keangnam Landmark 72, Phạm Hùng", fulfillmentType: "delivery", siteId: "site-keangnam", partnerId: null, totalAmount: 126_000, itemCount: 5, paymentStatus: "paid", orderStatus: "new", kitchenStatus: "queued", deliveryStatus: "unassigned", assignedShipperId: null, promisedAt: iso(22), note: "Tem theo tên từng người", createdAt: iso(-18), updatedAt: iso(-7) },
+    { id: "order-240802", orderCode: "DC-240802", channel: "group-order", customerName: "Nhóm Product Tầng 22", customerPhone: "0912 448 288", deliveryAddress: "Tầng 22, Keangnam Landmark 72", fulfillmentType: "delivery", siteId: "site-keangnam", partnerId: null, totalAmount: 438_000, itemCount: 18, paymentStatus: "paid", orderStatus: "preparing", kitchenStatus: "preparing", deliveryStatus: "unassigned", assignedShipperId: null, promisedAt: iso(14), note: "18 tem tên, không dùng đá", createdAt: iso(-26), updatedAt: iso(-3) },
+    { id: "order-240803", orderCode: "DC-240803", channel: "webapp", customerName: "Hoàng Long", customerPhone: "0904 772 288", deliveryAddress: "Số 6 Lê Đức Thọ, Nam Từ Liêm", fulfillmentType: "delivery", siteId: "site-my-dinh", partnerId: null, totalAmount: 82_000, itemCount: 3, paymentStatus: "cod", orderStatus: "delivering", kitchenStatus: "handed-over", deliveryStatus: "picked-up", assignedShipperId: "shipper-tuan", promisedAt: iso(9), note: "Gọi trước khi giao", createdAt: iso(-38), updatedAt: iso(-6) },
+    { id: "order-240804", orderCode: "DC-240804", channel: "partner", customerName: "Văn phòng Nova", customerPhone: "0933 129 288", deliveryAddress: "Trần Thái Tông, Cầu Giấy", fulfillmentType: "pickup", siteId: "site-cau-giay", partnerId: "partner-moc-coffee", totalAmount: 276_000, itemCount: 12, paymentStatus: "paid", orderStatus: "ready", kitchenStatus: "ready", deliveryStatus: "not-required", assignedShipperId: null, promisedAt: iso(4), note: "Khách tự lấy tại quầy", createdAt: iso(-30), updatedAt: iso(-2) },
+    { id: "order-240799", orderCode: "DC-240799", channel: "webapp", customerName: "Thu Trang", customerPhone: "0915 882 088", deliveryAddress: "Mỹ Đình 2, Nam Từ Liêm", fulfillmentType: "delivery", siteId: "site-my-dinh", partnerId: null, totalAmount: 68_000, itemCount: 3, paymentStatus: "paid", orderStatus: "delivered", kitchenStatus: "completed", deliveryStatus: "delivered", assignedShipperId: "shipper-linh", promisedAt: iso(-35), note: "", createdAt: iso(-86), updatedAt: iso(-32) },
   ];
 
   const orderItems: OrderItem[] = [
-    { id: "item-801-a", orderId: "order-240801", productCode: "TP-HN", productName: "Tào phớ hoa nhài", quantity: 3, baseUnitPrice: 15_000, optionsUnitPrice: 0, unitPrice: 15_000, lineTotal: 45_000, customizationJson: "{}", note: "2 ít ngọt", createdAt: iso(-18) },
-    { id: "item-801-b", orderId: "order-240801", productCode: "TP-CD", productName: "Tào phớ cốt dừa", quantity: 2, baseUnitPrice: 22_000, optionsUnitPrice: 0, unitPrice: 22_000, lineTotal: 44_000, customizationJson: "{}", note: "", createdAt: iso(-18) },
-    { id: "item-802-a", orderId: "order-240802", productCode: "TP-HN", productName: "Tào phớ hoa nhài", quantity: 10, baseUnitPrice: 15_000, optionsUnitPrice: 0, unitPrice: 15_000, lineTotal: 150_000, customizationJson: "{}", note: "Tem theo danh sách", createdAt: iso(-26) },
-    { id: "item-802-b", orderId: "order-240802", productCode: "CH-BUOI", productName: "Chè bưởi Út Bảy", quantity: 8, baseUnitPrice: 36_000, optionsUnitPrice: 0, unitPrice: 36_000, lineTotal: 288_000, customizationJson: "{}", note: "4 ít ngọt", createdAt: iso(-26) },
-    { id: "item-803-a", orderId: "order-240803", productCode: "TP-MD", productName: "Tào phớ mè đen", quantity: 2, baseUnitPrice: 26_000, optionsUnitPrice: 0, unitPrice: 26_000, lineTotal: 52_000, customizationJson: "{}", note: "", createdAt: iso(-38) },
-    { id: "item-803-b", orderId: "order-240803", productCode: "TS-TC", productName: "Trà sen trân châu", quantity: 1, baseUnitPrice: 30_000, optionsUnitPrice: 0, unitPrice: 30_000, lineTotal: 30_000, customizationJson: "{}", note: "30% đường", createdAt: iso(-38) },
-    { id: "item-804-a", orderId: "order-240804", productCode: "TP-HN", productName: "Tào phớ hoa nhài", quantity: 12, baseUnitPrice: 23_000, optionsUnitPrice: 0, unitPrice: 23_000, lineTotal: 276_000, customizationJson: "{}", note: "Combo văn phòng", createdAt: iso(-30) },
+    { id: "item-801-a", orderId: "order-240801", productCode: "DC-CHEBUOI", productName: "Chè bưởi Năm Roi", quantity: 3, baseUnitPrice: 15_000, optionsUnitPrice: 0, unitPrice: 15_000, lineTotal: 45_000, customizationJson: "{}", note: "2 ít ngọt", createdAt: iso(-18) },
+    { id: "item-801-b", orderId: "order-240801", productCode: "DC-DD", productName: "Chè dừa dầm Hải Phòng", quantity: 2, baseUnitPrice: 22_000, optionsUnitPrice: 0, unitPrice: 22_000, lineTotal: 44_000, customizationJson: "{}", note: "", createdAt: iso(-18) },
+    { id: "item-802-a", orderId: "order-240802", productCode: "DC-CHEBUOI", productName: "Chè bưởi Năm Roi", quantity: 10, baseUnitPrice: 15_000, optionsUnitPrice: 0, unitPrice: 15_000, lineTotal: 150_000, customizationJson: "{}", note: "Tem theo danh sách", createdAt: iso(-26) },
+    { id: "item-802-b", orderId: "order-240802", productCode: "DC-CHEBAP", productName: "Chè bắp cốt dừa", quantity: 8, baseUnitPrice: 36_000, optionsUnitPrice: 0, unitPrice: 36_000, lineTotal: 288_000, customizationJson: "{}", note: "4 ít ngọt", createdAt: iso(-26) },
+    { id: "item-803-a", orderId: "order-240803", productCode: "DC-KD", productName: "Chè khoai dẻo ngũ sắc", quantity: 2, baseUnitPrice: 26_000, optionsUnitPrice: 0, unitPrice: 26_000, lineTotal: 52_000, customizationJson: "{}", note: "", createdAt: iso(-38) },
+    { id: "item-803-b", orderId: "order-240803", productCode: "DC-SEN", productName: "Sữa sen lá nếp", quantity: 1, baseUnitPrice: 30_000, optionsUnitPrice: 0, unitPrice: 30_000, lineTotal: 30_000, customizationJson: "{}", note: "30% đường", createdAt: iso(-38) },
+    { id: "item-804-a", orderId: "order-240804", productCode: "DC-CHEBUOI", productName: "Chè bưởi Năm Roi", quantity: 12, baseUnitPrice: 23_000, optionsUnitPrice: 0, unitPrice: 23_000, lineTotal: 276_000, customizationJson: "{}", note: "Combo văn phòng", createdAt: iso(-30) },
   ];
 
   const inventory: InventoryItem[] = [
-    { id: "inv-soy-central", siteId: "site-central-kitchen", sku: "NL-DAU-01", name: "Đậu nành hữu cơ", unit: "kg", onHand: 86, reserved: 18, reorderLevel: 35, status: "healthy", updatedAt },
-    { id: "inv-jasmine-central", siteId: "site-central-kitchen", sku: "NL-HN-01", name: "Hoa nhài", unit: "gói", onHand: 14, reserved: 8, reorderLevel: 12, status: "low", updatedAt },
+    { id: "inv-buoi-central", siteId: "site-central-kitchen", sku: "NL-BUOI-01", name: "Cùi bưởi sơ chế", unit: "kg", onHand: 86, reserved: 18, reorderLevel: 35, status: "healthy", updatedAt },
+    { id: "inv-sen-central", siteId: "site-central-kitchen", sku: "NL-SEN-01", name: "Hạt sen tươi", unit: "kg", onHand: 14, reserved: 8, reorderLevel: 12, status: "low", updatedAt },
     { id: "inv-coconut-md", siteId: "site-my-dinh", sku: "NL-CD-01", name: "Nước cốt dừa", unit: "chai", onHand: 28, reserved: 9, reorderLevel: 10, status: "healthy", updatedAt },
-    { id: "inv-cup-kn", siteId: "site-keangnam", sku: "BB-LY-280", name: "Ly 280 ml", unit: "cái", onHand: 52, reserved: 34, reorderLevel: 30, status: "low", updatedAt },
+    { id: "inv-cup-kn", siteId: "site-keangnam", sku: "BB-LY-360", name: "Ly 360 ml", unit: "cái", onHand: 52, reserved: 34, reorderLevel: 30, status: "low", updatedAt },
     { id: "inv-label-kn", siteId: "site-keangnam", sku: "BB-TEM-01", name: "Tem tên đơn nhóm", unit: "cuộn", onHand: 8, reserved: 1, reorderLevel: 3, status: "healthy", updatedAt },
   ];
 
   const alerts: Alert[] = [
-    { id: "alert-stock-cup", severity: "warning", category: "inventory", title: "Ly 280 ml sắp chạm tồn tối thiểu", description: "Express Keangnam còn khả dụng 18 ly, cần bổ sung trước 17:00.", status: "open", assignedRole: "kitchen", entityType: "inventory", entityId: "inv-cup-kn", createdAt: iso(-12), resolvedAt: null, updatedAt: iso(-12) },
-    { id: "alert-order-804", severity: "danger", category: "sla", title: "Đơn TP88-240804 còn 4 phút", description: "Đơn tự lấy 12 món đang chờ bàn giao tại Mộc Coffee.", status: "acknowledged", assignedRole: "store", entityType: "order", entityId: "order-240804", createdAt: iso(-9), resolvedAt: null, updatedAt: iso(-4) },
+    { id: "alert-stock-cup", severity: "warning", category: "inventory", title: "Ly 360 ml sắp chạm tồn tối thiểu", description: "Express Keangnam còn khả dụng 18 ly, cần bổ sung trước 17:00.", status: "open", assignedRole: "kitchen", entityType: "inventory", entityId: "inv-cup-kn", createdAt: iso(-12), resolvedAt: null, updatedAt: iso(-12) },
+    { id: "alert-order-804", severity: "danger", category: "sla", title: "Đơn DC-240804 còn 4 phút", description: "Đơn tự lấy 12 món đang chờ bàn giao tại Mộc Coffee.", status: "acknowledged", assignedRole: "store", entityType: "order", entityId: "order-240804", createdAt: iso(-9), resolvedAt: null, updatedAt: iso(-4) },
     { id: "alert-partner-green", severity: "info", category: "partner", title: "Lịch khảo sát Green Office Hub", description: "Đối tác chờ xác nhận khảo sát mặt bằng ngày mai.", status: "open", assignedRole: "founder", entityType: "partner", entityId: "partner-green-hub", createdAt: iso(-60), resolvedAt: null, updatedAt: iso(-60) },
   ];
 
@@ -310,7 +310,7 @@ export async function ensureOperationsSchema(database?: D1Database) {
 export async function seedDemoData(d1: D1Database) {
   await d1.batch([
     d1.prepare(`INSERT OR IGNORE INTO affiliate_members (id, source_request_id, display_name, phone, email, status, commission_bps, is_test, approved_at)
-      VALUES ('affiliate-test-ha88', NULL, 'Tào Phớ 88 kiểm thử', '', '', 'active', 800, 1, CURRENT_TIMESTAMP)`),
+      VALUES ('affiliate-test-ha88', NULL, 'Đảo Chè kiểm thử', '', '', 'active', 800, 1, CURRENT_TIMESTAMP)`),
     d1.prepare(`INSERT OR IGNORE INTO affiliate_codes (code, affiliate_id, status, is_test)
       VALUES ('HA88', 'affiliate-test-ha88', 'active', 1)`),
   ]);

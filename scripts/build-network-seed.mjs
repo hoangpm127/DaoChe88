@@ -22,7 +22,7 @@
  *
  * Ba dấu hiệu độc lập cùng chỉ Hub Xuân Phương là bếp tổng:
  *   1. Số học ra đúng 23, không cần bỏ bớt điểm nào.
- *   2. Tên "Hub" khác hẳn 17 điểm còn lại đều mang tiền tố "Tào Phớ 88"/"Express".
+ *   2. Tên "Hub" khác hẳn 17 điểm còn lại đều mang tiền tố "Đảo Chè"/"Express".
  *   3. Bản demo đặt nhãn vai trò bếp là "Bếp tổng Xuân Phương" (lib/portal-access.ts).
  *
  * KHÔNG bịa: các quán affiliate vẫn được nạp đầy đủ làm điểm bán, vì chúng có
@@ -48,16 +48,16 @@ import { fileURLToPath } from "node:url";
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 
 /** Mã điểm bán đóng vai trò bếp tổng. Xem lập luận ở đầu tệp. */
-const CENTRAL_KITCHEN_CODE = "TP88-XUANPHUONG";
+const CENTRAL_KITCHEN_CODE = "DC-XUANPHUONG";
 
 /**
  * Quận/huyện cho các điểm mà địa chỉ không chứa tên quận nguyên văn.
  * Đây là tra cứu địa lý có thật, không phải bịa: cả ba đều nằm ở Nam Từ Liêm.
  */
 const DISTRICT_FALLBACK = {
-  "TP88-KEANGNAM": "Nam Từ Liêm",   // Keangnam Landmark 72, Phạm Hùng
-  "TP88-GARDENIA": "Nam Từ Liêm",   // Vinhomes Gardenia, Hàm Nghi, Mỹ Đình
-  "TP88-SMARTCITY": "Nam Từ Liêm",  // Vinhomes Smart City, Tây Mỗ
+  "DC-KEANGNAM": "Nam Từ Liêm",   // Keangnam Landmark 72, Phạm Hùng
+  "DC-GARDENIA": "Nam Từ Liêm",   // Vinhomes Gardenia, Hàm Nghi, Mỹ Đình
+  "DC-SMARTCITY": "Nam Từ Liêm",  // Vinhomes Smart City, Tây Mỗ
 };
 
 /** Công suất mặc định theo loại điểm, phần/giờ. Chủ hệ thống sửa được. */
@@ -116,13 +116,16 @@ function csvCell(value) {
 function toCsv(headers, rows) {
   const lines = [headers.join(",")];
   for (const row of rows) lines.push(headers.map((header) => csvCell(row[header])).join(","));
-  // BOM để Excel mở không vỡ dấu tiếng Việt.
-  return `﻿${lines.join("\n")}\n`;
+  // BOM + CRLF để Excel mở không vỡ dấu tiếng Việt, và để khớp đúng quy ước của
+  // scripts/extract-seed-data.mjs. Hai trình ghi CSV phải cùng một quy ước: khi
+  // chúng lệch nhau, test "dựng lại từ dữ liệu cũ cho ra đúng tệp đang commit"
+  // đỏ trên máy này và xanh trên máy khác với cùng một mã nguồn.
+  return `﻿${lines.join("\r\n")}\r\n`;
 }
 
 /** Mã đối tác suy từ mã điểm bán, để hai tệp nối được với nhau mà không cần bảng tra. */
 function partnerCodeFor(siteCode) {
-  return `DT-${siteCode.replace(/^TP88-/, "")}`;
+  return `DT-${siteCode.replace(/^DC-/, "")}`;
 }
 
 function siteKindOf(row) {
@@ -172,7 +175,7 @@ async function main() {
 
     sites.push({
       code: row.code,
-      name: row.code === CENTRAL_KITCHEN_CODE ? "Bếp tổng Tào Phớ 88 · Xuân Phương" : row.name,
+      name: row.code === CENTRAL_KITCHEN_CODE ? "Bếp tổng Đảo Chè · Xuân Phương" : row.name,
       kind,
       address: row.address,
       district,

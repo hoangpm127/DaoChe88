@@ -61,7 +61,7 @@ async function sha256Hex(value: string): Promise<string> {
 /** Băm IP để chống dò mà không lưu dữ liệu định danh thô. */
 export async function hashIp(ip: string): Promise<string> {
   if (!ip) return "";
-  return (await sha256Hex(`tp88-ip:${ip}`)).slice(0, 32);
+  return (await sha256Hex(`daoche-ip:${ip}`)).slice(0, 32);
 }
 
 export type IssuedSession = { token: string; session: ActiveSession };

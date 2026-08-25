@@ -1,8 +1,8 @@
 {
-  "id": "/tao-pho-88-operations-app",
-  "name": "Tào Phớ 88 - Không gian vận hành",
-  "short_name": "Tào Phớ 88 OS",
-  "description": "Không gian làm việc theo vai trò dành cho đối tác và đội ngũ Tào Phớ 88.",
+  "id": "/dao-che-operations-app",
+  "name": "Đảo Chè - Không gian vận hành",
+  "short_name": "Đảo Chè OS",
+  "description": "Không gian làm việc theo vai trò dành cho đối tác và đội ngũ Đảo Chè.",
   "lang": "vi",
   "dir": "ltr",
   "start_url": "/portal?source=pwa",
@@ -10,8 +10,8 @@
   "display": "standalone",
   "display_override": ["window-controls-overlay", "standalone"],
   "orientation": "any",
-  "background_color": "#fffdf4",
-  "theme_color": "#153f2f",
+  "background_color": "#fffbf3",
+  "theme_color": "#3b2a1c",
   "categories": ["business", "productivity", "finance"],
   "icons": [
     {

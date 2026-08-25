@@ -5,7 +5,7 @@
     radial-gradient(circle at 12% 8%, rgb(241 116 52 / 14%), transparent 34%),
     radial-gradient(circle at 88% 18%, rgb(22 141 52 / 13%), transparent 36%),
     #fffdf4;
-  color: #17392c;
+  color: #3b301b;
 }
 
 .shell {
@@ -37,7 +37,7 @@
 
 .brand small {
   margin-top: 3px;
-  color: #738078;
+  color: #837b70;
   font-size: 10px;
   font-weight: 800;
   letter-spacing: .12em;
@@ -56,7 +56,7 @@
   border: 1px solid rgb(22 141 52 / 17%);
   border-radius: 999px;
   background: rgb(238 247 232 / 76%);
-  color: #167b31;
+  color: #8b5b02;
   font-size: 13px;
   font-weight: 800;
 }
@@ -72,7 +72,7 @@
 .hero p {
   max-width: 680px;
   margin: 0;
-  color: #65746d;
+  color: #766f63;
   font-size: clamp(16px, 2vw, 19px);
   line-height: 1.58;
 }
@@ -147,21 +147,21 @@
 }
 
 .customer {
-  background: linear-gradient(145deg, #f2f9eb, #fffdf4 72%);
+  background: linear-gradient(145deg, #fff4ea, #fffdf4 72%);
 }
 
 .customer > span {
-  background: #dff2d7;
-  color: #168d34;
+  background: #fee7ce;
+  color: #9f6803;
 }
 
 .customer small,
 .customer em {
-  color: #168d34;
+  color: #9f6803;
 }
 
 .operations {
-  background: linear-gradient(145deg, #153f2f, #1d5d41);
+  background: linear-gradient(145deg, #42341a, #644b1e);
   color: #fff !important;
 }
 
@@ -185,7 +185,7 @@
   justify-content: center;
   gap: 10px;
   margin: 28px 0 8px;
-  color: #748079;
+  color: #827c71;
   font-size: 12px;
   font-weight: 750;
 }

@@ -89,7 +89,7 @@ export function normalizeCustomerEmail(value: string) {
 }
 
 async function stableCustomerId(sourceEnvironment: string, identity: string) {
-  const bytes = new TextEncoder().encode(`tp88:${sourceEnvironment}:${identity}`);
+  const bytes = new TextEncoder().encode(`daoche:${sourceEnvironment}:${identity}`);
   const digest = await crypto.subtle.digest("SHA-256", bytes);
   const hash = [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, "0")).join("");
   return `customer-${hash.slice(0, 32)}`;

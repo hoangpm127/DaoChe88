@@ -29,7 +29,7 @@ export function iso(offsetMinutes = 0) {
 export function defaultPricePolicy(createdAt = iso(-30 * 24 * 60), updatedAt = iso(-4)): FinancePricePolicy {
   return {
     id: DEFAULT_POLICY_ID,
-    name: "Giá chuẩn Tào Phớ 88 · 20/40/60",
+    name: "Giá chuẩn Đảo Chè · 20/40/60",
     status: "active",
     retailBps: 10_000,
     workshopCostBps: 2_000,

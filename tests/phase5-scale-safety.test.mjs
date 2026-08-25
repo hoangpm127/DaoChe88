@@ -12,7 +12,7 @@ import { configureAuthEnvironment, portalCookie } from "./helpers/portal-login.m
 configureAuthEnvironment();
 process.env.SEPAY_BANK_ACCOUNT = "88888888188";
 process.env.SEPAY_BANK_CODE = "TPBank";
-process.env.SEPAY_PAYMENT_PREFIX = "TPHO";
+process.env.SEPAY_PAYMENT_PREFIX = "DCHE";
 process.env.ORDER_DATA_MODE = "test";
 process.env.DEMO_SEED = "true";
 const { database } = await freshDatabase("phase5", { seed: true });
@@ -52,7 +52,7 @@ test("Giai đoạn 5: API scoped dùng cursor, không còn trần 50 đơn và c
     }).join(", ");
     await database.run(
       `INSERT INTO operation_orders (${quotedColumns}) SELECT ${select} FROM operation_orders WHERE id = ?`,
-      id, `TP88-P5-${String(index).padStart(3, "0")}`, createdAt, createdAt, sourceId,
+      id, `DC-P5-${String(index).padStart(3, "0")}`, createdAt, createdAt, sourceId,
     );
   }
 
@@ -135,13 +135,13 @@ test("Giai đoạn 5: API scoped dùng cursor, không còn trần 50 đơn và c
     const subtotal = 10_000 + Math.floor(Math.random() * 990_000);
     const deliveryFee = Math.floor(Math.random() * 50_000);
     const discount = Math.floor(Math.random() * (subtotal + deliveryFee + 1));
-    await database.run(MONEY_INSERT, `money-order-${index}`, `TP88-MONEY-${index}`, subtotal, deliveryFee, discount, subtotal + deliveryFee - discount);
+    await database.run(MONEY_INSERT, `money-order-${index}`, `DC-MONEY-${index}`, subtotal, deliveryFee, discount, subtotal + deliveryFee - discount);
   }
   assert.equal(Number((await database.get(`SELECT COUNT(*) AS count FROM operation_orders
     WHERE id LIKE 'money-order-%' AND total_amount != subtotal_amount + delivery_fee_amount - discount_amount`)).count), 0);
   // Rang buoc toan ven o tang DB phai chan tong tien sai, tren ca PostgreSQL.
   await assert.rejects(
-    database.run(MONEY_INSERT, "money-invalid", "TP88-MONEY-INVALID", 10_000, 0, 0, 9_999),
+    database.run(MONEY_INSERT, "money-invalid", "DC-MONEY-INVALID", 10_000, 0, 0, 9_999),
     /operation_orders_integrity/,
   );
 });
@@ -225,12 +225,12 @@ test("Giai đoạn 5: ẩn danh hóa xóa PII nhưng giữ số tiền và ngày
 test("Giai đoạn 5: backup mã hóa giải được và từ chối file bị sửa", async () => {
   const previousKey = process.env.BACKUP_ENCRYPTION_KEY;
   process.env.BACKUP_ENCRYPTION_KEY = Buffer.alloc(32, 88).toString("base64");
-  const backupDirectory = await mkdtemp(path.join(os.tmpdir(), "tp88-backup-test-"));
+  const backupDirectory = await mkdtemp(path.join(os.tmpdir(), "daoche-backup-test-"));
   const encryptedPath = path.join(backupDirectory, "backup.enc");
   const decryptedPath = path.join(backupDirectory, "backup.dump");
   const tamperedPath = path.join(backupDirectory, "backup-tampered.enc");
   const rejectedPath = path.join(backupDirectory, "rejected.dump");
-  const content = Buffer.from("Tao Pho 88 backup verification\n", "utf8");
+  const content = Buffer.from("Dao Che backup verification\n", "utf8");
   try {
     await encryptStream(Readable.from([content]), encryptedPath, Buffer.alloc(12, 18));
     await decryptFile(encryptedPath, decryptedPath);

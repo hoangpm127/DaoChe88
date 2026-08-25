@@ -1,6 +1,6 @@
-# Tào Phớ 88
+# Đảo Chè
 
-Webapp ưu tiên điện thoại cho đặt món và vận hành chuỗi Tào Phớ 88. Hệ thống dùng **6 không gian làm việc cho 17 vai trò**, thay vì duy trì 17 ứng dụng riêng.
+Webapp ưu tiên điện thoại cho đặt món và vận hành chuỗi Đảo Chè. Hệ thống dùng **6 không gian làm việc cho 17 vai trò**, thay vì duy trì 17 ứng dụng riêng.
 
 ## Không gian làm việc
 
@@ -32,7 +32,7 @@ Portal cần hai biến môi trường:
 ```text
 PORTAL_SESSION_SECRET=<chuỗi bí mật tối thiểu 32 ký tự>
 PORTAL_DEMO_ACCESS_CODE=<mã demo tối thiểu 8 ký tự>
-SQLITE_PATH=./data/taopho88.sqlite
+SQLITE_PATH=./data/daoche.sqlite
 ALLOW_MEMORY_FALLBACK=false
 DEMO_SEED=false
 ```
@@ -79,7 +79,7 @@ Dữ liệu vận hành dùng SQLite bền vững khi có `SQLITE_PATH` hoặc `
 ## Triển khai
 
 - Railway chạy `npm run build` và `npm start` theo `railway.toml`.
-- Railway cần gắn volume tại `/data`, đặt `SQLITE_PATH=/data/taopho88.sqlite`, `ALLOW_MEMORY_FALLBACK=false`, `DEMO_SEED=false`, cùng hai bí mật portal ở trên.
+- Railway cần gắn volume tại `/data`, đặt `SQLITE_PATH=/data/daoche.sqlite`, `ALLOW_MEMORY_FALLBACK=false`, `DEMO_SEED=false`, cùng hai bí mật portal ở trên.
 - Healthcheck production dùng `GET /api/health`; endpoint chỉ trả `200` khi SQLite, schema hiện hành và cấu hình phiên portal đều sẵn sàng.
 - `.openai/hosting.json` khai báo dự án Sites và binding D1.
 - Không đưa `PORTAL_SESSION_SECRET` vào Git; cấu hình bằng biến môi trường của nền tảng triển khai.

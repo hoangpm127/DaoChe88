@@ -3,7 +3,7 @@ import { createReadStream, createWriteStream } from "node:fs";
 import { appendFile, open, readdir, stat, unlink } from "node:fs/promises";
 import { pipeline } from "node:stream/promises";
 
-const MAGIC = Buffer.from("TP88BKP1", "ascii");
+const MAGIC = Buffer.from("DC88BKP1", "ascii");
 const IV_BYTES = 12;
 const TAG_BYTES = 16;
 
@@ -31,7 +31,7 @@ export async function decryptFile(inputPath, outputPath) {
     if (info.size <= MAGIC.length + IV_BYTES + TAG_BYTES) throw new Error("File backup không hợp lệ.");
     const header = Buffer.alloc(MAGIC.length + IV_BYTES);
     await handle.read(header, 0, header.length, 0);
-    if (!header.subarray(0, MAGIC.length).equals(MAGIC)) throw new Error("File không mang định dạng backup Tào Phớ 88.");
+    if (!header.subarray(0, MAGIC.length).equals(MAGIC)) throw new Error("File không mang định dạng backup Đảo Chè.");
     const tag = Buffer.alloc(TAG_BYTES);
     await handle.read(tag, 0, TAG_BYTES, info.size - TAG_BYTES);
     const decipher = createDecipheriv("aes-256-gcm", encryptionKey(), header.subarray(MAGIC.length));

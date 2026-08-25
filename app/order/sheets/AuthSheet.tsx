@@ -29,7 +29,7 @@ export default function AuthSheet({ model }: AuthSheetProps) {
         <div className={styles.sheetGrabber} />
         <div className={styles.sheetHeading}>
           <div>
-            <small>TÀI KHOẢN TÀO PHỚ 88</small>
+            <small>TÀI KHOẢN ĐẢO CHÈ</small>
             <h2 id="auth-title">{registering ? "Tạo tài khoản" : "Đăng nhập"}</h2>
           </div>
           <button type="button" aria-label="Đóng" onClick={() => setShowAuthSheet(false)}>

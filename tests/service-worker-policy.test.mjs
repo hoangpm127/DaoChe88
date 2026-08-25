@@ -30,7 +30,7 @@ function createHarness({ offline = false } = {}) {
   };
 
   const self = {
-    location: { origin: "https://taopho88.example" },
+    location: { origin: "https://daoche.example" },
     clients: { claim: async () => { claimed = true; } },
     skipWaiting: () => { skippedWaiting = true; },
     addEventListener: (type, listener) => listeners.set(type, listener),
@@ -67,7 +67,7 @@ function createHarness({ offline = false } = {}) {
 }
 
 function request(pathname, { mode = "cors", method = "GET" } = {}) {
-  return { method, mode, url: `https://taopho88.example${pathname}` };
+  return { method, mode, url: `https://daoche.example${pathname}` };
 }
 
 function dispatchFetch(harness, req) {
@@ -102,12 +102,12 @@ test("service worker handles only the public order shell and allow-listed static
 
   const orderResponse = dispatchFetch(harness, request("/order?tab=group", { mode: "navigate" }));
   assert.ok(orderResponse, "order navigation should be handled");
-  assert.equal(await (await orderResponse).text(), "network:https://taopho88.example/order?tab=group");
+  assert.equal(await (await orderResponse).text(), "network:https://daoche.example/order?tab=group");
 
-  const cachedOrder = harness.stores.get("tao-pho-88-customer-v7-safe-shell").get("/order");
+  const cachedOrder = harness.stores.get("dao-che-customer-v7-safe-shell").get("/order");
   assert.ok(cachedOrder, "all order routes should update one non-personalized shell key");
 
-  const assetResponse = dispatchFetch(harness, request("/customer-products-v2.png"));
+  const assetResponse = dispatchFetch(harness, request("/pwa-icon-192.png"));
   assert.ok(assetResponse, "customer static assets should be cacheable");
   await assetResponse;
 
@@ -118,7 +118,7 @@ test("service worker handles only the public order shell and allow-listed static
 test("offline order navigation falls back to the safe order shell, never to portal data", async () => {
   const harness = createHarness({ offline: true });
   await harness.put(
-    "tao-pho-88-customer-v7-safe-shell",
+    "dao-che-customer-v7-safe-shell",
     "/order",
     new Response("cached-order-shell", { status: 200 }),
   );
@@ -128,12 +128,12 @@ test("offline order navigation falls back to the safe order shell, never to port
   assert.equal(dispatchFetch(harness, request("/portal", { mode: "navigate" })), null);
 });
 
-test("activation removes only obsolete Tào Phớ 88 customer caches", async () => {
+test("activation removes only obsolete Đảo Chè customer caches", async () => {
   const harness = createHarness();
   harness.setCacheKeys([
-    "tao-pho-88-v5-finance",
-    "tao-pho-88-v6-multidevice",
-    "tao-pho-88-customer-v7-safe-shell",
+    "dao-che-v5-finance",
+    "dao-che-v6-multidevice",
+    "dao-che-customer-v7-safe-shell",
     "another-application-cache",
   ]);
 
@@ -141,7 +141,7 @@ test("activation removes only obsolete Tào Phớ 88 customer caches", async () 
   harness.listeners.get("activate")({ waitUntil(value) { activation = Promise.resolve(value); } });
   await activation;
 
-  assert.deepEqual(harness.deletedCaches, ["tao-pho-88-v5-finance", "tao-pho-88-v6-multidevice"]);
+  assert.deepEqual(harness.deletedCaches, ["dao-che-v5-finance", "dao-che-v6-multidevice"]);
   assert.equal(harness.claimed, true);
 });
 

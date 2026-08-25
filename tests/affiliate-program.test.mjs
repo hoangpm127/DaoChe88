@@ -87,7 +87,7 @@ async function placeOrder(request, { affiliateCode, headers = {}, customerPhone 
         siteId: "site-my-dinh",
         paymentMethod: "cash",
         ...(affiliateCode ? { affiliateCode } : {}),
-        items: [{ productCode: "TP-HN", quantity: 2 }],
+        items: [{ productCode: "DC-CHEBUOI", quantity: 2 }],
       },
     }),
   });
@@ -144,7 +144,7 @@ test("khách bấm link ref hôm nay, đặt hàng ba ngày sau vẫn được q
   const { request, sql } = await boot("aff-window");
   const approved = await approveAffiliate(request, { name: "Trần Thị B", phone: "0961000222" });
 
-  const visitorHeaders = { "x-forwarded-for": "203.0.113.77", "user-agent": "tp88-test-browser" };
+  const visitorHeaders = { "x-forwarded-for": "203.0.113.77", "user-agent": "daoche-test-browser" };
 
   const tracked = await request("/api/affiliates/track", {
     method: "POST",
@@ -218,7 +218,7 @@ test("chi trả theo lô: tổng khớp sổ, khấu trừ thuế đúng, không
           siteId: "site-my-dinh",
           paymentMethod: "cash",
           affiliateCode: approved.code,
-          items: [{ productCode: "TP-HN", quantity: 99 }],
+          items: [{ productCode: "DC-CHEBUOI", quantity: 99 }],
         },
       }),
     });

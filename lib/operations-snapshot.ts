@@ -483,7 +483,7 @@ export function buildFinanceSnapshot(snapshot: OperationsSnapshot): FinanceSnaps
       locationId: entry.locationId || "",
       locationName: location?.name || "Toàn hệ thống",
       referenceId: entry.referenceCode || entry.orderId || entry.expenseId || entry.settlementId || entry.id,
-      counterparty: partner?.name || (entry.entryType === "affiliate_commission" ? activeAllocations.find((allocation) => allocation.orderId === entry.orderId)?.affiliateCode || "Affiliate" : "Tào Phớ 88"),
+      counterparty: partner?.name || (entry.entryType === "affiliate_commission" ? activeAllocations.find((allocation) => allocation.orderId === entry.orderId)?.affiliateCode || "Affiliate" : "Đảo Chè"),
       description: entry.description,
     };
   });

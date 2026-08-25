@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import styles from "../legal.module.css";
 
-export const metadata: Metadata = { title: "Chính sách quyền riêng tư | Tào Phớ 88" };
+export const metadata: Metadata = { title: "Chính sách quyền riêng tư | Đảo Chè" };
 
 export default function PrivacyPage() {
   return <main className={styles.page}><article className={styles.document}>
-    <p className={styles.eyebrow}>Tào Phớ 88 · Quyền riêng tư</p>
+    <p className={styles.eyebrow}>Đảo Chè · Quyền riêng tư</p>
     <h1>Dữ liệu vừa đủ để làm món và giao đúng người.</h1>
     <p className={styles.updated}>Phiên bản 2026-08-21 · Có hiệu lực từ 21/08/2026</p>
     <section><h2>1. Dữ liệu được xử lý</h2><ul><li>Tên, số điện thoại, email và địa chỉ nhận món do bạn cung cấp.</li><li>Nội dung đơn, thanh toán, giảm giá, điểm thưởng, đánh giá và yêu cầu hỗ trợ.</li><li>Tọa độ giao hàng khi bạn chọn giao tận nơi; vị trí shipper chỉ trong lúc giao đơn.</li><li>Dữ liệu kỹ thuật tối thiểu để bảo mật, chống lạm dụng và ghi dấu vết truy cập.</li></ul></section>

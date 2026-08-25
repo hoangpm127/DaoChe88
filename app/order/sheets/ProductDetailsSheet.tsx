@@ -24,7 +24,7 @@ export default function ProductDetailsSheet({ model }: ProductDetailsSheetProps)
               <ArrowLeft size={20} />
             </button>
             <div className={styles.productSheetPhoto}>
-              <ProductPhoto index={selectedProduct.image} imageUrl={selectedProduct.imageUrl} gallery={selectedProduct.id === "TP-T2-S"} />
+              <ProductPhoto index={selectedProduct.image} imageUrl={selectedProduct.imageUrl} />
               <span className={styles.productAvailability}>
                 <CheckCircle2 size={14} /> {selectedProduct.stock}
               </span>
@@ -228,7 +228,7 @@ export default function ProductDetailsSheet({ model }: ProductDetailsSheetProps)
               <div className={styles.productAssurance}>
                 <ShieldCheck size={18} />
                 <div>
-                  <strong>Cam kết Tào Phớ 88</strong>
+                  <strong>Cam kết Đảo Chè</strong>
                   <small>Làm mới trong ngày · niêm phong chống tràn · hoàn món nếu sai tuỳ chọn.</small>
                 </div>
               </div>

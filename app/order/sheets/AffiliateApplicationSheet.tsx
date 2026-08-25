@@ -22,7 +22,7 @@ export default function AffiliateApplicationSheet({ model }: AffiliateApplicatio
                 </span>
                 <small>ĐÃ NHẬN ĐĂNG KÝ</small>
                 <h2 id="affiliate-application-title">Chào mừng Đại sứ tương lai!</h2>
-                <p>Đội ngũ Tào Phớ 88 sẽ xác minh thông tin và liên hệ với bạn trong vòng 01 ngày làm việc.</p>
+                <p>Đội ngũ Đảo Chè sẽ xác minh thông tin và liên hệ với bạn trong vòng 01 ngày làm việc.</p>
                 <button className={styles.primaryButton} type="button" onClick={() => { setShowAffiliateApplication(false); goTo("affiliate"); }}>
                   Xem cách tính thu nhập <ArrowRight size={17} />
                 </button>

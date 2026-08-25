@@ -8,8 +8,8 @@ const inputPath = resolve(process.argv[2] || "");
 const targetUrl = (process.env.RESTORE_DATABASE_URL || "").trim();
 if (!process.argv[2]) throw new Error("Cách dùng: npm run db:restore -- <file.dump.enc>");
 if (!targetUrl.startsWith("postgres")) throw new Error("RESTORE_DATABASE_URL phải trỏ tới database đích.");
-if (process.env.RESTORE_CONFIRM !== "RESTORE_TP88_DATABASE") {
-  throw new Error("Đặt RESTORE_CONFIRM=RESTORE_TP88_DATABASE sau khi đã kiểm tra đúng database đích.");
+if (process.env.RESTORE_CONFIRM !== "RESTORE_DAOCHE_DATABASE") {
+  throw new Error("Đặt RESTORE_CONFIRM=RESTORE_DAOCHE_DATABASE sau khi đã kiểm tra đúng database đích.");
 }
 const target = new URL(targetUrl);
 const databaseName = decodeURIComponent(target.pathname.replace(/^\//, ""));
@@ -25,7 +25,7 @@ const restoreEnv = {
 const sslMode = target.searchParams.get("sslmode");
 if (sslMode) restoreEnv.PGSSLMODE = sslMode;
 
-const temporaryDirectory = await mkdtemp(`${tmpdir()}/tp88-restore-`);
+const temporaryDirectory = await mkdtemp(`${tmpdir()}/daoche-restore-`);
 const decryptedPath = resolve(temporaryDirectory, "backup.dump");
 try {
   await decryptFile(inputPath, decryptedPath);

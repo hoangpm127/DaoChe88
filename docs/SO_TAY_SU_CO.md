@@ -1,4 +1,4 @@
-# Sổ tay sự cố Tào Phớ 88
+# Sổ tay sự cố Đảo Chè
 
 Phiên bản: 2026-08-21. Mục tiêu của tài liệu này là đưa hệ thống về trạng thái an toàn trước, sau đó mới tối ưu hoặc điều tra sâu.
 
@@ -89,7 +89,7 @@ Alert `orders-stuck-new` bật khi đơn ở `new` quá 15 phút.
 
 1. Tạo PostgreSQL staging rỗng, không nối với production traffic.
 2. Tải một file `.dump.enc` từ kho ngoài Railway.
-3. Đặt `RESTORE_DATABASE_URL`, `BACKUP_ENCRYPTION_KEY`, và `RESTORE_CONFIRM=RESTORE_TP88_DATABASE`.
+3. Đặt `RESTORE_DATABASE_URL`, `BACKUP_ENCRYPTION_KEY`, và `RESTORE_CONFIRM=RESTORE_DAOCHE_DATABASE`.
 4. Chạy `npm run db:restore -- <file.dump.enc>`.
 5. Trỏ một deployment staging vào DB vừa phục hồi, chạy migration, `/api/health`, test smoke đặt đơn test và báo cáo tài chính.
 6. Ghi ngày, file, RPO thực tế, thời gian khôi phục và người xác nhận. Xóa môi trường drill sau khi hoàn tất.

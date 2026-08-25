@@ -1,14 +1,12 @@
-const CACHE_PREFIX = "tao-pho-88-customer-";
+const CACHE_PREFIX = "dao-che-customer-";
 const CACHE_NAME = `${CACHE_PREFIX}v7-safe-shell`;
-const LEGACY_CACHE_PREFIX = "tao-pho-88-v";
+const LEGACY_CACHE_PREFIX = "dao-che-v";
 const ORDER_SHELL = "/order";
 const APP_SHELL = [
   ORDER_SHELL,
   "/manifest.webmanifest?v=4",
   "/pwa-icon-192.png",
   "/pwa-icon-512.png",
-  "/customer-products.png",
-  "/customer-products-v2.png",
 ];
 
 const PRIVATE_PATH_PREFIXES = [
@@ -25,8 +23,6 @@ const PRIVATE_PATH_PREFIXES = [
 const SAFE_STATIC_PATH_PREFIXES = [
   "/_next/static/",
   "/assets/",
-  "/customer-",
-  "/product-gallery-",
   "/pwa-icon-",
 ];
 

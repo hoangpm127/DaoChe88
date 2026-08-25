@@ -19,7 +19,7 @@ const KEY_BITS = 256;
 /** Mật khẩu quá phổ biến — chặn ngay cả khi đủ độ dài. */
 const WEAK_PASSWORDS = new Set([
   "12345678", "123456789", "1234567890", "matkhau", "password", "qwertyui",
-  "taopho88", "taopho123", "88888888", "11111111", "abc12345", "matkhau123",
+  "daoche88", "daoche123", "daoche2026", "88888888", "11111111", "abc12345", "matkhau123",
 ]);
 
 export class PasswordPolicyError extends Error {

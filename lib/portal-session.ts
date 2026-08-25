@@ -18,7 +18,7 @@ import { readSession, type ActiveSession } from "./auth/sessions.ts";
 import { defaultSettingValue } from "./settings-registry.ts";
 import { resolveSetting } from "./settings-store.ts";
 
-export const PORTAL_SESSION_COOKIE = "tp88_portal_session";
+export const PORTAL_SESSION_COOKIE = "daoche_portal_session";
 export const PORTAL_SESSION_TTL_SECONDS = defaultSettingValue<number>("security.portal_session_ttl_seconds");
 
 export type PortalSession = ActiveSession;

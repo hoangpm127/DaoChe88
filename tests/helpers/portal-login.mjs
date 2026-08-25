@@ -14,8 +14,8 @@
 import assert from "node:assert/strict";
 
 export const OWNER_PHONE = "0900000001";
-export const OWNER_PASSWORD = "Tp88-owner-test-2026";
-export const PORTAL_SESSION_SECRET = "tp88-test-session-secret-at-least-32-characters";
+export const OWNER_PASSWORD = "Daoche-owner-test-2026";
+export const PORTAL_SESSION_SECRET = "daoche-test-session-secret-at-least-32-characters";
 
 /**
  * Bật xác thực thật cho một test. Gọi TRƯỚC khi nạp server.

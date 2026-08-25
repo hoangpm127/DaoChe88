@@ -189,7 +189,7 @@ export async function exportPayoutBatchCsv(database: RuntimeDatabase, batchId: s
       csvCell(item.accountName || item.recipientName),
       csvCell(item.bankCode),
       csvCell(item.amount),
-      csvCell(`Hoa hong Tao Pho 88`),
+      csvCell(`Hoa hong Dao Che`),
       csvCell(item.grossAmount),
       csvCell(item.taxWithheld),
     ].join(","));

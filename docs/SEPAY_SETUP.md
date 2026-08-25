@@ -2,7 +2,7 @@
 
 The Railway application is ready to receive signed SePay webhooks at:
 
-`https://taopho88-production.up.railway.app/api/webhooks/sepay`
+`https://daoche-production.up.railway.app/api/webhooks/sepay`
 
 ## Linked account
 
@@ -15,7 +15,7 @@ The Railway application is ready to receive signed SePay webhooks at:
 
 In **Cấu hình Công ty → Cấu hình chung → Cấu trúc mã thanh toán**, add an active pattern:
 
-- Prefix: `TPHO` (SePay only accepts letters in payment-code prefixes)
+- Prefix: `DCHE` (SePay only accepts letters in payment-code prefixes)
 - Minimum suffix length: `12`
 - Maximum suffix length: `12`
 - Character type: letters and numbers

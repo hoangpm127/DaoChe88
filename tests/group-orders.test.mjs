@@ -79,7 +79,7 @@ async function addItem(request, body) {
   const response = await request("/api/group-rooms", {
     method: "PATCH",
     headers: { "content-type": "application/json" },
-    body: JSON.stringify({ action: "add-item", productId: "TP-HN", quantity: 1, ...body }),
+    body: JSON.stringify({ action: "add-item", productId: "DC-CHEBUOI", quantity: 1, ...body }),
   });
   assert.equal(response.status, 200, `thêm món thất bại: ${await response.clone().text()}`);
   return response.json();

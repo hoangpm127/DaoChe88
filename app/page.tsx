@@ -8,8 +8,8 @@ export default function HomePage() {
     <main className={styles.page}>
       <section className={styles.shell}>
         <header className={styles.brand}>
-          <Image src="/pwa-icon-192.png" width={46} height={46} alt="Biểu trưng Tào Phớ 88" priority unoptimized />
-          <span><strong>Tào Phớ 88</strong><small>MỘT NỀN TẢNG · ĐÚNG KHÔNG GIAN</small></span>
+          <Image src="/pwa-icon-192.png" width={46} height={46} alt="Biểu trưng Đảo Chè" priority unoptimized />
+          <span><strong>Đảo Chè</strong><small>MỘT NỀN TẢNG · ĐÚNG KHÔNG GIAN</small></span>
         </header>
 
         <div className={styles.hero}>
@@ -21,7 +21,7 @@ export default function HomePage() {
         <div className={styles.choices}>
           <Link className={styles.customer} href="/order">
             <span><ShoppingBag size={27} /></span>
-            <div><small>KHÁCH HÀNG & CỘNG ĐỒNG</small><strong>Đặt món Tào Phớ 88</strong><p>Thực đơn, đơn nhóm, ưu đãi, đơn hàng và Affiliate cá nhân.</p></div>
+            <div><small>KHÁCH HÀNG & CỘNG ĐỒNG</small><strong>Đặt món Đảo Chè</strong><p>Thực đơn, đơn nhóm, ưu đãi, đơn hàng và Affiliate cá nhân.</p></div>
             <em>Vào đặt món <ArrowRight size={18} /></em>
           </Link>
           <Link className={styles.operations} href="/portal">
