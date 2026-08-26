@@ -8,7 +8,7 @@ import type { OrderController } from "../controller";
 type CheckoutSheetProps = { model: OrderController };
 
 export default function CheckoutSheet({ model }: CheckoutSheetProps) {
-  const { cart, cartChoices, cartCount, cartLines, cartTotal, checkoutStep, checkoutTotal, continueCheckout, customer, deliveryFee, deliveryQuote, deliveryQuoteError, deliveryQuoteLoading, fulfillment, location, payment, placeOrder, placingOrder, privacyConsent, promotionCode, setCheckoutStep, setCustomer, setFulfillment, setPayment, setPrivacyConsent, setPromotionCode, setShowCart, setShowLocation, showCart, updateCart } = model;
+  const { cart, cartChoices, cartCount, cartLines, cartTotal, checkoutStep, checkoutTotal, chooseServicePoint, continueCheckout, customer, deliveryFee, deliveryQuote, deliveryQuoteError, deliveryQuoteLoading, fulfillment, location, payment, placeOrder, placingOrder, privacyConsent, promotionCode, setCheckoutStep, setCustomer, setFulfillment, setPayment, setPrivacyConsent, setPromotionCode, setShowCart, setShowLocation, setShowStorePicker, showCart, showStorePicker, storePoints, storesError, storesLoading, updateCart } = model;
   return (showCart && (
         <div
           className={styles.backdrop}
@@ -61,6 +61,59 @@ export default function CheckoutSheet({ model }: CheckoutSheetProps) {
                       </article>
                     );
                   })}
+                </div>
+                {/*
+                  Bộ chọn cửa hàng. Trước đây khách không có chỗ nào để đổi điểm
+                  làm món ngay trong luồng đặt hàng: hệ thống tự gán rồi tự ghi
+                  đè, nên mọi đơn đều rơi về cùng một cửa hàng. Giờ điểm đang
+                  phục vụ hiện rõ tại đây, kèm nhãn cho biết là hệ thống chọn hay
+                  khách tự chọn, và đổi được ngay tại chỗ.
+                */}
+                <div className={styles.servicePointPicker}>
+                  <div className={styles.servicePointCurrent}>
+                    <span>
+                      <Store size={18} />
+                    </span>
+                    <div>
+                      <small>ĐIỂM LÀM MÓN · {location.servicePointPinned ? "BẠN ĐÃ CHỌN" : "HỆ THỐNG CHỌN GẦN NHẤT"}</small>
+                      <strong>{location.servicePoint || "Chưa xác định cửa hàng"}</strong>
+                      <em>{location.distance} · {location.eta}</em>
+                    </div>
+                    <button type="button" aria-expanded={showStorePicker} onClick={() => setShowStorePicker(!showStorePicker)}>
+                      {showStorePicker ? "Đóng" : "Đổi"}
+                    </button>
+                  </div>
+                  {showStorePicker && (
+                    <div className={styles.servicePointOptions}>
+                      {storesLoading && <p role="status">Đang tải danh sách cửa hàng…</p>}
+                      {!storesLoading && storesError && <p role="alert">{storesError}</p>}
+                      {!storesLoading && !storesError && storePoints.length === 0 && <p>Chưa có cửa hàng nào đang hoạt động.</p>}
+                      {storePoints.map((store) => (
+                        <button
+                          className={store.id === location.servicePointId ? styles.servicePointActive : ""}
+                          type="button"
+                          key={store.id}
+                          disabled={!store.open}
+                          aria-pressed={store.id === location.servicePointId}
+                          onClick={() => {
+                            if (!chooseServicePoint(store.id)) return;
+                            setShowStorePicker(false);
+                          }}
+                        >
+                          <div>
+                            <strong>{store.name}</strong>
+                            <small>{store.address}</small>
+                            <em>{store.open ? store.hours : store.closedReason || "Đang đóng cửa"}</em>
+                          </div>
+                          <aside>
+                            <b>{store.distance === null ? "Chưa rõ" : `${store.distance.toLocaleString("vi-VN", { maximumFractionDigits: 1 })} km`}</b>
+                            <small>{store.open ? store.eta : "Đã đóng"}</small>
+                          </aside>
+                          {store.id === location.servicePointId && <Check size={15} />}
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
                 <div className={styles.deliveryChoice}>
                   <button className={fulfillment === "delivery" ? styles.deliveryActive : ""} type="button" onClick={() => setFulfillment("delivery")}>

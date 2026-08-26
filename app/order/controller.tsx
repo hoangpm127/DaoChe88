@@ -6,7 +6,8 @@ import styles from "./customer.module.css";
 import { type CatalogApiProduct, Product, ProductFilter, productFromCatalog } from "./data/products";
 import { apiSiteToStorePoint, emptyDeliveryLocation, isOfficialStore, type DeliveryLocation, type PublicSiteApi, type StorePoint } from "./data/stores";
 import { AccountServiceId, GroupProfileKind, PaymentMethod, TabId, accountServiceDetails, groupProfileTypes, validTabs } from "./data/content";
-import { nearestStoreForCoordinates, pickDailyActionHubVerse, promisedAtFromSlot } from "./lib/order-utils";
+import { pickDailyActionHubVerse, promisedAtFromSlot } from "./lib/order-utils";
+import { defaultStoreForCustomer } from "./lib/store-selection";
 
 export type StoreFilter = "all" | "official" | "partner";
 
@@ -202,7 +203,7 @@ export type AffiliateRevenueSource = {
  * đó nằm trên URL và trong bộ nhớ trình duyệt: ai có link là xem được hoa hồng,
  * không thu hồi được, và đổi máy là mất tài khoản.
  */
-/** Địa chỉ như máy chủ trả về. `servicePointId` mang id để xoá được đúng bản ghi. */
+/** Địa chỉ như máy chủ trả về. `addressId` mang id để xoá được đúng bản ghi. */
 export type ServerAddress = {
   id: string;
   label: string;
@@ -228,11 +229,25 @@ export function serverAddressToLocation(row: ServerAddress): DeliveryLocation {
     address: row.address,
     coordinates: row.latitude === null || row.longitude === null ? "" : `${row.latitude.toFixed(6)}, ${row.longitude.toFixed(6)}`,
     detail: row.instructions,
+    addressId: row.id,
     servicePoint: "",
-    servicePointId: row.id,
+    servicePointId: "",
+    servicePointPinned: false,
     distance: "Chưa xác định",
     eta: "Chưa có ước tính",
   };
+}
+
+/**
+ * Dọn dữ liệu sổ địa chỉ cũ còn nằm trong trình duyệt.
+ *
+ * Bản trước dùng chung ô `servicePointId` cho cả id bản ghi địa chỉ lẫn id cửa
+ * hàng. Một địa chỉ đã lưu vì thế mang theo id không trỏ tới cửa hàng nào, và
+ * mỗi lần khách chọn địa chỉ đó thì bộ chọn điểm bán lại tìm không ra rồi rơi
+ * về điểm mặc định. Địa chỉ không giữ điểm bán nữa.
+ */
+function withoutStalePin(item: DeliveryLocation): DeliveryLocation {
+  return { ...item, addressId: item.addressId || "", servicePoint: "", servicePointId: "", servicePointPinned: false };
 }
 
 export type AffiliateSession = { userName: string; expiresAt: string; affiliateStatus: string | null };
@@ -461,6 +476,7 @@ export function useOrderController() {
     },
   ]);
   const [showFilters, setShowFilters] = useState(false);
+  const [showStorePicker, setShowStorePicker] = useState(false);
   const [showAddressForm, setShowAddressForm] = useState(false);
   const [addressDraft, setAddressDraft] = useState({
     label: "Nhà",
@@ -667,11 +683,21 @@ export function useOrderController() {
         // sổ địa chỉ lấy từ máy chủ (xem effect đồng bộ bên dưới) — nếu không,
         // dữ liệu cũ nằm lại trong trình duyệt sẽ sống mãi kể cả sau khi mã
         // nguồn đã gỡ sạch, đúng cái đã xảy ra với ba địa chỉ bản demo.
-        const restoredLocations = storedSavedLocations ? JSON.parse(storedSavedLocations) as DeliveryLocation[] : [];
-        setSavedLocations(restoredLocations.filter((item) => item.address));
+        const storedServicePointId = localStorage.getItem("daoche.servicePointId") || "";
+        const restoredLocations = (storedSavedLocations ? JSON.parse(storedSavedLocations) as DeliveryLocation[] : [])
+          .filter((item) => item.address)
+          .map(withoutStalePin);
+        setSavedLocations(restoredLocations);
         if (storedCart) setCart(JSON.parse(storedCart));
         if (storedCartChoices) setCartChoices(JSON.parse(storedCartChoices));
-        if (storedLocation) setLocation(restoredLocations.find((item) => item.name === storedLocation) || emptyDeliveryLocation);
+        // Cửa hàng khách tự chọn được khôi phục cùng địa chỉ: tải lại trang mà
+        // quay về điểm hệ thống đoán thì lựa chọn của khách coi như không có.
+        if (storedLocation || storedServicePointId) {
+          const restoredLocation = restoredLocations.find((item) => item.name === storedLocation) || emptyDeliveryLocation;
+          setLocation(storedServicePointId
+            ? { ...restoredLocation, servicePointId: storedServicePointId, servicePointPinned: true }
+            : restoredLocation);
+        }
         if (storedCustomer || storedCustomerAvatar) {
           const restoredCustomer = stripSeededFakeIdentity(storedCustomer ? JSON.parse(storedCustomer) as Partial<CustomerDetails> : {});
           setCustomer((current) => ({
@@ -759,20 +785,6 @@ export function useOrderController() {
       .then((stores) => {
         if (cancelled) return;
         setStorePoints(stores);
-        const selected = stores.find((store) => store.id === location.servicePointId)
-          || stores.find((store) => store.name === location.servicePoint)
-          || nearestStoreForCoordinates(stores, location.coordinates);
-        if (selected) {
-          setSelectedServicePoint(selected.name);
-          setStorePreorderStoreId((current) => current || selected.id);
-          setLocation((current) => ({
-            ...current,
-            servicePoint: selected.name,
-            servicePointId: selected.id,
-            distance: selected.distance === null ? "Chưa xác định" : `${selected.distance.toLocaleString("vi-VN", { maximumFractionDigits: 1 })} km`,
-            eta: selected.eta,
-          }));
-        }
       })
       .catch((error) => {
         if (!cancelled) setStoresError(error instanceof Error ? error.message : "Không thể tải điểm bán.");
@@ -783,7 +795,11 @@ export function useOrderController() {
     return () => {
       cancelled = true;
     };
-  }, [location.coordinates, location.servicePoint, location.servicePointId]);
+    // Danh sách điểm bán chỉ phụ thuộc toạ độ. Trước kia nó phụ thuộc cả điểm
+    // bán đang chọn, nên mỗi lần khách đổi cửa hàng là tải lại danh sách, sinh
+    // ra một mảng mới, và hiệu ứng chọn tự động bên dưới lại chạy đè lên lựa
+    // chọn vừa bấm — khách không bao giờ giữ được cửa hàng mình muốn.
+  }, [location.coordinates]);
 
   useEffect(() => {
     let cancelled = false;
@@ -882,6 +898,8 @@ export function useOrderController() {
     localStorage.setItem("daoche.cart", JSON.stringify(cart));
     localStorage.setItem("daoche.cartChoices", JSON.stringify(cartChoices));
     localStorage.setItem("daoche.location", location.name);
+    if (location.servicePointPinned && location.servicePointId) localStorage.setItem("daoche.servicePointId", location.servicePointId);
+    else localStorage.removeItem("daoche.servicePointId");
     const persistedCustomer = { ...customer };
     delete persistedCustomer.avatar;
     localStorage.setItem("daoche.customer", JSON.stringify(persistedCustomer));
@@ -1238,22 +1256,37 @@ export function useOrderController() {
     };
   }, [flash, hydrated]);
 
+  /**
+   * Chốt cửa hàng đang phục vụ mỗi khi danh sách điểm bán hoặc địa chỉ thay đổi.
+   *
+   * `servicePointPinned` là ranh giới quan trọng: khách đã tự bấm chọn một cửa
+   * hàng thì ở đây chỉ làm mới khoảng cách và ETA cho đúng cửa hàng đó, tuyệt
+   * đối không đổi sang cửa hàng khác. Chưa chọn thì hệ thống mới tự lấy điểm
+   * gần nhất theo địa chỉ của khách.
+   */
   useEffect(() => {
+    if (!storePoints.length) return;
+    // Hoãn một nhịp như đoạn cũ vẫn làm: gọi setState thẳng trong thân effect
+    // sinh ra chuỗi render nối đuôi nhau và bị react-hooks chặn.
     const timer = window.setTimeout(() => {
-      const nearest = nearestStoreForCoordinates(storePoints, location.coordinates);
-      if (nearest) {
-        setSelectedServicePoint(nearest.name);
-        setLocation((current) => current.servicePointId === nearest.id ? current : {
-          ...current,
-          servicePoint: nearest.name,
-          servicePointId: nearest.id,
-          distance: nearest.distance === null ? "Chưa xác định" : `${nearest.distance.toLocaleString("vi-VN", { maximumFractionDigits: 1 })} km`,
-          eta: nearest.eta,
-        });
-      }
+      const pinned = location.servicePointPinned
+        ? storePoints.find((store) => store.id === location.servicePointId)
+        : undefined;
+      const target = pinned || defaultStoreForCustomer(storePoints, location.coordinates, location.address);
+      if (!target) return;
+      setSelectedServicePoint(target.name);
+      setStorePreorderStoreId((current) => current || target.id);
+      setLocation((current) => {
+        const distance = target.distance === null ? "Chưa xác định" : `${target.distance.toLocaleString("vi-VN", { maximumFractionDigits: 1 })} km`;
+        const unchanged = current.servicePointId === target.id
+          && current.servicePoint === target.name
+          && current.distance === distance
+          && current.eta === target.eta;
+        return unchanged ? current : { ...current, servicePoint: target.name, servicePointId: target.id, distance, eta: target.eta };
+      });
     }, 0);
     return () => window.clearTimeout(timer);
-  }, [location.coordinates, storePoints]);
+  }, [location.address, location.coordinates, location.servicePointId, location.servicePointPinned, storePoints]);
 
   useEffect(() => {
     const onPopState = () => {
@@ -1580,8 +1613,10 @@ export function useOrderController() {
       address: addressDraft.address.trim(),
       coordinates: hasCoordinates ? location.coordinates : "",
       detail: addressDraft.detail.trim() || "Gọi khi đến điểm giao",
+      addressId: "",
       servicePoint: "",
       servicePointId: "",
+      servicePointPinned: false,
       distance: "Chưa xác định",
       eta: "Chưa có ước tính",
     };
@@ -1627,13 +1662,13 @@ export function useOrderController() {
   /** Xoá một địa chỉ đã lưu. Máy chủ ràng buộc theo chủ tài khoản, không theo id trần. */
   const removeSavedLocation = async (target: DeliveryLocation) => {
     if (addressBusy) return;
-    if (!customerSession || !target.servicePointId) {
+    if (!customerSession || !target.addressId) {
       setSavedLocations((current) => current.filter((item) => item.name !== target.name));
       return;
     }
     setAddressBusy(true);
     try {
-      const response = await fetch(`/api/customers/addresses?id=${encodeURIComponent(target.servicePointId)}`, {
+      const response = await fetch(`/api/customers/addresses?id=${encodeURIComponent(target.addressId)}`, {
         method: "DELETE",
         credentials: "same-origin",
       });
@@ -1806,7 +1841,7 @@ export function useOrderController() {
     const template = groupProfileTypes.find((item) => item.id === kind) || groupProfileTypes[1];
     const pickupPoint = storePoints.find((item) => item.id === location.servicePointId)
       || storePoints.find((item) => item.name === location.servicePoint)
-      || nearestStoreForCoordinates(storePoints, location.coordinates);
+      || defaultStoreForCustomer(storePoints, location.coordinates, location.address);
     if (!pickupPoint) return flash("Danh sách điểm bán chưa sẵn sàng.");
     setEditingGroupProfileId(profile?.id || null);
     setGroupRosterDraft(profile ? (groupRosters[profile.id] || []).join(", ") : "");
@@ -2190,12 +2225,36 @@ export function useOrderController() {
     setShowStorePreorder(true);
   };
 
+  /**
+   * Khách tự chọn cửa hàng để đặt món.
+   *
+   * Ghim lựa chọn lại (`servicePointPinned`) để bộ chọn tự động không đổi sang
+   * điểm khác nữa. Đây là điểm vào duy nhất cho mọi chỗ trong giao diện có thể
+   * đổi cửa hàng: giỏ hàng, trang Gần tôi và màn đặt trước tại quán.
+   */
+  const chooseServicePoint = (storeId: string) => {
+    const store = storePoints.find((item) => item.id === storeId);
+    if (!store) {
+      flash("Điểm bán này không còn khả dụng.");
+      return null;
+    }
+    setSelectedServicePoint(store.name);
+    setStorePreorderStoreId(store.id);
+    setLocation((current) => ({
+      ...current,
+      servicePoint: store.name,
+      servicePointId: store.id,
+      servicePointPinned: true,
+      distance: store.distance === null ? "Chưa xác định" : `${store.distance.toLocaleString("vi-VN", { maximumFractionDigits: 1 })} km`,
+      eta: store.eta,
+    }));
+    return store;
+  };
+
   const confirmStorePreorder = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const store = storePoints.find((item) => item.id === storePreorderStoreId);
-    if (!store) return flash("Điểm bán đã chọn không còn khả dụng.");
-    setSelectedServicePoint(store.name);
-    setLocation((current) => ({ ...current, servicePoint: store.name, servicePointId: store.id }));
+    const store = chooseServicePoint(storePreorderStoreId);
+    if (!store) return;
     setFulfillment(storePreorderMode);
     setCustomer((current) => ({
       ...current,
@@ -2367,6 +2426,7 @@ export function useOrderController() {
     checkoutClientReference,
     checkoutStep,
     checkoutTotal,
+    chooseServicePoint,
     confirmStorePreorder,
     continueCheckout,
     continueShopping,
@@ -2522,6 +2582,7 @@ export function useOrderController() {
     setShowNotifications,
     setShowPartnerApplication,
     setShowProfileEditor,
+    setShowStorePicker,
     setShowStorePreorder,
     setStoreFilter,
     setStorePreorderMode,
@@ -2549,6 +2610,7 @@ export function useOrderController() {
     showNotifications,
     showPartnerApplication,
     showProfileEditor,
+    showStorePicker,
     showStorePreorder,
     startSavedGroupProfile,
     storePoints,

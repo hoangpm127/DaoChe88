@@ -1,4 +1,3 @@
-import type { StorePoint } from "../data/stores";
 import { actionHubVerses } from "../data/content";
 
 export function pickDailyActionHubVerse() {
@@ -26,35 +25,4 @@ export const promisedAtFromSlot = (createdAt: string, slot: string) => {
   promisedAt.setHours(hours, minutes, 0, 0);
   if (promisedAt.getTime() < new Date(createdAt).getTime() - 5 * 60_000) promisedAt.setDate(promisedAt.getDate() + 1);
   return promisedAt.toISOString();
-};
-
-export const distanceBetweenCoordinates = (origin: string, destination: string) => {
-  const [originLatitude, originLongitude] = origin.split(",").map((value) => Number(value.trim()));
-  const [destinationLatitude, destinationLongitude] = destination.split(",").map((value) => Number(value.trim()));
-
-  if (![originLatitude, originLongitude, destinationLatitude, destinationLongitude].every(Number.isFinite)) {
-    return Number.POSITIVE_INFINITY;
-  }
-
-  const toRadians = (value: number) => (value * Math.PI) / 180;
-  const latitudeDelta = toRadians(destinationLatitude - originLatitude);
-  const longitudeDelta = toRadians(destinationLongitude - originLongitude);
-  const originLatitudeRadians = toRadians(originLatitude);
-  const destinationLatitudeRadians = toRadians(destinationLatitude);
-  const haversine =
-    Math.sin(latitudeDelta / 2) ** 2 +
-    Math.cos(originLatitudeRadians) * Math.cos(destinationLatitudeRadians) * Math.sin(longitudeDelta / 2) ** 2;
-
-  return 6371 * 2 * Math.atan2(Math.sqrt(haversine), Math.sqrt(1 - haversine));
-};
-
-export const nearestStoreForCoordinates = (stores: StorePoint[], coordinates: string) => {
-  const withCoordinates = stores.filter((store) => store.coordinates);
-  if (!withCoordinates.length) return stores[0] || null;
-  if (!coordinates) return withCoordinates[0];
-  return withCoordinates.reduce((nearest, store) =>
-    distanceBetweenCoordinates(coordinates, store.coordinates) < distanceBetweenCoordinates(coordinates, nearest.coordinates)
-      ? store
-      : nearest,
-  );
 };

@@ -15073,3 +15073,79 @@
   border: 1px dashed rgba(144, 95, 3, .22); border-radius: 16px;
   color: #847764; font-size: 12.5px; line-height: 1.55; text-align: center;
 }
+
+/* Bộ chọn cửa hàng trong giỏ hàng. Khách phải nhìn thấy đang đặt vào điểm nào
+   và đổi được ngay, thay vì bị hệ thống gán ngầm. */
+.servicePointPicker { margin: 13px 0; }
+.servicePointCurrent {
+  display: flex; align-items: center; gap: 10px;
+  padding: 11px 12px;
+  border: 1px solid rgba(0, 0, 0, .09); border-radius: 14px;
+  background: #f7f7f1;
+}
+.servicePointCurrent > span {
+  flex: 0 0 auto; display: grid; place-items: center;
+  width: 34px; height: 34px; border-radius: 11px;
+  background: white; color: var(--green);
+}
+.servicePointCurrent > div { flex: 1; min-width: 0; }
+.servicePointCurrent small {
+  display: block; color: var(--muted);
+  font-size: 8px; letter-spacing: .4px;
+}
+.servicePointCurrent strong {
+  display: block; margin-top: 2px;
+  overflow: hidden; font-size: 11px; text-overflow: ellipsis; white-space: nowrap;
+}
+.servicePointCurrent em {
+  display: block; margin-top: 2px;
+  color: var(--muted); font-size: 8.5px; font-style: normal;
+}
+.servicePointCurrent > button {
+  flex: 0 0 auto; padding: 7px 12px;
+  border: 1px solid var(--green); border-radius: 999px;
+  background: white; color: var(--green);
+  font-size: 9.5px; font-weight: 600; cursor: pointer;
+}
+.servicePointOptions {
+  display: grid; gap: 6px;
+  max-height: 232px; margin-top: 7px; padding: 3px;
+  overflow-y: auto;
+}
+.servicePointOptions p {
+  margin: 0; padding: 12px;
+  color: var(--muted); font-size: 10px; text-align: center;
+}
+.servicePointOptions > button {
+  display: flex; align-items: center; gap: 9px;
+  padding: 9px 10px;
+  border: 1px solid #dddcd1; border-radius: 13px;
+  background: white; text-align: left; cursor: pointer;
+}
+.servicePointOptions > button:disabled { opacity: .45; cursor: not-allowed; }
+.servicePointOptions > button > div { flex: 1; min-width: 0; }
+.servicePointOptions strong {
+  display: block; overflow: hidden;
+  font-size: 10.5px; text-overflow: ellipsis; white-space: nowrap;
+}
+.servicePointOptions small {
+  display: block; margin-top: 2px; overflow: hidden;
+  color: var(--muted); font-size: 8.5px; text-overflow: ellipsis; white-space: nowrap;
+}
+.servicePointOptions em {
+  display: block; margin-top: 2px;
+  color: var(--muted); font-size: 8px; font-style: normal;
+}
+.servicePointOptions aside { flex: 0 0 auto; text-align: right; }
+.servicePointOptions aside b { display: block; font-size: 9.5px; }
+.servicePointOptions aside small { color: var(--muted); }
+.servicePointOptions .servicePointActive {
+  border-color: var(--green); background: #f7fcec; color: var(--green);
+}
+
+/* Nhãn "đang đặt tại đây" trên thẻ cửa hàng ở tab Gần tôi. */
+.storeCardActive {
+  display: inline-block; margin-left: 6px; padding: 2px 7px;
+  border-radius: 999px; background: var(--green); color: white;
+  font-size: 7.5px; font-style: normal; font-weight: 600; vertical-align: middle;
+}

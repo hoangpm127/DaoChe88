@@ -8,7 +8,7 @@ import type { OrderController } from "../controller";
 type NearbyTabProps = { model: OrderController };
 
 export default function NearbyTab({ model }: NearbyTabProps) {
-  const { nearbyStores, setSelectedStore, storeFilter, storePoints, storesError, storesLoading } = model;
+  const { location, nearbyStores, setSelectedStore, storeFilter, storePoints, storesError, storesLoading } = model;
   return (
     <section className={`${styles.tabPage} ${styles.nearbyPage}`}>
       <HanoiStoreMap
@@ -22,7 +22,7 @@ export default function NearbyTab({ model }: NearbyTabProps) {
         <strong>
           {nearbyStores.length} {storeFilter === "all" ? "điểm tại Hà Nội" : storeFilter === "official" ? "điểm chính thống" : "điểm đối tác"}
         </strong>
-        <span>Gần điểm giao trước</span>
+        <span>{location.servicePoint ? `Đang đặt tại ${location.servicePoint}` : "Gần điểm giao trước"}</span>
       </div>
       {storesLoading && <p role="status">Đang tải danh sách điểm bán…</p>}
       {!storesLoading && storesError && <p role="alert">{storesError}</p>}
@@ -40,7 +40,10 @@ export default function NearbyTab({ model }: NearbyTabProps) {
                 <em>{store.kind}</em>
                 <b className={store.open ? styles.storeOpen : styles.storeClosed}>{store.open ? "Đang mở" : "Đã đóng"}</b>
               </div>
-              <strong className={styles.storeCardName}>{store.name}</strong>
+              <strong className={styles.storeCardName}>
+                {store.name}
+                {store.id === location.servicePointId && <i className={styles.storeCardActive}>Đang đặt tại đây</i>}
+              </strong>
               <p className={styles.storeCardAddress}>{store.address}</p>
               <small className={styles.storeCardMeta}>
                 <span><Clock3 size={12} /> {store.hours}</span>

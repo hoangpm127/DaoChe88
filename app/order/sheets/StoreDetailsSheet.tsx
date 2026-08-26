@@ -6,7 +6,7 @@ import type { OrderController } from "../controller";
 type StoreDetailsSheetProps = { model: OrderController };
 
 export default function StoreDetailsSheet({ model }: StoreDetailsSheetProps) {
-  const { flash, goTo, selectedStore, setLocation, setSelectedServicePoint, setSelectedStore } = model;
+  const { chooseServicePoint, flash, goTo, selectedStore, setSelectedStore } = model;
   return (selectedStore && (
         <div
           className={styles.backdrop}
@@ -65,17 +65,10 @@ export default function StoreDetailsSheet({ model }: StoreDetailsSheetProps) {
                 type="button"
                 disabled={!selectedStore.open}
                 onClick={() => {
-                  setSelectedServicePoint(selectedStore.name);
-                  setLocation((current) => ({
-                    ...current,
-                    servicePoint: selectedStore.name,
-                    servicePointId: selectedStore.id,
-                    distance: selectedStore.distance === null ? "Chưa xác định" : `${selectedStore.distance.toLocaleString("vi-VN", { maximumFractionDigits: 1 })} km`,
-                    eta: selectedStore.eta,
-                  }));
+                  if (!chooseServicePoint(selectedStore.id)) return;
                   setSelectedStore(null);
                   goTo("home");
-                  flash(`Đang hiển thị thực đơn từ ${selectedStore.name}.`);
+                  flash(`Đang hiển thị thực đơn từ ${selectedStore.name}. Đơn của bạn sẽ vào điểm này.`);
                 }}
               >
                 {selectedStore.open ? `Đặt đồ từ đây · ${selectedStore.eta}` : selectedStore.closedReason || "Điểm bán đang đóng"} <ArrowRight size={18} />

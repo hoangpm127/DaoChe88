@@ -24,6 +24,7 @@ export type StorePoint = {
   kind: string;
   kindCode: string;
   address: string;
+  district: string;
   coordinates: string;
   distance: number | null;
   hours: string;
@@ -39,8 +40,17 @@ export type DeliveryLocation = {
   address: string;
   coordinates: string;
   detail: string;
+  /** Id bản ghi trong sổ địa chỉ trên máy chủ — KHÔNG phải id cửa hàng. */
+  addressId: string;
   servicePoint: string;
   servicePointId: string;
+  /**
+   * Khách đã tự chọn cửa hàng hay chưa.
+   *
+   * Khi bằng true, bộ chọn tự động không được đổi sang cửa hàng khác nữa; nó chỉ
+   * làm mới khoảng cách và thời gian cho đúng cửa hàng khách đã chọn.
+   */
+  servicePointPinned: boolean;
   distance: string;
   eta: string;
 };
@@ -51,8 +61,10 @@ export const emptyDeliveryLocation: DeliveryLocation = {
   address: "",
   coordinates: "",
   detail: "",
+  addressId: "",
   servicePoint: "",
   servicePointId: "",
+  servicePointPinned: false,
   distance: "Chưa xác định",
   eta: "Chưa xác định",
 };
@@ -77,6 +89,7 @@ export function apiSiteToStorePoint(site: PublicSiteApi): StorePoint {
     kindCode: site.kind,
     kind: isOfficialStore({ kindCode: site.kind }) ? "Cửa hàng chính thống" : "Điểm đối tác",
     address: site.address,
+    district: site.district,
     coordinates,
     distance,
     hours: site.hoursLabel,
