@@ -33,6 +33,12 @@ function isOwner(actor: Actor) {
   return ["owner", "super-admin", "region-manager"].includes(roleOf(actor));
 }
 
+function assertSiteCoordinateManager(actor: Actor) {
+  if (!["owner", "super-admin"].includes(roleOf(actor))) {
+    throw new OperationsError("Chỉ Admin tổng được thay đổi tọa độ điểm bán.", 403, "site_coordinates_forbidden");
+  }
+}
+
 function actorUserId(actor: Actor) {
   return (actor as ScopedActor).userId?.trim() || "";
 }
@@ -72,6 +78,14 @@ function coordinateE6(data: JsonRecord, key: "latitude" | "longitude", current: 
   const limit = key === "latitude" ? 90 : 180;
   if (!Number.isFinite(value) || value < -limit || value > limit) throw new OperationsError(`Tọa độ ${key} không hợp lệ.`, 400, "invalid_coordinates");
   return Math.round(value * 1_000_000);
+}
+
+function assertHanoiCoordinates(latitudeE6: number | null, longitudeE6: number | null) {
+  if (latitudeE6 === null || longitudeE6 === null
+    || latitudeE6 < 20_500_000 || latitudeE6 > 21_500_000
+    || longitudeE6 < 105_200_000 || longitudeE6 > 106_200_000) {
+    throw new OperationsError("Điểm bán phải được ghim trong phạm vi bản đồ Hà Nội.", 400, "site_coordinates_outside_hanoi");
+  }
 }
 
 function openingHoursJson(data: JsonRecord, current = "{}") {
@@ -148,6 +162,7 @@ export async function handleNetworkCommands(database: RuntimeDatabase, context: 
 
   if (command === "site.create") {
     assertRole(actor, ["owner"], "tạo điểm bán");
+    assertSiteCoordinateManager(actor);
     const name = boundedText(data, "name", 120);
     const kind = readString(data, "kind");
     if (!siteKinds.has(kind)) throw new OperationsError("Loại điểm bán không hợp lệ.", 400, "invalid_site_kind");
@@ -160,6 +175,7 @@ export async function handleNetworkCommands(database: RuntimeDatabase, context: 
     const phone = normalizedPhone(data);
     const latitudeE6 = coordinateE6(data, "latitude", null);
     const longitudeE6 = coordinateE6(data, "longitude", null);
+    assertHanoiCoordinates(latitudeE6, longitudeE6);
     const hours = openingHoursJson(data);
     const fulfillment = fulfillmentJson(data);
     const serviceRadiusM = data.serviceRadiusM === undefined ? 5000 : readInteger(data, "serviceRadiusM", { min: 100, max: 100_000 });
@@ -188,8 +204,12 @@ export async function handleNetworkCommands(database: RuntimeDatabase, context: 
     const district = textOrCurrent(data, "district", site.district, 100);
     const managerName = optionalTextOrCurrent(data, "managerName", site.managerName, 120);
     const phone = data.phone === undefined ? site.phone : normalizedPhone(data);
+    const coordinatesSupplied = data.latitude !== undefined || data.longitude !== undefined
+      || data.latitudeE6 !== undefined || data.longitudeE6 !== undefined;
+    if (coordinatesSupplied) assertSiteCoordinateManager(actor);
     const latitudeE6 = coordinateE6(data, "latitude", site.latitudeE6);
     const longitudeE6 = coordinateE6(data, "longitude", site.longitudeE6);
+    if (coordinatesSupplied) assertHanoiCoordinates(latitudeE6, longitudeE6);
     const hours = openingHoursJson(data, site.openingHoursJson || "{}");
     const fulfillment = fulfillmentJson(data, site.fulfillmentJson || '["delivery","pickup"]');
     const serviceRadiusM = data.serviceRadiusM === undefined ? site.serviceRadiusM ?? 5000 : readInteger(data, "serviceRadiusM", { min: 100, max: 100_000 });

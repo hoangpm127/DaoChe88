@@ -289,16 +289,29 @@ test("sổ địa chỉ nằm ở tài khoản, không ở trình duyệt", asyn
     assert.equal(empty.status, 200);
     assert.deepEqual((await empty.json()).addresses, [], "tài khoản mới không được có địa chỉ dựng sẵn");
 
-    // Lưu địa chỉ KHÔNG kèm toạ độ — đây là trạng thái hợp lệ, không phải lỗi.
+    // Từ khi có bản đồ định vị, địa chỉ mới không được lưu nếu chưa ghim tọa độ.
     const withoutCoordinates = await request("/api/customers/addresses", {
       method: "POST",
       headers: { "content-type": "application/json", cookie: registered.cookie },
       body: JSON.stringify({ label: "Nhà · Nhà riêng", address: "Số 12 ngõ 4 Nguyễn Hoàng, Hà Nội" }),
     });
-    assert.equal(withoutCoordinates.status, 201);
-    const afterFirst = (await withoutCoordinates.json()).addresses;
+    assert.equal(withoutCoordinates.status, 400);
+    assert.equal((await withoutCoordinates.json()).code, "address_coordinates_required");
+
+    const firstWithCoordinates = await request("/api/customers/addresses", {
+      method: "POST",
+      headers: { "content-type": "application/json", cookie: registered.cookie },
+      body: JSON.stringify({
+        label: "Nhà · Nhà riêng",
+        address: "Số 12 ngõ 4 Nguyễn Hoàng, Hà Nội",
+        latitude: 21.0312,
+        longitude: 105.7788,
+      }),
+    });
+    assert.equal(firstWithCoordinates.status, 201);
+    const afterFirst = (await firstWithCoordinates.json()).addresses;
     assert.equal(afterFirst.length, 1);
-    assert.equal(afterFirst[0].latitude, null, "không gửi toạ độ thì phải là null, không được bịa");
+    assert.ok(Math.abs(afterFirst[0].latitude - 21.0312) < 0.00001);
     assert.equal(afterFirst[0].isDefault, true, "địa chỉ đầu tiên tự thành mặc định");
 
     // Địa chỉ quá ngắn bị chặn ở máy chủ, không chỉ ở giao diện.

@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { freshDatabase } from "./helpers/database.mjs";
 import { loadServer } from "./helpers/load-server.mjs";
-import { configureAuthEnvironment, ownerCookie } from "./helpers/portal-login.mjs";
+import { configureAuthEnvironment, ownerCookie, portalCookie } from "./helpers/portal-login.mjs";
 
 const { evaluateSiteAvailability } = await import("../lib/site-hours.ts");
 
@@ -63,6 +63,40 @@ test("GET /api/sites đọc DB, tính khoảng cách, hỗ trợ ETag và order.
     assert.equal(locatedPayload.sites[0].distanceMeters, 0);
 
     const cookie = await ownerCookie(request);
+    const missingCoordinates = await request("/api/operations", {
+      method: "POST",
+      headers: { "content-type": "application/json", cookie },
+      body: JSON.stringify({ command: "site.create", data: {
+        code: "NO-GEO",
+        name: "Điểm chưa ghim",
+        kind: "official-store",
+        address: "Địa chỉ chưa có tọa độ",
+        district: "Hà Nội",
+        openingHours: {},
+        fulfillment: ["delivery", "pickup"],
+      } }),
+    });
+    assert.equal(missingCoordinates.status, 400);
+    assert.equal((await missingCoordinates.json()).code, "site_coordinates_outside_hanoi");
+
+    const outsideHanoi = await request("/api/operations", {
+      method: "POST",
+      headers: { "content-type": "application/json", cookie },
+      body: JSON.stringify({ command: "site.create", data: {
+        code: "OUTSIDE-GEO",
+        name: "Điểm ngoài Hà Nội",
+        kind: "official-store",
+        address: "Địa chỉ ngoài phạm vi",
+        district: "Ngoài Hà Nội",
+        latitude: 10.7769,
+        longitude: 106.7009,
+        openingHours: {},
+        fulfillment: ["delivery", "pickup"],
+      } }),
+    });
+    assert.equal(outsideHanoi.status, 400);
+    assert.equal((await outsideHanoi.json()).code, "site_coordinates_outside_hanoi");
+
     const createSite = await server.fetch(new Request("http://local.test/api/operations", {
       method: "POST",
       headers: { "content-type": "application/json", cookie },
@@ -122,6 +156,34 @@ test("GET /api/sites đọc DB, tính khoảng cách, hỗ trợ ETag và order.
     assert.equal(updateSite.status, 200);
     const updatedPublic = await (await server.fetch(new Request("http://local.test/api/sites"))).json();
     assert.equal(updatedPublic.sites.find((site) => site.id === createdId).address, "Địa chỉ kiểm thử đã cập nhật");
+
+    const storeOwnerCookie = await portalCookie(request, "store-owner");
+    const forbiddenCoordinates = await request("/api/operations", {
+      method: "POST",
+      headers: { "content-type": "application/json", cookie: storeOwnerCookie },
+      body: JSON.stringify({ command: "site.update", data: {
+        siteId: "site-my-dinh",
+        latitude: 21.03,
+        longitude: 105.78,
+      } }),
+    });
+    assert.equal(forbiddenCoordinates.status, 403);
+    assert.equal((await forbiddenCoordinates.json()).code, "site_coordinates_forbidden");
+
+    const updateCoordinates = await request("/api/operations", {
+      method: "POST",
+      headers: { "content-type": "application/json", cookie },
+      body: JSON.stringify({ command: "site.update", data: {
+        siteId: createdId,
+        latitude: 21.027763,
+        longitude: 105.83416,
+      } }),
+    });
+    assert.equal(updateCoordinates.status, 200);
+    const relocatedPublic = await (await server.fetch(new Request("http://local.test/api/sites"))).json();
+    const relocatedSite = relocatedPublic.sites.find((site) => site.id === createdId);
+    assert.equal(relocatedSite.latitude, 21.027763);
+    assert.equal(relocatedSite.longitude, 105.83416);
 
     const closeSite = await server.fetch(new Request("http://local.test/api/operations", {
       method: "POST",

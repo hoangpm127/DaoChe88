@@ -36,5 +36,6 @@
 .createDialog label span { display: block; margin-bottom: 5px; color: #696051; font-size: 11px; font-weight: 800; }
 .createDialog input, .createDialog select { width: 100%; height: 43px; padding: 0 11px; border: 1px solid rgba(57, 46, 27, .18); border-radius: 12px; background: #fff; color: #392e1b; }
 .submit { width: 100%; margin-top: 5px; }
+.coordinateError { margin: 0 !important; padding: 9px 11px; border-radius: 11px; color: #9b351e !important; background: #fff0e7; font-size: 12px !important; font-weight: 750; }
 @media (min-width: 780px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 620px) { .heading { align-items: stretch; flex-direction: column; } .createDialog form > div, .editForm > div { grid-template-columns: 1fr; } }

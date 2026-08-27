@@ -130,6 +130,25 @@ test("địa chỉ đã lưu không mang theo id cửa hàng", async () => {
   assert.ok(controller.includes("addresses?id=${encodeURIComponent(target.addressId)}"), "URL xoa dia chi phai dung addressId");
 });
 
+test("địa chỉ mới lấy tọa độ từ ghim riêng và Admin tổng quản lý vị trí điểm bán trên bản đồ", async () => {
+  const [controller, locationSheet, network, portalPage, picker] = await Promise.all([
+    readFile(new URL("app/order/controller.tsx", repoRoot), "utf8"),
+    readFile(new URL("app/order/sheets/LocationSheet.tsx", repoRoot), "utf8"),
+    readFile(new URL("app/portal/NetworkManagement.tsx", repoRoot), "utf8"),
+    readFile(new URL("app/portal/page.tsx", repoRoot), "utf8"),
+    readFile(new URL("app/components/HanoiLocationPicker.tsx", repoRoot), "utf8"),
+  ]);
+
+  assert.match(controller, /latitude: ""/);
+  assert.match(controller, /Number\(addressDraft\.latitude\)/);
+  assert.doesNotMatch(controller, /\(location\.coordinates \|\| ""\)\.split/);
+  assert.match(locationSheet, /label="Ghim đúng vị trí giao hàng"/);
+  assert.match(network, /label="Ghim vị trí điểm bán mới"/);
+  assert.match(portalPage, /canManageCoordinates=\{role\.id === "super-admin"\}/);
+  assert.match(picker, /draggable: !disabled/);
+  assert.match(picker, /map\.on\("click"/);
+});
+
 test("giỏ hàng có chỗ cho khách tự đổi cửa hàng", async () => {
   const checkout = await readFile(new URL("app/order/sheets/CheckoutSheet.tsx", repoRoot), "utf8");
   assert.match(checkout, /chooseServicePoint\(store\.id\)/);

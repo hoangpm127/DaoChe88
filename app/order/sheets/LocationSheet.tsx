@@ -1,4 +1,5 @@
 import { ArrowLeft, ArrowRight, Building2, Check, ChevronRight, Home, MapPin, Navigation, Plus, Trash2 } from "lucide-react";
+import HanoiLocationPicker, { isHanoiCoordinate } from "../../components/HanoiLocationPicker";
 import styles from "../customer.module.css";
 import type { OrderController } from "../controller";
 
@@ -9,8 +10,19 @@ export default function LocationSheet({ model }: LocationSheetProps) {
   const locate = () => {
     if (!navigator.geolocation) return flash("Thiết bị này không hỗ trợ định vị GPS.");
     navigator.geolocation.getCurrentPosition((position) => {
+      if (!isHanoiCoordinate(position.coords.latitude, position.coords.longitude)) {
+        flash("Vị trí hiện tại nằm ngoài phạm vi phục vụ tại Hà Nội.");
+        return;
+      }
       const coordinates = `${position.coords.latitude.toFixed(6)}, ${position.coords.longitude.toFixed(6)}`;
       setLocation({ ...location, coordinates });
+      if (showAddressForm) {
+        setAddressDraft({
+          ...addressDraft,
+          latitude: position.coords.latitude.toFixed(6),
+          longitude: position.coords.longitude.toFixed(6),
+        });
+      }
       flash(`Đã cập nhật vị trí GPS, sai số khoảng ${Math.round(position.coords.accuracy)} mét.`);
     }, () => flash("Chưa lấy được vị trí. Hãy cho phép truy cập GPS rồi thử lại."), { enableHighAccuracy: true, timeout: 10_000, maximumAge: 30_000 });
   };
@@ -107,6 +119,16 @@ export default function LocationSheet({ model }: LocationSheetProps) {
                     placeholder="Số nhà, đường, phường, quận, Hà Nội"
                   />
                 </label>
+                <HanoiLocationPicker
+                  latitude={addressDraft.latitude.trim() ? Number(addressDraft.latitude) : null}
+                  longitude={addressDraft.longitude.trim() ? Number(addressDraft.longitude) : null}
+                  label="Ghim đúng vị trí giao hàng"
+                  onChange={(latitude, longitude) => setAddressDraft({
+                    ...addressDraft,
+                    latitude: latitude.toFixed(6),
+                    longitude: longitude.toFixed(6),
+                  })}
+                />
                 <label>
                   <span>Hướng dẫn giao</span>
                   <input

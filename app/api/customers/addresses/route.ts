@@ -15,8 +15,8 @@
  *   - Khoảng cách và thời gian giao phải lưu dạng chuỗi, không ai tính lại, nên
  *     sai ngay khi khách sửa địa chỉ.
  *
- * Toạ độ là TUỲ CHỌN. Khách nhập tay mà không bấm định vị thì chưa có toạ độ, và
- * giao diện phải nói rõ là chưa có chứ không bịa ra một con số khoảng cách.
+ * Bản ghi cũ có thể chưa có toạ độ và vẫn được đọc để fallback theo văn bản.
+ * Bản ghi mới bắt buộc có ghim bản đồ để khoảng cách và điểm bán được tính thật.
  */
 
 import { readCustomerSessionFrom } from "../../../../lib/customer-session";
@@ -111,21 +111,21 @@ export async function POST(request: Request) {
     if (!label) return json({ ok: false, error: "Cần đặt tên cho địa điểm.", code: "label_required" }, 400);
     if (address.length < 8) return json({ ok: false, error: "Địa chỉ quá ngắn, cần đủ số nhà và đường.", code: "address_too_short" }, 400);
 
-    // Toạ độ tuỳ chọn, nhưng đã gửi thì phải gửi đủ cặp và nằm trong khoảng hợp lệ.
+    // Địa chỉ mới luôn phải mang một ghim thật. Dữ liệu cũ chưa có toạ độ vẫn
+    // đọc được và dùng fallback văn bản, nhưng không tạo thêm bản ghi mơ hồ.
     const rawLat = payload.latitude;
     const rawLng = payload.longitude;
-    const hasCoordinates = rawLat !== undefined && rawLat !== null && rawLng !== undefined && rawLng !== null;
-    let latitudeE6: number | null = null;
-    let longitudeE6: number | null = null;
-    if (hasCoordinates) {
-      const latitude = Number(rawLat);
-      const longitude = Number(rawLng);
-      if (!Number.isFinite(latitude) || !Number.isFinite(longitude) || Math.abs(latitude) > 90 || Math.abs(longitude) > 180) {
-        return json({ ok: false, error: "Toạ độ không hợp lệ.", code: "invalid_coordinates" }, 400);
-      }
-      latitudeE6 = Math.round(latitude * 1e6);
-      longitudeE6 = Math.round(longitude * 1e6);
+    if (rawLat === undefined || rawLat === null || rawLng === undefined || rawLng === null) {
+      return json({ ok: false, error: "Hãy ghim vị trí giao hàng trên bản đồ Hà Nội.", code: "address_coordinates_required" }, 400);
     }
+    const latitude = Number(rawLat);
+    const longitude = Number(rawLng);
+    if (!Number.isFinite(latitude) || !Number.isFinite(longitude)
+      || latitude < 20.5 || latitude > 21.5 || longitude < 105.2 || longitude > 106.2) {
+      return json({ ok: false, error: "Toạ độ phải nằm trong phạm vi Hà Nội.", code: "invalid_coordinates" }, 400);
+    }
+    const latitudeE6 = Math.round(latitude * 1e6);
+    const longitudeE6 = Math.round(longitude * 1e6);
 
     const existing = await queryRows<{ count: number }>(
       database.prepare("SELECT COUNT(*) AS count FROM customer_addresses WHERE customer_id = ?").bind(customerId),

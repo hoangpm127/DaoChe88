@@ -483,6 +483,8 @@ export function useOrderController() {
     office: "",
     address: "",
     detail: "",
+    latitude: "",
+    longitude: "",
   });
   const [checkoutStep, setCheckoutStep] = useState<CheckoutStep>("cart");
   const [fulfillment, setFulfillment] = useState<Fulfillment>("delivery");
@@ -1600,18 +1602,18 @@ export function useOrderController() {
     if (addressBusy) return;
     if (!addressDraft.office.trim() || addressDraft.address.trim().length < 8) return flash("Bạn nhập tên địa điểm và địa chỉ cụ thể nhé.");
 
-    // Toạ độ chỉ gửi khi khách đã bấm định vị. Không có thì để trống — máy chủ
-    // nhận null, và giao diện nói rõ là chưa có toạ độ thay vì bịa khoảng cách.
-    const [latitudeText, longitudeText] = (location.coordinates || "").split(",").map((part) => part.trim());
-    const latitude = Number(latitudeText);
-    const longitude = Number(longitudeText);
-    const hasCoordinates = Number.isFinite(latitude) && Number.isFinite(longitude) && Boolean(latitudeText) && Boolean(longitudeText);
+    // Toạ độ thuộc chính bản nháp địa chỉ này, không lấy lại ghim của địa chỉ
+    // trước đó. Nhờ vậy một địa chỉ nhập tay không thể vô tình mang vị trí cũ.
+    const latitude = Number(addressDraft.latitude);
+    const longitude = Number(addressDraft.longitude);
+    const hasCoordinates = latitude >= 20.5 && latitude <= 21.5 && longitude >= 105.2 && longitude <= 106.2;
+    if (!hasCoordinates) return flash("Hãy ghim đúng vị trí giao trên bản đồ Hà Nội trước khi lưu.");
 
     const nextLocation: DeliveryLocation = {
       name: `${addressDraft.label} · ${addressDraft.office.trim()}`,
       office: addressDraft.office.trim(),
       address: addressDraft.address.trim(),
-      coordinates: hasCoordinates ? location.coordinates : "",
+      coordinates: `${latitude.toFixed(6)}, ${longitude.toFixed(6)}`,
       detail: addressDraft.detail.trim() || "Gọi khi đến điểm giao",
       addressId: "",
       servicePoint: "",
@@ -1632,7 +1634,8 @@ export function useOrderController() {
             label: nextLocation.name,
             address: nextLocation.address,
             instructions: nextLocation.detail,
-            ...(hasCoordinates ? { latitude, longitude } : {}),
+            latitude,
+            longitude,
           }),
         });
         const payload = await response.json() as { error?: string; addresses?: ServerAddress[] };
@@ -1655,7 +1658,7 @@ export function useOrderController() {
 
     setLocation(nextLocation);
     setCustomer((current) => ({ ...current, address: nextLocation.address }));
-    setAddressDraft({ label: "Nhà", office: "", address: "", detail: "" });
+    setAddressDraft({ label: "Nhà", office: "", address: "", detail: "", latitude: "", longitude: "" });
     setShowAddressForm(false);
   };
 

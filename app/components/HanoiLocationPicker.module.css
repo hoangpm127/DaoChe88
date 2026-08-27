@@ -1,0 +1,16 @@
+.picker { display: grid; gap: 9px; }
+.heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.heading > div { min-width: 0; }
+.heading strong { display: flex; align-items: center; gap: 6px; color: inherit; font-size: 13px; }
+.heading small { display: block; margin-top: 4px; color: #687a70; font-size: 11px; line-height: 1.45; }
+.heading button { min-height: 34px; padding: 0 10px; border: 1px solid rgba(24, 55, 42, .16); border-radius: 10px; display: inline-flex; align-items: center; gap: 5px; background: #fff; color: #315a49; font-size: 11px; font-weight: 850; white-space: nowrap; }
+.mapFrame { position: relative; overflow: hidden; border: 1px solid rgba(24, 55, 42, .16); border-radius: 16px; background: #e9efe9; }
+.map { width: 100%; height: clamp(230px, 38vh, 360px); z-index: 0; }
+.emptyHint { position: absolute; z-index: 400; inset: 50% auto auto 50%; padding: 9px 12px; border-radius: 14px; display: flex; align-items: center; gap: 7px; transform: translate(-50%, -50%); background: rgba(255, 255, 255, .94); box-shadow: 0 8px 28px rgba(15, 29, 23, .18); color: #315a49; font-size: 12px; font-weight: 850; pointer-events: none; white-space: nowrap; }
+.coordinates, .coordinatesEmpty { padding: 8px 10px; border-radius: 10px; font-size: 11px; font-weight: 750; }
+.coordinates { color: #176a35; background: #eaf6e9; }
+.coordinatesEmpty { color: #8a4c20; background: #fff0df; }
+.markerIcon { border: 0 !important; background: transparent !important; }
+.markerIcon span { position: relative; width: 34px; height: 34px; border: 4px solid #fff; border-radius: 50% 50% 50% 0; display: block; transform: rotate(-45deg); background: #d85e2f; box-shadow: 0 5px 16px rgba(43, 35, 25, .35); }
+.markerIcon span::after { content: ""; position: absolute; width: 10px; height: 10px; border-radius: 50%; inset: 8px; background: #fff; }
+@media (max-width: 520px) { .heading { align-items: flex-start; } .heading small { max-width: 230px; } .map { height: 260px; } }

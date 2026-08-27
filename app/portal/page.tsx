@@ -2006,7 +2006,7 @@ export default function PortalPage() {
       <section className={styles.sessionScopeCard}><span><ShieldCheck size={22} /></span><div><small>PHIÊN PHÂN QUYỀN PHÍA MÁY CHỦ</small><strong>{portalSession?.workspace || "workspace"} · {sessionScopeLabel}</strong><p>{effectiveCapabilities.includes("*") ? "Toàn bộ capability quản trị, vẫn tuân thủ phê duyệt kép." : `${effectiveCapabilities.length} capability: ${effectiveCapabilities.slice(0, 4).join(" · ")}${effectiveCapabilities.length > 4 ? "…" : ""}`}</p></div><em>{sessionStatus === "active" ? "Đang hoạt động" : "Cần xác thực"}</em></section>
       {(can("catalog.product.update") || can("catalog.site-stock.upsert")) && <CatalogManagement sites={(snapshot?.locations || []).map((location) => ({ id: location.id, name: location.name }))} canManage={can("catalog.product.update")} canManageStock={can("catalog.site-stock.upsert")} runCommand={runCommand} />}
       {(can("delivery-fee-rule.upsert") || can("delivery-fee-rule.archive")) && <DeliveryManagement sites={(snapshot?.locations || []).map((location) => ({ id: location.id, name: location.name }))} shippers={[]} canManageFees canConfirmRoutes={false} runCommand={runCommand} />}
-      <NetworkManagement sites={snapshot?.locations || []} canCreate={can("site.create")} canUpdate={can("site.update")} runCommand={runCommand} />
+      <NetworkManagement sites={snapshot?.locations || []} canCreate={can("site.create")} canUpdate={can("site.update")} canManageCoordinates={role.id === "super-admin"} runCommand={runCommand} />
       {/* Bảng giám sát: API chỉ cho owner, super-admin và control. Gắn theo đúng
           ba vai trò đó; nếu lệch thì màn hình tự nhận 403 và nói thẳng, chứ
           không hiện số 0 như thể đã kiểm và hệ thống sạch sẽ. */}
